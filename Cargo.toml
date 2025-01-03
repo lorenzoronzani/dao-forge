@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/dao-forge-backend"
+]
+resolver = "2"

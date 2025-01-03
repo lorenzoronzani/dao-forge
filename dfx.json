@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "dao-forge-backend": {
+      "candid": "src/dao-forge-backend/dao-forge-backend.did",
+      "package": "dao-forge-backend",
+      "type": "rust"
+    },
+    "dao-forge-frontend": {
+      "dependencies": [
+        "dao-forge-backend"
+      ],
+      "source": [
+        "src/dao-forge-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "dao-forge-frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
