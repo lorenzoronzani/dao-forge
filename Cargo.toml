@@ -1,5 +1,4 @@
 [workspace]
-members = [
-    "src/dao-forge-backend"
-]
+members = [ "src/common",
+    "src/dao-forge-backend"]
 resolver = "2"
