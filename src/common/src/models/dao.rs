@@ -1,9 +1,11 @@
-enum LegalForm {
+#[derive(Debug)]
+pub enum LegalForm {
     Corporation,
     LimitedLiabilityCompany,
     Association,
 }
 
+#[derive(Debug)]
 pub struct Dao {
     pub name: String,
     pub members: Vec<String>,
@@ -11,6 +13,13 @@ pub struct Dao {
     pub created_at: u64,
 }
 
-pub trait DaoOperations {
-
+impl Dao {
+    pub fn new(name: String, members: Vec<String>, legal_form: LegalForm, created_at: u64) -> Self {
+        Self {
+            name,
+            members,
+            legal_form,
+            created_at,
+        }
+    }
 }

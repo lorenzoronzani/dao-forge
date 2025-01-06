@@ -8,7 +8,7 @@ fn greet(name: String) -> String {
 
 #[ic_cdk::update]
 async fn deploy_my_canister() -> Result<Principal, String> {
-    let wasm = include_bytes!("../../../target/wasm32-unknown-unknown/release/dao_forge_backend.wasm").to_vec();
+    let wasm = include_bytes!("../../../target/wasm32-unknown-unknown/release/dao_association.wasm").to_vec();
     deploy_canister(wasm).await
 }
 
