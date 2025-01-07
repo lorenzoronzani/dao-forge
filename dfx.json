@@ -5,14 +5,14 @@
       "package": "dao-association",
       "type": "rust"
     },
-    "dao-forge-backend": {
-      "candid": "src/dao-forge-backend/dao-forge-backend.did",
-      "package": "dao-forge-backend",
+    "dao-manager": {
+      "candid": "src/dao-manager/dao-manager.did",
+      "package": "dao-manager",
       "type": "rust"
     },
     "dao-forge-frontend": {
       "dependencies": [
-        "dao-forge-backend"
+        "dao-manager"
       ],
       "source": [
         "src/dao-forge-frontend/dist"

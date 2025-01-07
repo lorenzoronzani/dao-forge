@@ -1,4 +1,0 @@
-service : {
-    "greet": (text) -> (text) query;
-    "deploy_my_canister" : () -> (variant { Ok: principal; Err: text });
-}

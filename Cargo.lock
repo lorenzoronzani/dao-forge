@@ -157,7 +157,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dao-forge-backend"
+name = "dao-manager"
 version = "0.1.0"
 dependencies = [
  "candid",

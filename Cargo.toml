@@ -1,5 +1,5 @@
 [workspace]
-members = [ "src/common",
+members = ["src/common",
     "src/dao-association",
-    "src/dao-forge-backend"]
+    "src/dao-manager"]
 resolver = "2"

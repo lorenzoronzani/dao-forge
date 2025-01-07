@@ -12,5 +12,5 @@ dfx canister create --all
 dfx build
 
 # Deploy canisters
-dfx deploy dao-forge-backend
+dfx deploy dao-manager
 dfx deploy dao-forge-frontend
