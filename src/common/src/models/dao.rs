@@ -1,11 +1,17 @@
-#[derive(Debug)]
+use candid::CandidType;
+use serde::{Deserialize, Serialize};
+
+// FIXME: Think if the default implementation is the best approach
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub enum LegalForm {
+    #[default]
     Corporation,
     LimitedLiabilityCompany,
     Association,
 }
 
-#[derive(Debug)]
+// FIXME: Think if the default implementation is the best approach
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub struct Dao {
     pub name: String,
     pub members: Vec<String>,

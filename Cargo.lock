@@ -111,6 +111,10 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 [[package]]
 name = "common"
 version = "0.1.0"
+dependencies = [
+ "candid",
+ "serde",
+]
 
 [[package]]
 name = "cpufeatures"
@@ -148,6 +152,8 @@ dependencies = [
  "common",
  "ic-cdk",
  "ic-cdk-timers",
+ "ic-stable-structures",
+ "serde",
 ]
 
 [[package]]
@@ -325,6 +331,15 @@ dependencies = [
  "serde",
  "serde_bytes",
  "slotmap",
+]
+
+[[package]]
+name = "ic-stable-structures"
+version = "0.6.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b492c5a16455ae78623eaa12ead96dda6c69a83c535b1b00789f19b381c8a24c"
+dependencies = [
+ "ic_principal",
 ]
 
 [[package]]

@@ -1,13 +1,9 @@
-use crate::models::DaoAssociation;
+use crate::services::DaoAssociationService;
 use ic_cdk::query;
 
 #[query]
 fn get_information() -> String {
-    let dao_association = DaoAssociation::new(
-        "DAO Association".to_string(),
-        vec!["Hello".to_string()],
-        ic_cdk::api::time(),
-    );
+    let dao_association = DaoAssociationService::get();
 
     format!("{:?}", dao_association)
 }
