@@ -8,7 +8,7 @@ use std::borrow::Cow;
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub struct DaoAssociation {
-    parent: Dao,
+    pub parent: Dao,
 }
 
 impl DaoAssociation {

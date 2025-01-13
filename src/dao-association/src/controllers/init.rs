@@ -1,11 +1,11 @@
 use crate::models::DaoAssociation;
-use crate::models::InitArgs;
 use crate::services::DaoAssociationService;
+use crate::types::DaoArgs;
 use ic_cdk::api::time;
 use ic_cdk::init;
 
 #[init]
-fn canister_init(args: InitArgs) {
+fn canister_init(args: DaoArgs) {
     let dao_association = DaoAssociation::new(
         args.name,
         args.address,

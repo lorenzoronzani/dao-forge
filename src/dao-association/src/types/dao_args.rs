@@ -1,7 +1,7 @@
 use candid::{CandidType, Deserialize};
 
 #[derive(CandidType, Deserialize)]
-pub struct InitArgs {
+pub struct DaoArgs {
     pub name: String,
     pub address: String,
     pub zip: u32,

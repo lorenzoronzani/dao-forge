@@ -11,4 +11,8 @@ impl DaoAssociationService {
     pub fn get() -> DaoAssociation {
         DaoAssociationRepository::get()
     }
+
+    pub fn update(dao_association: DaoAssociation) -> DaoAssociation {
+        DaoAssociationRepository::save(dao_association)
+    }
 }
