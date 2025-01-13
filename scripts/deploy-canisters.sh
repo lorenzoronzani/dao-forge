@@ -13,4 +13,4 @@ dfx build
 
 # Deploy canisters
 dfx deploy dao-manager
-dfx deploy dao-forge-frontend
+dfx deploy frontend-platform
