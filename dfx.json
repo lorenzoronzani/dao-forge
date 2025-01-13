@@ -10,15 +10,15 @@
       "package": "dao-manager",
       "type": "rust"
     },
-    "dao-forge-frontend": {
+    "frontend-platform": {
       "dependencies": [
         "dao-manager"
       ],
       "source": [
-        "src/dao-forge-frontend/dist"
+        "src/frontend-platform/dist"
       ],
       "type": "assets",
-      "workspace": "dao-forge-frontend"
+      "workspace": "frontend-platform"
     }
   },
   "defaults": {
