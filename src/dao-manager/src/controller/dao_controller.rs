@@ -5,6 +5,14 @@ use candid::{encode_args, CandidType, Principal};
 #[derive(CandidType)]
 struct InitArgs {
     pub name: String,
+    pub address: String,
+    pub zip: u32,
+    pub town: String,
+    pub uid: String,
+    pub ch_id: String,
+    pub frc_id: u64,
+    pub purpose: String,
+    pub board: Vec<String>,
     pub members: Vec<String>,
 }
 
@@ -16,6 +24,14 @@ async fn create_dao() -> Result<Principal, String> {
 
     let init_args = InitArgs {
         name: "My DAO".to_string(),
+        address: "My Address".to_string(),
+        zip: 12345,
+        town: "My Town".to_string(),
+        uid: "My UID".to_string(),
+        ch_id: "My CH ID".to_string(),
+        frc_id: 123,
+        purpose: "My Purpose".to_string(),
+        board: vec!["board1".to_string(), "board2".to_string()],
         members: vec!["member1".to_string(), "member2".to_string()],
     };
 

@@ -1,5 +1,5 @@
 use candid::{CandidType, Decode, Encode};
-use common::models::{Dao, LegalForm};
+use common::models::{Dao, LegalForm, OrganizationStatus};
 use ic_stable_structures::storable::Bound;
 use ic_stable_structures::Storable;
 use serde::{Deserialize, Serialize};
@@ -12,9 +12,35 @@ pub struct DaoAssociation {
 }
 
 impl DaoAssociation {
-    pub fn new(name: String, members: Vec<String>, created_at: u64) -> Self {
+    pub fn new(
+        name: String,
+        address: String,
+        zip: u32,
+        town: String,
+        uid: String,
+        ch_id: String,
+        frc_id: u64,
+        purpose: String,
+        board: Vec<String>,
+        members: Vec<String>,
+        created_at: u64,
+    ) -> Self {
         Self {
-            parent: Dao::new(name, members, LegalForm::Association, created_at),
+            parent: Dao::new(
+                name,
+                address,
+                zip,
+                town,
+                LegalForm::Association,
+                OrganizationStatus::Active,
+                uid,
+                ch_id,
+                frc_id,
+                purpose,
+                board,
+                members,
+                created_at,
+            ),
         }
     }
 }
