@@ -8,13 +8,15 @@
     "start": "vite --port 3000",
     "prebuild": "dfx generate",
     "build": "tsc && vite build",
-    "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\""
+    "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\"",
+    "generate-types": "didc bind --target ts ../dao-association/dao-association.did > src/declarations/dao/dao-association.types.ts"
   },
   "dependencies": {
     "@dfinity/agent": "^2.1.3",
     "@dfinity/candid": "^2.1.3",
     "@dfinity/principal": "^2.1.3",
     "@radix-ui/react-slot": "^1.1.2",
+    "@tanstack/react-query": "^5.66.0",
     "class-variance-authority": "^0.7.1",
     "lucide-react": "^0.475.0",
     "react": "^18.2.0",

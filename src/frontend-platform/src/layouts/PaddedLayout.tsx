@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-interface PaddedLayoutProps {
+type PaddedLayoutProps = {
     children: ReactNode;
 }
 

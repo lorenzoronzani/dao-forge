@@ -1,10 +1,12 @@
 use crate::services::DaoAssociationService;
 use crate::types::DaoArgs;
 use common::models::SogcPublication;
-use ic_cdk::{query, update};
+use ic_cdk::{query, update, println};
 
 #[query]
 fn get_information() -> String {
+    println!("Principal: {:}", ic_cdk::api::id().to_text());
+
     let dao_association = DaoAssociationService::get();
 
     format!("{:?}", dao_association)
