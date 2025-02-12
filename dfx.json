@@ -19,6 +19,22 @@
       ],
       "type": "assets",
       "workspace": "frontend-platform"
+    },
+    "dao-discovery-registry": {
+      "candid": "src/dao-discovery-registry/dao-discovery-registry.did",
+      "package": "dao-discovery-registry",
+      "type": "rust"
+    },
+    "internet_identity": {
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "frontend": {},
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
     }
   },
   "defaults": {

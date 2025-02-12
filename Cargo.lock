@@ -157,6 +157,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "dao-discovery-registry"
+version = "0.1.0"
+dependencies = [
+ "candid",
+ "ic-cdk",
+ "ic-cdk-timers",
+ "ic-stable-structures",
+ "serde",
+]
+
+[[package]]
 name = "dao-manager"
 version = "0.1.0"
 dependencies = [

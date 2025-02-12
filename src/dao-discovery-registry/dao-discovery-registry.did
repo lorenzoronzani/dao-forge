@@ -1,0 +1,9 @@
+type PrincipalDaoRegistry = record {
+    user: principal;
+    dao_ids: vec principal;
+};
+
+service : {
+    "save" : (principal) -> (PrincipalDaoRegistry);
+    "get" : (principal) -> (opt PrincipalDaoRegistry) query;
+}

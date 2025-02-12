@@ -1,5 +1,6 @@
 [workspace]
 members = ["src/common",
     "src/dao-association",
-    "src/dao-manager"]
+    "src/dao-manager",
+    "src/dao-discovery-registry"]
 resolver = "2"

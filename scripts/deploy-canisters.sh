@@ -14,3 +14,5 @@ dfx build
 # Deploy canisters
 dfx deploy dao-manager
 dfx deploy frontend-platform
+dfx deploy internet_identity
+dfx deploy dao-discovery-registry
