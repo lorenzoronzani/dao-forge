@@ -14,5 +14,5 @@ ic-cdk = "0.17.1"
 ic-cdk-timers = "0.11.0" # Feel free to remove this dependency if you don't need timers
 common = { path = "../common" }
 # Required otherwise the build will fail because it not find Deserialize derive inside the candid crate
-serde = { version = "1.0.217", features = ["derive"] }
-ic-stable-structures = "0.6.7"
+serde = { version = "1.0", features = ["derive"] }
+ic-stable-structures = "0.6"

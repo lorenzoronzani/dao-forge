@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 candid = "0.10"
-serde = { version = "1.0.217", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
