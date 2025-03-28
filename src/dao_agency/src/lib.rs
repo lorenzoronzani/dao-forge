@@ -1,3 +1,3 @@
-mod controller;
+mod controllers;
 mod services;
 mod types;
