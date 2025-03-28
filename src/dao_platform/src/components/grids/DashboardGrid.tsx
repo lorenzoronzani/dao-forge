@@ -1,4 +1,4 @@
-import { DaoAssociation } from "@/declarations/dao/dao-association.types";
+import { DaoAssociation } from "@/declarations/dao/dao_association.types";
 
 type DashboardGridProps = {
     daos: DaoAssociation[]

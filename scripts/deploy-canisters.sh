@@ -12,7 +12,7 @@ dfx canister create --all
 dfx build
 
 # Deploy canisters
-dfx deploy dao-manager
-dfx deploy frontend-platform
+dfx deploy dao_agency
+dfx deploy dao_platform
 dfx deploy internet_identity
-dfx deploy dao-discovery-registry
+dfx deploy dao_discovery

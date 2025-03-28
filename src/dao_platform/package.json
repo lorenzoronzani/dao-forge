@@ -1,15 +1,15 @@
 {
-  "name": "frontend-platform",
+  "name": "dao_platform",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "setup": "npm i && dfx canister create dao-manager && dfx generate dao-manager && dfx deploy",
+    "setup": "npm i && dfx canister create dao_agency && dfx generate dao_agency && dfx deploy",
     "start": "vite --port 3000",
     "prebuild": "dfx generate",
     "build": "tsc && vite build",
     "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\"",
-    "generate-types": "didc bind --target ts ../dao-association/dao-association.did > src/declarations/dao/dao-association.types.ts"
+    "generate-types": "didc bind --target ts ../dao_association/dao_association.did > src/declarations/dao/dao_association.types.ts"
   },
   "dependencies": {
     "@dfinity/agent": "^2.1.3",

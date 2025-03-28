@@ -1,31 +1,40 @@
 {
   "canisters": {
-    "dao-association": {
-      "candid": "src/dao-association/dao-association.did",
-      "package": "dao-association",
+    "dao_association": {
+      "candid": "src/dao_association/dao_association.did",
+      "package": "dao_association",
       "type": "rust"
     },
-    "dao-manager": {
-      "candid": "src/dao-manager/dao-manager.did",
-      "package": "dao-manager",
+    "dao_agency": {
+      "id": "bkyz2-fmaaa-aaaaa-qaaaq-cai",
+      "candid": "src/dao_agency/dao_agency.did",
+      "package": "dao_agency",
       "type": "rust"
     },
-    "frontend-platform": {
+    "dao_sogc_pubblication": {
+      "candid": "src/dao_sogc_pubblication/dao_sogc_pubblication.did",
+      "package": "dao_sogc_pubblication",
+      "type": "rust"
+    },
+    "dao_discovery": {
+      "id": "be2us-64aaa-aaaaa-qaabq-cai",
+      "candid": "src/dao_discovery/dao_discovery.did",
+      "package": "dao_discovery",
+      "type": "rust"
+    },
+    "dao_platform": {
+      "id": "br5f7-7uaaa-aaaaa-qaaca-cai",
       "dependencies": [
-        "dao-manager"
+        "dao_agency"
       ],
       "source": [
-        "src/frontend-platform/dist"
+        "src/dao_platform/dist"
       ],
       "type": "assets",
-      "workspace": "frontend-platform"
-    },
-    "dao-discovery-registry": {
-      "candid": "src/dao-discovery-registry/dao-discovery-registry.did",
-      "package": "dao-discovery-registry",
-      "type": "rust"
+      "workspace": "dao_platform"
     },
     "internet_identity": {
+      "id": "b77ix-eeaaa-aaaaa-qaada-cai",
       "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
       "frontend": {},
       "remote": {

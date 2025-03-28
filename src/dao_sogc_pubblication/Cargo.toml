@@ -1,5 +1,5 @@
 [package]
-name = "dao-manager"
+name = "dao_sogc_pubblication"
 version = "0.1.0"
 edition = "2021"
 

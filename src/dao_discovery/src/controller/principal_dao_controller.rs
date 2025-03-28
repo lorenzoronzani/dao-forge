@@ -5,10 +5,12 @@ use crate::{models::PrincipalDaoRegistry, services::PrincipalDaoRegistryService}
 
 #[ic_cdk::update]
 async fn save(user: Principal) -> PrincipalDaoRegistry {
-    let mut principal_dao_registry = PrincipalDaoRegistry::new(user);
-    principal_dao_registry.add_dao(caller());
+    let mut user =
+        PrincipalDaoRegistryService::get(user).unwrap_or_else(|| PrincipalDaoRegistry::new(user));
 
-    PrincipalDaoRegistryService::save(principal_dao_registry)
+    user.add_dao(caller());
+
+    PrincipalDaoRegistryService::save(user)
 }
 
 #[ic_cdk::query]

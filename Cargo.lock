@@ -145,7 +145,17 @@ dependencies = [
 ]
 
 [[package]]
-name = "dao-association"
+name = "dao_agency"
+version = "0.1.0"
+dependencies = [
+ "candid",
+ "ic-cdk",
+ "ic-cdk-timers",
+ "serde",
+]
+
+[[package]]
+name = "dao_association"
 version = "0.1.0"
 dependencies = [
  "candid",
@@ -157,7 +167,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dao-discovery-registry"
+name = "dao_discovery"
 version = "0.1.0"
 dependencies = [
  "candid",
@@ -168,7 +178,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dao-manager"
+name = "dao_sogc_pubblication"
 version = "0.1.0"
 dependencies = [
  "candid",
