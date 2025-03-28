@@ -1,8 +1,7 @@
 use candid::Principal;
 use ic_cdk::api::management_canister::main::{
-    canister_status, create_canister, install_code, update_settings, CanisterIdRecord,
-    CanisterInstallMode, CanisterSettings, CanisterStatusResponse, CreateCanisterArgument,
-    InstallCodeArgument, UpdateSettingsArgument, WasmModule,
+    create_canister, install_code, CanisterInstallMode, CanisterSettings, CreateCanisterArgument,
+    InstallCodeArgument, WasmModule,
 };
 
 pub struct CanisterManagementService;
@@ -65,52 +64,5 @@ impl CanisterManagementService {
             Ok(()) => Ok(()),
             Err(e) => Err(format!("Failed to install WASM: {:?}", e)),
         }
-    }
-
-    async fn get_canister_status(canister_id: Principal) -> Result<CanisterStatusResponse, String> {
-        match canister_status(CanisterIdRecord { canister_id }).await {
-            Ok((status,)) => Ok(status),
-            Err(e) => Err(format!("Failed to get canister status: {:?}", e)),
-        }
-    }
-
-    async fn update_settings(
-        canister_id: Principal,
-        settings: CanisterSettings,
-    ) -> Result<(), String> {
-        match update_settings(UpdateSettingsArgument {
-            canister_id,
-            settings,
-        })
-        .await
-        {
-            Ok(()) => Ok(()),
-            Err(e) => Err(format!("Failed to update canister settings: {:?}", e)),
-        }
-    }
-
-    pub async fn remove_controller(
-        canister_id: Principal,
-        controller: Principal,
-    ) -> Result<(), String> {
-        let status = CanisterManagementService::get_canister_status(canister_id).await?;
-        let controllers = status.settings.controllers;
-
-        let updated_controllers = controllers
-            .into_iter()
-            .filter(|c| *c != controller)
-            .collect();
-
-        let settings = CanisterSettings {
-            controllers: Some(updated_controllers),
-            compute_allocation: Some(status.settings.compute_allocation),
-            memory_allocation: Some(status.settings.memory_allocation),
-            freezing_threshold: Some(status.settings.freezing_threshold),
-            reserved_cycles_limit: Some(status.settings.reserved_cycles_limit),
-            log_visibility: Some(status.settings.log_visibility),
-            wasm_memory_limit: Some(status.settings.wasm_memory_limit),
-        };
-
-        CanisterManagementService::update_settings(canister_id, settings).await
     }
 }

@@ -11,11 +11,5 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
 
     let encoded_args = encode_args((params,)).unwrap();
 
-    let canister_id =
-        CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()])
-            .await?;
-
-    CanisterManagementService::remove_controller(canister_id, id()).await?;
-
-    Ok(canister_id)
+    CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()]).await
 }
