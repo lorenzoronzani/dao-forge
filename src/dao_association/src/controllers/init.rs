@@ -1,8 +1,8 @@
 use crate::models::DaoAssociation;
-use crate::services::{DaoAssociationService, DaoDiscoveryRegistryService};
+use crate::services::DaoAssociationService;
 use crate::types::DaoArgs;
 use ic_cdk::api::time;
-use ic_cdk::{caller, init};
+use ic_cdk::init;
 
 #[init]
 async fn canister_init(args: DaoArgs) {
@@ -21,6 +21,4 @@ async fn canister_init(args: DaoArgs) {
     );
 
     DaoAssociationService::save(dao_association);
-
-    DaoDiscoveryRegistryService::save(caller()).await;
 }
