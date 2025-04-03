@@ -1,5 +1,5 @@
+mod dao_discovery_memory;
 mod memory_manager;
-mod principal_dao_registry_memory;
 
+pub use dao_discovery_memory::*;
 pub use memory_manager::*;
-pub use principal_dao_registry_memory::*;

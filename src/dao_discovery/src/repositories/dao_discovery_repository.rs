@@ -1,13 +1,13 @@
 use candid::Principal;
 
 use crate::models::PrincipalDaoRegistry;
-use crate::repositories::memories::PRINCIPAL_DAO_REGISTRY;
+use crate::repositories::memories::DAO_DISCOVERY_MEMORY;
 
-pub struct PrincipalDaoRegistryRepository;
+pub struct DaoDiscoveryRepository;
 
-impl PrincipalDaoRegistryRepository {
+impl DaoDiscoveryRepository {
     pub fn save(principal_dao_registry: PrincipalDaoRegistry) -> PrincipalDaoRegistry {
-        PRINCIPAL_DAO_REGISTRY.with_borrow_mut(|dao_memory| {
+        DAO_DISCOVERY_MEMORY.with_borrow_mut(|dao_memory| {
             dao_memory.insert(principal_dao_registry.user, principal_dao_registry.clone())
         });
 
@@ -15,6 +15,6 @@ impl PrincipalDaoRegistryRepository {
     }
 
     pub fn get(key: Principal) -> Option<PrincipalDaoRegistry> {
-        PRINCIPAL_DAO_REGISTRY.with_borrow(|dao_memory| dao_memory.get(&key))
+        DAO_DISCOVERY_MEMORY.with_borrow(|dao_memory| dao_memory.get(&key))
     }
 }

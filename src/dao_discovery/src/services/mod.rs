@@ -1,3 +1,3 @@
-mod principal_dao_registry_service;
+mod dao_discovery_service;
 
-pub use principal_dao_registry_service::*;
+pub use dao_discovery_service::*;

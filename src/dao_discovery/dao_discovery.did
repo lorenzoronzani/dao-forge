@@ -4,6 +4,6 @@ type PrincipalDaoRegistry = record {
 };
 
 service : {
-    "save" : (principal) -> (PrincipalDaoRegistry);
+    "save" : (principal, principal) -> (PrincipalDaoRegistry);
     "get" : (principal) -> (opt PrincipalDaoRegistry) query;
 }

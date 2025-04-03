@@ -1,1 +1,1 @@
-mod principal_dao_controller;
+mod dao_discovery_controller;
