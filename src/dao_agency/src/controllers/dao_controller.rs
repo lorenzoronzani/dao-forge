@@ -1,4 +1,4 @@
-use crate::services::CanisterManagementService;
+use crate::services::{CanisterManagementService, DaoDiscoveryService};
 use crate::types::DaoAssociationInitArgs;
 use candid::{encode_args, Principal};
 use ic_cdk::{caller, id};
@@ -11,5 +11,11 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
 
     let encoded_args = encode_args((params,)).unwrap();
 
-    CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()]).await
+    let canister_id =
+        CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()])
+            .await?;
+
+    DaoDiscoveryService::save(caller(), canister_id).await;
+
+    Ok(canister_id)
 }
