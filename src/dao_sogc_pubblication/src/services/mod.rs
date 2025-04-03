@@ -1,3 +1,3 @@
-mod canister_management_service;
+mod sogc_pubblication_service;
 
-pub use canister_management_service::*;
+pub use sogc_pubblication_service::*;

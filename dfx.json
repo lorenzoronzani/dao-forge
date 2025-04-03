@@ -12,6 +12,7 @@
       "type": "rust"
     },
     "dao_sogc_pubblication": {
+      "id": "bw4dl-smaaa-aaaaa-qaacq-cai",
       "candid": "src/dao_sogc_pubblication/dao_sogc_pubblication.did",
       "package": "dao_sogc_pubblication",
       "type": "rust"

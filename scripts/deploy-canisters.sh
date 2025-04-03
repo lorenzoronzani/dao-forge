@@ -15,4 +15,5 @@ dfx build
 dfx deploy dao_agency
 dfx deploy dao_platform
 dfx deploy internet_identity
+dfx deploy dao_sogc_pubblication
 dfx deploy dao_discovery

@@ -184,6 +184,7 @@ dependencies = [
  "candid",
  "ic-cdk",
  "ic-cdk-timers",
+ "ic-stable-structures",
  "serde",
 ]
 

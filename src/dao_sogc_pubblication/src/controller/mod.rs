@@ -1,1 +1,1 @@
-mod dao_controller;
+mod sogc_pubblication_controller;
