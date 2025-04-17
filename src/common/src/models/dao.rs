@@ -18,8 +18,8 @@ pub enum LegalForm {
 pub enum OrganizationStatus {
     #[default]
     Active,
-    Dissolved,
     Liquidation,
+    Dissolved,
 }
 
 // FIXME: Think if the default implementation is the best approach

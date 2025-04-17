@@ -1,27 +1,79 @@
-import { DAO } from "@/pages/Dashboard";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Dao, OrganizationStatus } from "@/declarations/common";
 
 interface DaoCardProps {
-    dao: DAO;
+    dao: Dao;
 }
 
 export const DaoCard = ({ dao }: DaoCardProps) => {
+    // Format creation date
+    const formatDate = (timestamp: number) => {
+        return new Date(timestamp).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    };
+
+    // Get status color
+    const getStatusColor = (status: OrganizationStatus) => {
+        switch (status) {
+            case OrganizationStatus.Active:
+                return "text-green-600 bg-green-50";
+            case OrganizationStatus.Liquidation:
+                return "text-yellow-600 bg-yellow-50";
+            case OrganizationStatus.Dissolved:
+                return "text-red-600 bg-red-50";
+            default:
+                return "text-gray-600 bg-gray-50";
+        }
+    };
+
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>{dao.name}</CardTitle>
-                <CardDescription>{dao.description}</CardDescription>
+        <Card className="h-full flex flex-col">
+            <CardHeader className="pb-2">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <CardTitle className="text-2xl font-bold">{dao.name}</CardTitle>
+                        <CardDescription className="mt-1 h-12 overflow-hidden">{dao.purpose}</CardDescription>
+                    </div>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(dao.status)}`}>
+                        {dao.status}
+                    </span>
+                </div>
             </CardHeader>
             <CardContent>
-                <div className="flex justify-between text-sm">
-                    <div>
-                        <p className="text-slate-500">Members</p>
-                        <p className="font-medium">{dao.members}</p>
+                <div className="space-y-4 text-sm">
+                    <div className="flex flex-col">
+                        <p className="text-slate-500 mb-1">Legal Form</p>
+                        <p className="font-medium">{dao.legal_form}</p>
                     </div>
-                    <div>
-                        <p className="text-slate-500">Assets</p>
-                        <p className="font-medium">{dao.assets}</p>
+
+                    <div className="flex flex-col">
+                        <p className="text-slate-500 mb-1">Location</p>
+                        <p className="font-medium">{dao.town}, {dao.zip}</p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <p className="text-slate-500 mb-1">Board</p>
+                            <p className="font-medium">{dao.board.length} members</p>
+                        </div>
+                        <div>
+                            <p className="text-slate-500 mb-1">Members</p>
+                            <p className="font-medium">{dao.members.length}</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <p className="text-slate-500 mb-1">Created</p>
+                        <p className="font-medium">{formatDate(dao.created_at)}</p>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <p className="text-slate-500 mb-1">ID</p>
+                        <p className="font-medium text-xs truncate">{dao.uid}</p>
                     </div>
                 </div>
             </CardContent>
