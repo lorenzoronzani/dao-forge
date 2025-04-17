@@ -8,7 +8,7 @@ impl SogcPubblicationService {
         SogcPubblicationRepository::save(sogc_publication)
     }
 
-    pub fn get(id: u64) -> Option<SogcPublication> {
+    pub fn get(id: u32) -> Option<SogcPublication> {
         SogcPubblicationRepository::get(id)
     }
 }

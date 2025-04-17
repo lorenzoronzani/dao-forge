@@ -4,7 +4,9 @@ use ic_stable_structures::storable::Bound;
 use ic_stable_structures::Storable;
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
+use typeshare::typeshare;
 
+#[typeshare]
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub struct DaoAssociation {
@@ -19,11 +21,11 @@ impl DaoAssociation {
         town: String,
         uid: String,
         ch_id: String,
-        frc_id: u64,
+        frc_id: u32,
         purpose: String,
         board: Vec<String>,
         members: Vec<String>,
-        created_at: u64,
+        created_at: u32,
     ) -> Self {
         Self {
             parent: Dao::new(

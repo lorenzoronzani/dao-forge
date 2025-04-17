@@ -4,5 +4,5 @@ use ic_stable_structures::StableBTreeMap;
 use std::cell::RefCell;
 
 thread_local! {
-    pub static SOGC_PUBBLICATION_MEMORY: RefCell<StableBTreeMap<u64, SogcPublication, Memory>> = RefCell::new(StableBTreeMap::init(get_memory(SOGC_PUBBLICATION_MEMORY_ID)));
+    pub static SOGC_PUBBLICATION_MEMORY: RefCell<StableBTreeMap<u32, SogcPublication, Memory>> = RefCell::new(StableBTreeMap::init(get_memory(SOGC_PUBBLICATION_MEMORY_ID)));
 }

@@ -9,7 +9,7 @@
     "prebuild": "dfx generate",
     "build": "tsc && vite build",
     "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\"",
-    "generate-types": "didc bind --target ts ../dao_association/dao_association.did > src/declarations/dao/dao_association.types.ts"
+    "generate-types": "typeshare ../ --lang=typescript --output-folder src/declarations"
   },
   "dependencies": {
     "@dfinity/agent": "^2.4.0",

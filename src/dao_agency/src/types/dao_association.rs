@@ -10,7 +10,7 @@ pub struct DaoAssociationInitArgs {
     pub town: String,
     pub uid: String,
     pub ch_id: String,
-    pub frc_id: u64,
+    pub frc_id: u32,
     pub purpose: String,
     pub board: Vec<String>,
     pub members: Vec<String>,

@@ -8,6 +8,6 @@ fn create_sogc_pubblication(sogc_publication: SogcPublication) -> SogcPublicatio
 }
 
 #[query]
-fn get_sogc_pubblication(id: u64) -> Option<SogcPublication> {
+fn get_sogc_pubblication(id: u32) -> Option<SogcPublication> {
     SogcPubblicationService::get(id)
 }

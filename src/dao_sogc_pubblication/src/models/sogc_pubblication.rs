@@ -6,20 +6,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, CandidType)]
 pub struct SogcPublication {
-    pub sogc_id: u64,
-    pub publication_sogc_date: u64,
-    pub daily_number: u64,
-    pub publication_date: u64,
+    pub sogc_id: u32,
+    pub publication_sogc_date: u32,
+    pub daily_number: u32,
+    pub publication_date: u32,
     pub mutations: String,
     pub description: String,
 }
 
 impl SogcPublication {
     pub fn new(
-        sogc_id: u64,
-        publication_sogc_date: u64,
-        daily_number: u64,
-        publication_date: u64,
+        sogc_id: u32,
+        publication_sogc_date: u32,
+        daily_number: u32,
+        publication_date: u32,
         mutations: String,
         description: String,
     ) -> Self {

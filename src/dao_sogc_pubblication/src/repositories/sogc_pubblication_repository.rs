@@ -4,8 +4,8 @@ use crate::repositories::SOGC_PUBBLICATION_MEMORY;
 pub struct SogcPubblicationRepository;
 
 impl SogcPubblicationRepository {
-    fn get_new_id() -> u64 {
-        Self::get_length()
+    fn get_new_id() -> u32 {
+        Self::get_length().try_into().unwrap()
     }
 
     pub fn save(sogc_publication: SogcPublication) -> SogcPublication {
@@ -18,7 +18,7 @@ impl SogcPubblicationRepository {
         sogc_publication
     }
 
-    pub fn get(id: u64) -> Option<SogcPublication> {
+    pub fn get(id: u32) -> Option<SogcPublication> {
         SOGC_PUBBLICATION_MEMORY
             .with_borrow(|sogc_publication_memory| sogc_publication_memory.get(&id).clone())
     }

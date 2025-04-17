@@ -17,7 +17,7 @@ async fn canister_init(args: DaoArgs) {
         args.purpose,
         args.board,
         args.members,
-        time(),
+        time().try_into().unwrap(),
     );
 
     DaoAssociationService::save(dao_association);
