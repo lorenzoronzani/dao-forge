@@ -4,7 +4,8 @@ use std::cell::RefCell;
 
 pub type Memory = VirtualMemory<DefaultMemoryImpl>;
 
-pub const DAO_DISCOVERY_MEMORY_ID: MemoryId = MemoryId::new(0);
+pub const USER_MEMORY_ID: MemoryId = MemoryId::new(0);
+pub const DAO_MEMORY_ID: MemoryId = MemoryId::new(1);
 
 thread_local! {
     // The memory manager is used for simulating multiple memories. Given a `MemoryId` it can

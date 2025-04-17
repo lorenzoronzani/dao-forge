@@ -1,5 +1,7 @@
-mod dao_discovery_repository;
+mod dao_repository;
 mod memories;
+mod user_repository;
 
-pub use dao_discovery_repository::*;
+pub use dao_repository::*;
 pub use memories::*;
+pub use user_repository::*;

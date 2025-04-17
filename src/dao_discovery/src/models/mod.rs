@@ -1,3 +1,5 @@
-mod principal_dao_registry;
+mod dao;
+mod user;
 
-pub use principal_dao_registry::*;
+pub use dao::*;
+pub use user::*;

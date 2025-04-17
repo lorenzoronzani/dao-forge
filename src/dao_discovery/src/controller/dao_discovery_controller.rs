@@ -1,18 +1,43 @@
 use candid::Principal;
+use ic_cdk::caller;
 
-use crate::{models::PrincipalDaoRegistry, services::DaoDiscoveryService};
+use crate::{
+    models::User,
+    services::{DaoService, UserService},
+};
 
 #[ic_cdk::update]
-async fn save(user: Principal, dao: Principal) -> PrincipalDaoRegistry {
-    let mut user =
-        DaoDiscoveryService::get(user).unwrap_or_else(|| PrincipalDaoRegistry::new(user));
+async fn save_user_dao(user_id: Principal, dao_id: Principal) -> User {
+    let dao = DaoService::find_by_canister(dao_id).unwrap_or_else(|| DaoService::save(dao_id));
 
-    user.add_dao(dao);
+    let user = UserService::get(user_id);
+    let result;
 
-    DaoDiscoveryService::save(user)
+    if let Some(user) = user {
+        result = UserService::update(user.id, dao.id, true);
+    } else {
+        result = UserService::save(user_id, vec![dao.id]);
+    }
+
+    result
 }
 
 #[ic_cdk::query]
-async fn get(key: Principal) -> Option<PrincipalDaoRegistry> {
-    DaoDiscoveryService::get(key)
+async fn get_user_daos(user: Option<Principal>) -> Vec<Principal> {
+    let mut user_daos = Vec::new();
+
+    let user = UserService::get(user.unwrap_or(caller()));
+
+    if let Some(user) = user {
+        user.dao_ids.iter().for_each(|dao_id| {
+            user_daos.push(DaoService::get(*dao_id).unwrap().canister);
+        });
+    }
+
+    user_daos
+}
+
+#[ic_cdk::query]
+async fn get_random_daos(amount: Option<u32>) -> Vec<Principal> {
+    DaoService::get_randoms(amount.unwrap_or(6))
 }

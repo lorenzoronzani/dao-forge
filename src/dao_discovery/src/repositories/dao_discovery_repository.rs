@@ -1,6 +1,5 @@
 use candid::Principal;
 
-use crate::models::PrincipalDaoRegistry;
 use crate::repositories::memories::DAO_DISCOVERY_MEMORY;
 
 pub struct DaoDiscoveryRepository;

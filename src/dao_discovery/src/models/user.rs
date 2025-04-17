@@ -5,29 +5,29 @@ use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 
 #[derive(Debug, Clone, Serialize, Deserialize, CandidType)]
-pub struct PrincipalDaoRegistry {
-    pub user: Principal,
-    pub dao_ids: Vec<Principal>,
+pub struct User {
+    pub id: Principal,
+    pub dao_ids: Vec<u32>,
 }
 
-impl PrincipalDaoRegistry {
-    pub fn new(user: Principal) -> Self {
+impl User {
+    pub fn new(id: Principal) -> Self {
         Self {
-            user,
+            id,
             dao_ids: Vec::new(),
         }
     }
 
-    pub fn add_dao(&mut self, dao_id: Principal) {
+    pub fn add_dao(&mut self, dao_id: u32) {
         self.dao_ids.push(dao_id);
     }
 
-    pub fn remove_dao(&mut self, dao_id: Principal) {
-        self.dao_ids.retain(|x| *x != dao_id);
+    pub fn remove_dao(&mut self, dao_id: u32) {
+        self.dao_ids.retain(|&x| x != dao_id);
     }
 }
 
-impl Storable for PrincipalDaoRegistry {
+impl Storable for User {
     fn to_bytes(&self) -> Cow<[u8]> {
         Cow::Owned(Encode!(self).unwrap())
     }

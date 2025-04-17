@@ -1,9 +1,10 @@
-type PrincipalDaoRegistry = record {
-    user: principal;
-    dao_ids: vec principal;
+type User = record {
+    id: principal;
+    dao_ids: vec nat32;
 };
 
 service : {
-    "save" : (principal, principal) -> (PrincipalDaoRegistry);
-    "get" : (principal) -> (opt PrincipalDaoRegistry) query;
+    "save_user_dao" : (principal, principal) -> (User);
+    "get_user_daos" : (opt principal) -> (vec principal) query;
+    "get_random_daos" : (opt nat32) -> (vec principal) query;
 }
