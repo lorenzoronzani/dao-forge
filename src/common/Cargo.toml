@@ -4,5 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-candid = "0.10"
-serde = { version = "1.0", features = ["derive"] }
+candid.workspace = true
+# Required otherwise the build will fail because it not find Deserialize derive inside the candid crate
+serde.workspace = true
+typeshare.workspace = true
