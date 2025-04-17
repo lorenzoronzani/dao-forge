@@ -6,7 +6,7 @@ type PaddedLayoutProps = {
 
 export const PaddedLayout = ({ children }: PaddedLayoutProps) => {
     return (
-        <div className="p-8">
+        <div className="min-h-screen bg-slate-50">
             {children}
         </div>
     );

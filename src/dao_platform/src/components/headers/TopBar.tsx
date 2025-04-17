@@ -9,7 +9,7 @@ export const TopBar = () => {
     const { isAuthenticated, userPrincipal, login, logout } = useAuthentication();
     const { toast } = useToast();
 
-    const copyUserId = () => {
+    const copyUserPrincipal = () => {
         if (isAuthenticated) {
             navigator.clipboard.writeText(userPrincipal.toText());
             toast({
@@ -21,26 +21,25 @@ export const TopBar = () => {
     };
 
     return (
-        <div className="w-full h-16 px-4 flex items-center justify-between border-b">
-            <div className="text-xl font-bold">DAO forge</div>
-
-            <div className="flex items-center gap-4">
+        <header className="bg-white shadow-sm">
+            <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+                <h1 className="text-xl font-bold">DAO forge</h1>
                 {isAuthenticated ? (
-                    <>
+                    <div className="flex items-center gap-4">
                         <Card className="h-10 px-3 flex items-center gap-2">
                             <span className="text-sm font-medium truncate max-w-[200px]">{userPrincipal.toText()}</span>
-                            <Button variant="ghost" size="icon" onClick={copyUserId} className="h-8 w-8 p-0">
+                            <Button variant="ghost" size="icon" onClick={copyUserPrincipal} className="h-8 w-8 p-0">
                                 <Copy className="h-4 w-4" />
                             </Button>
                         </Card>
-                        <Button onClick={logout}>Logout</Button>
-                    </>
+                        <Button variant="outline" onClick={logout}>Logout</Button>
+                    </div>
                 ) : (
                     <Button onClick={login}>Login</Button>
                 )}
             </div>
-        </div>
-    );
+        </header>
+    )
 };
 
 export default TopBar;
