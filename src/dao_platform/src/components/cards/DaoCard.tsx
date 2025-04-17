@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils/date";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Dao, OrganizationStatus } from "@/declarations/common";
@@ -7,16 +8,6 @@ interface DaoCardProps {
 }
 
 export const DaoCard = ({ dao }: DaoCardProps) => {
-    // Format creation date
-    const formatDate = (timestamp: number) => {
-        return new Date(timestamp).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    };
-
-    // Get status color
     const getStatusColor = (status: OrganizationStatus) => {
         switch (status) {
             case OrganizationStatus.Active:
