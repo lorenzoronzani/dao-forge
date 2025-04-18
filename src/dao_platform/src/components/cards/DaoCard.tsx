@@ -1,7 +1,7 @@
 import { formatDate } from "@/utils/date";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
-import { Dao, OrganizationStatus } from "@/declarations/common";
+import { Dao, OrganizationStatus } from "@/models/entities/Dao";
 
 interface DaoCardProps {
     dao: Dao;
@@ -38,7 +38,7 @@ export const DaoCard = ({ dao }: DaoCardProps) => {
                 <div className="space-y-4 text-sm">
                     <div className="flex flex-col">
                         <p className="text-slate-500 mb-1">Legal Form</p>
-                        <p className="font-medium">{dao.legal_form}</p>
+                        <p className="font-medium">{dao.legalForm}</p>
                     </div>
 
                     <div className="flex flex-col">
@@ -59,7 +59,7 @@ export const DaoCard = ({ dao }: DaoCardProps) => {
 
                     <div className="flex flex-col">
                         <p className="text-slate-500 mb-1">Created</p>
-                        <p className="font-medium">{formatDate(dao.created_at)}</p>
+                        <p className="font-medium">{formatDate(dao.createdAt.getTime())}</p>
                     </div>
 
                     <div className="flex flex-col">

@@ -8,8 +8,7 @@
     "start": "vite --port 3000",
     "prebuild": "dfx generate",
     "build": "tsc && vite build",
-    "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\"",
-    "generate-types": "typeshare ../ --lang=typescript --output-folder src/declarations"
+    "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\""
   },
   "dependencies": {
     "@dfinity/agent": "^2.4.0",

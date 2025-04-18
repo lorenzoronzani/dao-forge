@@ -1,5 +1,5 @@
 import { DaoCard } from "@/components/cards/DaoCard";
-import { Dao } from "@/declarations/common";
+import { Dao } from "@/models/entities/Dao";
 
 interface ExploreViewProps {
     daos: Dao[];
