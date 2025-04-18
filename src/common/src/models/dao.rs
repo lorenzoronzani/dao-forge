@@ -1,11 +1,12 @@
 use candid::CandidType;
 use serde::{Deserialize, Serialize};
+use strum_macros::{Display, EnumString};
 #[cfg(feature = "generate-types")]
 use typeshare::typeshare;
 
 #[cfg_attr(feature = "generate-types", typeshare::typeshare)]
 // FIXME: Think if the default implementation is the best approach
-#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType, Display, EnumString)]
 pub enum LegalForm {
     #[default]
     Corporation,
@@ -15,7 +16,7 @@ pub enum LegalForm {
 
 #[cfg_attr(feature = "generate-types", typeshare::typeshare)]
 // FIXME: Think if the default implementation is the best approach
-#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType, Display, EnumString)]
 pub enum OrganizationStatus {
     #[default]
     Active,

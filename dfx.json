@@ -1,30 +1,32 @@
 {
+  "dfx": "0.25.0",
   "canisters": {
     "dao_association": {
+      "specified_id": "bd3sg-teaaa-aaaaa-qaaba-cai",
       "candid": "src/dao_association/dao_association.did",
       "package": "dao_association",
       "type": "rust"
     },
     "dao_agency": {
-      "specified_id": "uxrrr-q7777-77774-qaaaq-cai",
+      "specified_id": "bkyz2-fmaaa-aaaaa-qaaaq-cai",
       "candid": "src/dao_agency/dao_agency.did",
       "package": "dao_agency",
       "type": "rust"
     },
     "dao_sogc_pubblication": {
-      "specified_id": "ulvla-h7777-77774-qaacq-cai",
+      "specified_id": "bw4dl-smaaa-aaaaa-qaacq-cai",
       "candid": "src/dao_sogc_pubblication/dao_sogc_pubblication.did",
       "package": "dao_sogc_pubblication",
       "type": "rust"
     },
     "dao_discovery": {
-      "specified_id": "uzt4z-lp777-77774-qaabq-cai",
+      "specified_id": "be2us-64aaa-aaaaa-qaabq-cai",
       "candid": "src/dao_discovery/dao_discovery.did",
       "package": "dao_discovery",
       "type": "rust"
     },
     "dao_platform": {
-      "specified_id": "umunu-kh777-77774-qaaca-cai ",
+      "specified_id": "br5f7-7uaaa-aaaaa-qaaca-cai",
       "dependencies": [
         "dao_agency"
       ],

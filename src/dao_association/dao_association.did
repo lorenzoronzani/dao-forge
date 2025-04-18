@@ -3,14 +3,18 @@ type DaoAssociation = record {
     address : text;
     zip : nat32;
     town : text;
+    legal_form : text;
+    status : text;
     uid: text;
     ch_id: text;
     frc_id: nat32;
     purpose: text;
+    sogc_pubblications: vec nat32;
     board: vec text;
     members: vec text;
+    created_at: nat32;
 };
 
 service : {
-    "get_information": () -> (text) query;
+    "get_information": () -> (DaoAssociation) query;
 }

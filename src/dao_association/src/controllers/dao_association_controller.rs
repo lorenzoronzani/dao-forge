@@ -1,13 +1,14 @@
-use crate::services::DaoAssociationService;
+use crate::models::DaoAssociationPresentation;
 use crate::types::DaoArgs;
+use crate::{models::DaoAssociation, services::DaoAssociationService};
 use common::models::SogcPublication;
-use ic_cdk::{query, update};
+use ic_cdk::{println, query, update};
 
 #[query]
-fn get_information() -> String {
-    let dao_association = DaoAssociationService::get();
+fn get_information() -> DaoAssociationPresentation {
+    let dao = DaoAssociationService::get();
 
-    format!("{:?}", dao_association)
+    DaoAssociationPresentation::from(dao)
 }
 
 // #[update]
