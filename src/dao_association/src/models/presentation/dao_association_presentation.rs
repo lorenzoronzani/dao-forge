@@ -2,10 +2,7 @@ use candid::CandidType;
 use serde::{Deserialize, Serialize};
 
 use crate::models::DaoAssociation;
-#[cfg(feature = "generate-types")]
-use typeshare::typeshare;
 
-#[cfg_attr(feature = "generate-types", typeshare::typeshare)]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub struct DaoAssociationPresentation {
     pub name: String,
