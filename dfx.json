@@ -6,25 +6,25 @@
       "type": "rust"
     },
     "dao_agency": {
-      "id": "bkyz2-fmaaa-aaaaa-qaaaq-cai",
+      "specified_id": "uxrrr-q7777-77774-qaaaq-cai",
       "candid": "src/dao_agency/dao_agency.did",
       "package": "dao_agency",
       "type": "rust"
     },
     "dao_sogc_pubblication": {
-      "id": "bw4dl-smaaa-aaaaa-qaacq-cai",
+      "specified_id": "ulvla-h7777-77774-qaacq-cai",
       "candid": "src/dao_sogc_pubblication/dao_sogc_pubblication.did",
       "package": "dao_sogc_pubblication",
       "type": "rust"
     },
     "dao_discovery": {
-      "id": "be2us-64aaa-aaaaa-qaabq-cai",
+      "specified_id": "uzt4z-lp777-77774-qaabq-cai",
       "candid": "src/dao_discovery/dao_discovery.did",
       "package": "dao_discovery",
       "type": "rust"
     },
     "dao_platform": {
-      "id": "br5f7-7uaaa-aaaaa-qaaca-cai",
+      "specified_id": "umunu-kh777-77774-qaaca-cai ",
       "dependencies": [
         "dao_agency"
       ],
@@ -35,7 +35,7 @@
       "workspace": "dao_platform"
     },
     "internet_identity": {
-      "id": "b77ix-eeaaa-aaaaa-qaada-cai",
+      "specified_id": "rdmx6-jaaaa-aaaaa-aaadq-cai",
       "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
       "frontend": {},
       "remote": {

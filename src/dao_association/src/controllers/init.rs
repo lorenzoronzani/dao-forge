@@ -15,8 +15,8 @@ async fn canister_init(args: DaoArgs) {
         args.ch_id,
         args.frc_id,
         args.purpose,
-        args.board,
-        args.members,
+        args.board.iter().map(|m| m.to_string()).collect(),
+        args.members.iter().map(|m| m.to_string()).collect(),
         time().try_into().unwrap(),
     );
 

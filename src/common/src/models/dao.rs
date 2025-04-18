@@ -1,8 +1,9 @@
 use candid::CandidType;
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "generate-types")]
 use typeshare::typeshare;
 
-#[typeshare]
+#[cfg_attr(feature = "generate-types", typeshare::typeshare)]
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub enum LegalForm {
@@ -12,7 +13,7 @@ pub enum LegalForm {
     Association,
 }
 
-#[typeshare]
+#[cfg_attr(feature = "generate-types", typeshare::typeshare)]
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub enum OrganizationStatus {
@@ -33,7 +34,7 @@ pub struct SogcPublication {
     pub description: String,
 }
 
-#[typeshare]
+#[cfg_attr(feature = "generate-types", typeshare::typeshare)]
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub struct Dao {

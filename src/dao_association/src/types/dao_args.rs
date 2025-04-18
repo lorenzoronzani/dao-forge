@@ -1,4 +1,4 @@
-use candid::{CandidType, Deserialize};
+use candid::{CandidType, Deserialize, Principal};
 
 #[derive(CandidType, Deserialize)]
 pub struct DaoArgs {
@@ -10,6 +10,6 @@ pub struct DaoArgs {
     pub ch_id: String,
     pub frc_id: u32,
     pub purpose: String,
-    pub board: Vec<String>,
-    pub members: Vec<String>,
+    pub board: Vec<Principal>,
+    pub members: Vec<Principal>,
 }

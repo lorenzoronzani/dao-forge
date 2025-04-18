@@ -5,22 +5,12 @@ type DaoAssociation = record {
     town : text;
     uid: text;
     ch_id: text;
-    frc_id: nat64;
+    frc_id: nat32;
     purpose: text;
     board: vec text;
     members: vec text;
 };
 
-type SogcPublication = record {
-    sogc_id: nat64;
-    publication_sogc_date: nat64;
-    daily_number: nat64;
-    publication_date: nat64;
-    mutations: text;
-    description: text;
-};
-
 service : {
     "get_information": () -> (text) query;
-    "update_information": (DaoAssociation, SogcPublication) -> (text);
 }

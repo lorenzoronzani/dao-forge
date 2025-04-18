@@ -11,9 +11,14 @@ crate-type = ["cdylib"]
 [dependencies]
 candid.workspace = true
 serde.workspace = true
-typeshare.workspace = true
 ic-cdk.workspace = true
 ic-cdk-timers.workspace = true
 ic-stable-structures.workspace = true
 
 common = { path = "../common" }
+
+typeshare = { workspace = true, optional = true }
+
+[features]
+# Required because typeshare imports things that cannot be used in the canister
+generate-types = ["typeshare"]

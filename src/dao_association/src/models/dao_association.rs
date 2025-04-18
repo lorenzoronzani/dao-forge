@@ -4,9 +4,10 @@ use ic_stable_structures::storable::Bound;
 use ic_stable_structures::Storable;
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
+#[cfg(feature = "generate-types")]
 use typeshare::typeshare;
 
-#[typeshare]
+#[cfg_attr(feature = "generate-types", typeshare::typeshare)]
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub struct DaoAssociation {
