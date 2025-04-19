@@ -20,6 +20,7 @@
     "@radix-ui/react-toast": "^1.2.6",
     "@tanstack/react-query": "^5.66.0",
     "class-variance-authority": "^0.7.1",
+    "declarations": "file:../declarations",
     "lucide-react": "^0.475.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

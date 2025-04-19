@@ -1,12 +1,10 @@
 import { DaoCard } from "@/components/cards/DaoCard"
 import { Button } from "@/components/ui/button";
-import { Dao } from "@/models/entities/Dao";
+import { useDao } from "@/providers/DaoProvider";
 
-interface MyDaosViewProps {
-    daos: Dao[];
-}
+export const MyDaosView = () => {
+    const { userDaos } = useDao();
 
-export const MyDaosView = ({ daos }: MyDaosViewProps) => {
     return (<div className="mb-6">
         <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">My DAOs</h2>
@@ -14,7 +12,7 @@ export const MyDaosView = ({ daos }: MyDaosViewProps) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {daos.map(dao => (
+            {userDaos.map(dao => (
                 <DaoCard key={dao.uid} dao={dao} />
             ))}
         </div>

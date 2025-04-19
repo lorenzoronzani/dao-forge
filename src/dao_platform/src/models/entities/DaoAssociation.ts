@@ -1,6 +1,7 @@
 import { Principal } from "@dfinity/principal";
 import { Dao, LegalForm, OrganizationStatus } from "./Dao";
 import { SogcPubblication } from "./SogcPubblication";
+import { DaoAssociation as DaoAssociationDto } from "declarations/dao_association/dao_association.did.d.js";
 
 export class DaoAssociation extends Dao {
     constructor(
@@ -34,6 +35,25 @@ export class DaoAssociation extends Dao {
             board,
             members,
             createdAt
+        );
+    }
+
+    static fromDto(dto: DaoAssociationDto): DaoAssociation {
+        return new DaoAssociation(
+            dto.name,
+            dto.address,
+            dto.zip,
+            dto.town,
+            LegalForm[dto.legal_form as keyof typeof LegalForm],
+            OrganizationStatus[dto.status as keyof typeof OrganizationStatus],
+            dto.uid,
+            dto.ch_id,
+            dto.frc_id,
+            dto.purpose,
+            [],
+            dto.board.map(p => Principal.fromText(p)),
+            dto.members.map(p => Principal.fromText(p)),
+            new Date(dto.created_at)
         );
     }
 }

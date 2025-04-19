@@ -1,8 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { exploreDaos } from "@/pages/Dashboard";
 import { ExploreView } from "./ExploreView";
-import { DaoCard } from "@/components/cards/DaoCard";
 import { MyDaosView } from "./MyDaosView";
 
 export const LoggedInView = () => {
@@ -14,11 +11,11 @@ export const LoggedInView = () => {
             </TabsList>
 
             <TabsContent value="my-daos">
-                <MyDaosView daos={exploreDaos} />
+                <MyDaosView />
             </TabsContent>
 
             <TabsContent value="explore">
-                <ExploreView daos={exploreDaos} />
+                <ExploreView />
             </TabsContent>
         </Tabs>
     );
