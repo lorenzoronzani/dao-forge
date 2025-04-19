@@ -1,10 +1,5 @@
-type User = record {
-    id: principal;
-    dao_ids: vec nat32;
-};
-
 service : {
-    "save_user_dao" : (principal, principal) -> (User);
+    "save_user_dao" : (principal, principal) -> (vec principal);
     "get_user_daos" : (opt principal) -> (vec principal) query;
     "get_random_daos" : (opt nat32) -> (vec principal) query;
 }

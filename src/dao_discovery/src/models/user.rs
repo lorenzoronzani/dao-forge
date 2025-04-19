@@ -19,11 +19,15 @@ impl User {
     }
 
     pub fn add_dao(&mut self, dao_id: u32) {
-        self.dao_ids.push(dao_id);
+        if !self.dao_ids.contains(&dao_id) {
+            self.dao_ids.push(dao_id);
+        }
     }
 
     pub fn remove_dao(&mut self, dao_id: u32) {
-        self.dao_ids.retain(|&x| x != dao_id);
+        if self.dao_ids.contains(&dao_id) {
+            self.dao_ids.retain(|&x| x != dao_id);
+        }
     }
 }
 

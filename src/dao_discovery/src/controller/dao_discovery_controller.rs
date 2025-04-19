@@ -1,13 +1,10 @@
 use candid::Principal;
 use ic_cdk::caller;
 
-use crate::{
-    models::User,
-    services::{DaoService, UserService},
-};
+use crate::services::{DaoService, UserService};
 
 #[ic_cdk::update]
-async fn save_user_dao(user_id: Principal, dao_id: Principal) -> User {
+async fn save_user_dao(user_id: Principal, dao_id: Principal) -> Vec<Principal> {
     let dao = DaoService::find_by_canister(dao_id).unwrap_or_else(|| DaoService::save(dao_id));
 
     let user = UserService::get(user_id);
@@ -19,7 +16,7 @@ async fn save_user_dao(user_id: Principal, dao_id: Principal) -> User {
         result = UserService::save(user_id, vec![dao.id]);
     }
 
-    result
+    get_user_daos(Some(result.id)).await
 }
 
 #[ic_cdk::query]

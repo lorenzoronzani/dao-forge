@@ -22,17 +22,20 @@ impl DaoService {
     }
 
     pub fn get_randoms(amount: u32) -> Vec<Principal> {
-        let daos = DaoRepository::get_all();
+        let mut daos = DaoRepository::get_all();
         let size = daos.len() as u32;
 
-        let mut random_daos = Vec::new();
-        let limit = amount.min(size);
+        if size <= amount {
+            return daos.iter().map(|dao| dao.canister).collect();
+        }
 
-        let seed = time() as u32;
+        let limit = amount.min(size);
+        let mut random_daos = Vec::new();
+        let seed = time() / 1000;
 
         for i in 0..limit {
-            let random_index = (seed * (i + 1)) % size;
-            random_daos.push(daos[random_index as usize].canister);
+            let random_index = (seed * (i + 1) as u64) % (daos.len() as u64);
+            random_daos.push(daos.remove(random_index as usize).canister);
         }
 
         return random_daos;
