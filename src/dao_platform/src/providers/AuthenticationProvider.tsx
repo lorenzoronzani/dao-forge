@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { login, logout } from "@/store/authenticationSlice";
 import { getIdentityProvider } from "@/utils/identityProvider";
 import { AuthClient } from "@dfinity/auth-client";
 import { Principal } from "@dfinity/principal";
@@ -21,9 +23,11 @@ export const useAuthentication = () => {
 }
 
 export const AuthenticationProvider = ({ children }: { children: ReactNode }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+    const { isAuthenticated, userPrincipal } = useAppSelector((state) => state.authentication);
+
     const [authClient, setAuthClient] = useState<AuthClient | null>(null);
-    const [userPrincipal, setUserPrincipal] = useState<Principal>(Principal.anonymous());
+    const [user, setUser] = useState<Principal>(Principal.from(userPrincipal));
 
     const identityProvider = getIdentityProvider();
 
@@ -33,19 +37,28 @@ export const AuthenticationProvider = ({ children }: { children: ReactNode }) =>
 
     const init = async () => {
         try {
-            setAuthClient(await AuthClient.create());
+            const client = await AuthClient.create();
+            setAuthClient(client);
+
+            if (await client.isAuthenticated()) {
+                dispatch(login(client.getIdentity().getPrincipal()!.toText()));
+                setUser(client.getIdentity().getPrincipal()!);
+            } else {
+                dispatch(logout());
+                setUser(Principal.anonymous());
+            }
         } catch (error) {
             console.error(error);
         }
     }
 
-    const login = async () => {
+    const handleLogin = async () => {
         try {
             authClient?.login({
                 identityProvider,
                 onSuccess: async () => {
-                    setUserPrincipal(authClient?.getIdentity().getPrincipal());
-                    setIsAuthenticated(await authClient?.isAuthenticated());
+                    dispatch(login(authClient?.getIdentity().getPrincipal()!.toText()));
+                    setUser(authClient?.getIdentity().getPrincipal()!);
                 },
                 onError: (error) => {
                     console.error(error);
@@ -56,18 +69,18 @@ export const AuthenticationProvider = ({ children }: { children: ReactNode }) =>
         }
     };
 
-    const logout = async () => {
+    const handleLogout = async () => {
         try {
             authClient?.logout();
-            setUserPrincipal(Principal.anonymous());
-            setIsAuthenticated(false);
+            dispatch(logout());
+            setUser(Principal.anonymous());
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <AuthenticationContext.Provider value={{ isAuthenticated, userPrincipal, login, logout }}>
+        <AuthenticationContext.Provider value={{ isAuthenticated, userPrincipal: user, login: handleLogin, logout: handleLogout }}>
             {children}
         </AuthenticationContext.Provider>
     );
