@@ -6,14 +6,14 @@ echo "Script directory: $SCRIPT_DIR"
 cd $SCRIPT_DIR/..
 
 # Create canisters
-dfx canister create --all
+dfx canister create dao_association
 
 # Build canisters
-dfx build
+dfx build dao_association
 
 # Deploy canisters
-dfx deploy dao_agency
-dfx deploy dao_platform
 dfx deploy internet_identity
 dfx deploy dao_sogc_pubblication
 dfx deploy dao_discovery
+dfx deploy dao_agency
+dfx deploy dao_platform

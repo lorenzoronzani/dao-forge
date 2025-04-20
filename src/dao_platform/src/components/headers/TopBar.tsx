@@ -14,7 +14,7 @@ export const TopBar = () => {
             navigator.clipboard.writeText(userPrincipal.toText());
             toast({
                 title: "Copied!",
-                description: "User ID copied to clipboard.",
+                description: "User principal copied to clipboard.",
                 duration: 2000,
             });
         }
