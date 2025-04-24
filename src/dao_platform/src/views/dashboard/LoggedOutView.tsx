@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { useAuthentication } from "@/providers/AuthenticationProvider";
-import { ExploreView } from "./ExploreView";
+import { useDao } from "@/providers/DaoProvider";
+import { DaosView } from "./DaosView";
 
 export const LoggedOutView = () => {
     const { login } = useAuthentication();
+    const { exploreDaos } = useDao();
 
     return (
         <div>
@@ -17,7 +19,7 @@ export const LoggedOutView = () => {
                 </div>
             </div>
 
-            <ExploreView />
+            <DaosView title="Explore" daos={exploreDaos} />
         </div>
     );
 };
