@@ -1,9 +1,8 @@
 use candid::CandidType;
 use serde::{Deserialize, Serialize};
-use strum_macros::{Display, EnumString};
 
 // FIXME: Think if the default implementation is the best approach
-#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType, Display, EnumString)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub enum LegalForm {
     #[default]
     Corporation,
@@ -12,7 +11,7 @@ pub enum LegalForm {
 }
 
 // FIXME: Think if the default implementation is the best approach
-#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType, Display, EnumString)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub enum OrganizationStatus {
     #[default]
     Active,

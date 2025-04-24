@@ -2,6 +2,7 @@ import { Principal } from "@dfinity/principal";
 import { Dao, LegalForm, OrganizationStatus } from "./Dao";
 import { SogcPubblication } from "./SogcPubblication";
 import { DaoAssociation as DaoAssociationDto } from "declarations/dao_association/dao_association.did.d.js";
+import { candidToEnum } from "@/utils/enums";
 
 export class DaoAssociation extends Dao {
     constructor(
@@ -44,8 +45,8 @@ export class DaoAssociation extends Dao {
             dto.address,
             dto.zip,
             dto.town,
-            LegalForm[dto.legal_form as keyof typeof LegalForm],
-            OrganizationStatus[dto.status as keyof typeof OrganizationStatus],
+            candidToEnum(dto.legal_form, LegalForm),
+            candidToEnum(dto.status, OrganizationStatus),
             dto.uid,
             dto.ch_id,
             dto.frc_id,

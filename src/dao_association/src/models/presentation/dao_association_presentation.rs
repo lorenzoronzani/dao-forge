@@ -1,4 +1,5 @@
 use candid::CandidType;
+use common::models::{LegalForm, OrganizationStatus};
 use serde::{Deserialize, Serialize};
 
 use crate::models::DaoAssociation;
@@ -9,8 +10,8 @@ pub struct DaoAssociationPresentation {
     pub address: String,
     pub zip: u32,
     pub town: String,
-    pub legal_form: String,
-    pub status: String,
+    pub legal_form: LegalForm,
+    pub status: OrganizationStatus,
     pub uid: String,
     pub ch_id: String,
     pub frc_id: u32,
@@ -28,8 +29,8 @@ impl DaoAssociationPresentation {
             address: dao_association.parent.address,
             zip: dao_association.parent.zip,
             town: dao_association.parent.town,
-            legal_form: dao_association.parent.legal_form.to_string(),
-            status: dao_association.parent.status.to_string(),
+            legal_form: dao_association.parent.legal_form,
+            status: dao_association.parent.status,
             uid: dao_association.parent.uid,
             ch_id: dao_association.parent.ch_id,
             frc_id: dao_association.parent.frc_id,

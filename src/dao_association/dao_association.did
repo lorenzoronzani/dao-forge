@@ -1,10 +1,22 @@
+type LegalForm = variant {
+    Corporation: null;
+    LimitedLiabilityCompany: null;
+    Association: null;
+};
+
+type OrganizationStatus = variant {
+    Active: null;
+    Liquidation: null;
+    Dissolved: null;
+};
+
 type DaoAssociation = record {
     name : text;
     address : text;
     zip : nat32;
     town : text;
-    legal_form : text;
-    status : text;
+    legal_form : LegalForm;
+    status : OrganizationStatus;
     uid: text;
     ch_id: text;
     frc_id: nat32;
