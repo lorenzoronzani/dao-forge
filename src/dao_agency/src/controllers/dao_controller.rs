@@ -9,13 +9,21 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
         include_bytes!("../../../../target/wasm32-unknown-unknown/release/dao_association.wasm")
             .to_vec();
 
-    let encoded_args = encode_args((params,)).unwrap();
+    let encoded_args = encode_args((params.clone(),)).unwrap();
 
     let canister_id =
         CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()])
             .await?;
 
-    DaoDiscoveryService::save(caller(), canister_id).await;
+    DaoDiscoveryService::save_user_dao(caller(), canister_id).await;
+
+    for board_member in params.board.iter() {
+        DaoDiscoveryService::save_user_dao(*board_member, canister_id).await;
+    }
+
+    for member in params.members.iter() {
+        DaoDiscoveryService::save_user_dao(*member, canister_id).await;
+    }
 
     Ok(canister_id)
 }

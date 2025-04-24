@@ -2,7 +2,7 @@ use candid::{CandidType, Principal};
 use serde::Deserialize;
 
 // FIXME: Think a better solution to handle the init args
-#[derive(CandidType, Deserialize)]
+#[derive(CandidType, Deserialize, Clone)]
 pub struct DaoAssociationInitArgs {
     pub name: String,
     pub address: String,

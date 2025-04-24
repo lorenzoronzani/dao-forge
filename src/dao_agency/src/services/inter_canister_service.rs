@@ -1,18 +1,30 @@
-use candid::Principal;
+use candid::utils::ArgumentEncoder;
+use candid::{CandidType, Principal};
 use ic_cdk::api::call::call;
+use ic_cdk::println;
+use serde::de::DeserializeOwned;
+use std::fmt::Debug;
 
 pub struct InterCanisterService;
 
 impl InterCanisterService {
-    pub async fn call(
+    pub async fn call<I: ArgumentEncoder, O: CandidType + DeserializeOwned + Debug>(
         canister_id: Principal,
-        method: String,
-        args: (Principal, Principal),
-    ) -> Result<String, String> {
-        let result: Result<(u64,), _> = call(canister_id, &method, args).await;
+        method: &str,
+        args: I,
+    ) -> Result<O, String> {
+        let result: Result<(O,), _> = call(canister_id, method, args).await;
 
-        println!("Result: {:?}", result);
-
-        Ok("Done".to_string())
+        match result {
+            Ok((response,)) => {
+                println!("Success: {:?}", response);
+                Ok(response)
+            }
+            Err((code, msg)) => {
+                let error = format!("Call failed with code {:?}: {}", code, msg);
+                println!("Error: {}", error);
+                Err(error)
+            }
+        }
     }
 }
