@@ -2,6 +2,7 @@ import { useAuthentication } from '@/providers/AuthenticationProvider';
 import TopBar from '@/components/headers/TopBar';
 import { LoggedInView } from '@/views/dashboard/LoggedInView';
 import { LoggedOutView } from '@/views/dashboard/LoggedOutView';
+import { MainContainer } from '@/layouts/MainContainer';
 
 export const Dashboard = () => {
     const { isAuthenticated } = useAuthentication();
@@ -10,13 +11,13 @@ export const Dashboard = () => {
         <>
             <TopBar />
 
-            <main className="container mx-auto px-4 py-8">
+            <MainContainer>
                 {isAuthenticated ? (
                     <LoggedInView />
                 ) : (
                     <LoggedOutView />
                 )}
-            </main>
+            </MainContainer>
         </>
     );
 };

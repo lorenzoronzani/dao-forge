@@ -1,9 +1,11 @@
+import { ICP, ICP_CANISTER_ID } from "@/constants/icp";
+
 export const getIdentityProvider = () => {
-    if (import.meta.env.VITE_DFX_NETWORK === "local") {
-        return `http://${import.meta.env.VITE_CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`;
-    } else if (import.meta.env.VITE_DFX_NETWORK === "ic") {
-        return `https://${import.meta.env.VITE_CANISTER_ID_INTERNET_IDENTITY}.ic0.app`;
+    if (ICP.NETWORK === "local") {
+        return `http://${ICP_CANISTER_ID.INTERNET_IDENTITY}.localhost:4943`;
+    } else if (ICP.NETWORK === "ic") {
+        return `https://${ICP_CANISTER_ID.INTERNET_IDENTITY}.ic0.app`;
     } else {
-        return `https://${import.meta.env.VITE_CANISTER_ID_INTERNET_IDENTITY}.dfinity.network`;
+        return `https://${ICP_CANISTER_ID.INTERNET_IDENTITY}.dfinity.network`;
     }
 };

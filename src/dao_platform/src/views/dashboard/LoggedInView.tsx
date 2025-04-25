@@ -2,9 +2,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDao } from "@/providers/DaoProvider";
 import { DaosView } from "./DaosView";
 import { Button } from "@/components/ui/button";
+import { paths } from "@/constants/paths";
+import { useNavigate } from "react-router";
 
 export const LoggedInView = () => {
     const { userDaos, exploreDaos } = useDao();
+    const navigate = useNavigate();
 
     return (
         <Tabs defaultValue="my-daos" className="w-full">
@@ -14,7 +17,7 @@ export const LoggedInView = () => {
                     <TabsTrigger value="explore">Explore</TabsTrigger>
                 </TabsList>
 
-                <Button>Create New DAO</Button>
+                <Button onClick={() => navigate(paths.DAOS_CREATE)}>Create New DAO</Button>
             </div>
 
             <TabsContent value="my-daos">

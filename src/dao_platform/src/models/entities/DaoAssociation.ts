@@ -1,6 +1,6 @@
 import { Principal } from "@dfinity/principal";
-import { Dao, LegalForm, OrganizationStatus } from "./Dao";
-import { SogcPubblication } from "./SogcPubblication";
+import { Dao, LegalForm, OrganizationStatus } from "@/models/entities/Dao";
+import { SogcPubblication } from "@/models/entities/SogcPubblication";
 import { DaoAssociation as DaoAssociationDto } from "declarations/dao_association/dao_association.did.d.js";
 import { candidToEnum } from "@/utils/enums";
 

@@ -1,5 +1,5 @@
 import { Principal } from "@dfinity/principal";
-import { SogcPubblication } from "./SogcPubblication";
+import { SogcPubblication } from "@/models/entities/SogcPubblication";
 
 export enum LegalForm {
     Corporation = 'Corporation',
