@@ -9,7 +9,7 @@ import { CreateDaoPage } from './pages/CreateDaoPage';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: paths.HOME,
     element: <App />,
     children: [
       {

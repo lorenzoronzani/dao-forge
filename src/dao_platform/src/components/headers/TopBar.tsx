@@ -4,10 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuthentication } from "@/providers/AuthenticationProvider";
+import { useNavigate } from "react-router";
+import { paths } from "@/constants/paths";
 
 export const TopBar = () => {
     const { isAuthenticated, userPrincipal, login, logout } = useAuthentication();
     const { toast } = useToast();
+    const navigate = useNavigate();
 
     const copyUserPrincipal = () => {
         if (isAuthenticated) {
@@ -23,7 +26,7 @@ export const TopBar = () => {
     return (
         <header className="bg-white shadow-sm">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                <h1 className="text-xl font-bold">DAO forge</h1>
+                <h1 className="text-xl font-bold cursor-pointer hover:text-primary transition-colors" onClick={() => navigate(paths.HOME)}>DAO forge</h1>
                 {isAuthenticated ? (
                     <div className="flex items-center gap-4">
                         <Card className="h-10 px-3 flex items-center gap-2">
