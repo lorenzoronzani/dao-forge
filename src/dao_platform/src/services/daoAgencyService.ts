@@ -1,4 +1,4 @@
-import { ActorSubclass } from "@dfinity/agent";
+import { ActorSubclass, Identity } from "@dfinity/agent";
 import { createActor } from "../../../declarations/dao_agency";
 import { _SERVICE } from "../../../declarations/dao_agency/dao_agency.did.d.js";
 import { Principal } from "@dfinity/principal";
@@ -7,8 +7,12 @@ import { DaoAssociationInitArgs } from '../../../declarations/dao_agency/dao_age
 export class DaoAgencyService {
     private _actor: ActorSubclass<_SERVICE>;
 
-    constructor(canisterId: Principal) {
-        this._actor = createActor(canisterId);
+    constructor(canisterId: Principal, identity: Identity) {
+        this._actor = createActor(canisterId, {
+            agentOptions: {
+                identity
+            }
+        });
     }
 
     async createDaoAssociation(params: DaoAssociationInitArgs): Promise<Principal> {

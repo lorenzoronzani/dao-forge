@@ -7,6 +7,8 @@ import { LocationInfoCard } from '../cards/LocationInfoCard';
 import { MembersInfoCard } from '../cards/MembersInfoCard';
 import { Principal } from '@dfinity/principal';
 import { DaoAssociationInitArgs } from '../../../../declarations/dao_agency/dao_agency.did.js'
+import { toast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 
 type DaoFormProps = {
   onSubmit: (dao: DaoAssociationInitArgs) => Promise<Principal>;
@@ -35,6 +37,7 @@ export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
     boardMembers: [],
     members: []
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onValueChange = (field: string, value: unknown) => {
     setFormData({
@@ -73,13 +76,22 @@ export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
     };
 
     try {
+      setIsSubmitting(true);
+
       await onSubmit(data);
 
       clearForm();
 
       onCancel();
     } catch (error) {
+      toast({
+        title: "Error!",
+        description: "An error occurred while creating the DAO.",
+        duration: 2000,
+      });
       console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -94,10 +106,17 @@ export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
       <MembersInfoCard id="members" title="Members" members={formData.members} onValueChange={onValueChange} />
 
       <HorizontalActionContainer>
-        <Button type="button" variant="outline" onClick={onCancel}>
+        <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>
           Cancel
         </Button>
-        <Button type="submit">Create DAO</Button>
+        <Button type="submit" disabled={isSubmitting}>{isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Creating...
+          </>
+        ) : (
+          "Create DAO"
+        )}</Button>
       </HorizontalActionContainer>
     </form>
   )

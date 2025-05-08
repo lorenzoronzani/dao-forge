@@ -7,12 +7,14 @@ import { DaoAgencyService } from '@/services/daoAgencyService';
 import { ICP_CANISTER_ID } from '@/constants/icp';
 import { DaoAssociationInitArgs } from '../../../declarations/dao_agency/dao_agency.did.js';
 import { Principal } from "@dfinity/principal";
+import { useAuthentication } from "@/providers/AuthenticationProvider.js";
 
 export const CreateDaoPage = () => {
+    const { identity } = useAuthentication();
     const navigate = useNavigate();
 
     const onSubmit = async (dao: DaoAssociationInitArgs): Promise<Principal> => {
-        const daoAgencyService = new DaoAgencyService(ICP_CANISTER_ID.DAO_AGENCY);
+        const daoAgencyService = new DaoAgencyService(ICP_CANISTER_ID.DAO_AGENCY, identity);
 
         return daoAgencyService.createDaoAssociation(dao);
     }

@@ -20,9 +20,9 @@ export const useDao = () => {
 }
 
 export const DaoProvider = ({ children }: { children: ReactNode }) => {
-    const { userPrincipal } = useAuthentication();
+    const { userPrincipal, identity } = useAuthentication();
 
-    const daoDiscoveryService = new DaoDiscoveryService();
+    const daoDiscoveryService = new DaoDiscoveryService(identity);
 
     const exploreDaos = useQuery<Dao[]>({
         queryKey: ['exploreDaos'],
