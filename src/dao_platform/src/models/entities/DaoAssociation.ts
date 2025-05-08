@@ -54,7 +54,7 @@ export class DaoAssociation extends Dao {
             [],
             dto.board.map(p => Principal.fromText(p)),
             dto.members.map(p => Principal.fromText(p)),
-            new Date(dto.created_at)
+            new Date(Number(dto.created_at))
         );
     }
 }

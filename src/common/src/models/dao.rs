@@ -50,7 +50,7 @@ pub struct Dao {
     pub sogc_pubblications: Vec<u32>,
     pub board: Vec<String>,
     pub members: Vec<String>,
-    pub created_at: u32,
+    pub created_at: u64,
 }
 
 impl Dao {
@@ -67,7 +67,7 @@ impl Dao {
         purpose: String,
         board: Vec<String>,
         members: Vec<String>,
-        created_at: u32,
+        created_at: u64,
     ) -> Self {
         Self {
             name,

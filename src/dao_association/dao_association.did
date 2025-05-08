@@ -24,7 +24,7 @@ type DaoAssociation = record {
     sogc_pubblications: vec nat32;
     board: vec text;
     members: vec text;
-    created_at: nat32;
+    created_at: nat64;
 };
 
 service : {

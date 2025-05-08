@@ -19,7 +19,7 @@ pub struct DaoAssociationPresentation {
     pub sogc_pubblications: Vec<u32>,
     pub board: Vec<String>,
     pub members: Vec<String>,
-    pub created_at: u32,
+    pub created_at: u64,
 }
 
 impl DaoAssociationPresentation {
