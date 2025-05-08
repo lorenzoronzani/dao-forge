@@ -6,6 +6,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
 import { Dashboard } from './pages/Dashboard';
 import { paths } from './constants/paths';
 import { CreateDaoPage } from './pages/CreateDaoPage';
+import DaoDetailsPage from './pages/DaoDetailsPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: paths.DAOS_CREATE,
         element: <CreateDaoPage />
+      },
+      {
+        path: paths.DAOS_DETAILS,
+        element: <DaoDetailsPage />
       },
       {
         path: "*",

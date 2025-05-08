@@ -2,12 +2,15 @@ import { formatDate } from "@/utils/date";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dao, OrganizationStatus } from "@/models/entities/Dao";
+import { useNavigate } from "react-router";
 
 interface DaoCardProps {
     dao: Dao;
 }
 
 export const DaoCard = ({ dao }: DaoCardProps) => {
+    const navigate = useNavigate();
+
     const getStatusColor = (status: OrganizationStatus) => {
         switch (status) {
             case OrganizationStatus.Active:
@@ -27,7 +30,7 @@ export const DaoCard = ({ dao }: DaoCardProps) => {
                 <div className="flex justify-between items-start">
                     <div>
                         <CardTitle className="text-2xl font-bold">{dao.name}</CardTitle>
-                        <CardDescription className="mt-1 h-12 overflow-hidden">{dao.purpose}</CardDescription>
+                        <CardDescription className="mt-1 h-16 overflow-hidden text-ellipsis line-clamp-3">{dao.purpose}</CardDescription>
                     </div>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(dao.status)}`}>
                         {dao.status}
@@ -69,7 +72,7 @@ export const DaoCard = ({ dao }: DaoCardProps) => {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button variant="outline" className="w-full">View Details</Button>
+                <Button variant="outline" className="w-full" onClick={() => navigate(`/daos/${dao.principal.toText()}`)}>View Details</Button>
             </CardFooter>
         </Card>
     );

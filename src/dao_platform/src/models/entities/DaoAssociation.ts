@@ -6,6 +6,7 @@ import { candidToEnum } from "@/utils/enums";
 
 export class DaoAssociation extends Dao {
     constructor(
+        principal: Principal,
         name: string,
         address: string,
         zip: number,
@@ -22,6 +23,7 @@ export class DaoAssociation extends Dao {
         createdAt: Date
     ) {
         super(
+            principal,
             name,
             address,
             zip,
@@ -39,8 +41,9 @@ export class DaoAssociation extends Dao {
         );
     }
 
-    static fromDto(dto: DaoAssociationDto): DaoAssociation {
+    static fromDto(dto: DaoAssociationDto, principal: Principal): DaoAssociation {
         return new DaoAssociation(
+            principal,
             dto.name,
             dto.address,
             dto.zip,

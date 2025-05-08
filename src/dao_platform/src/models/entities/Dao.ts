@@ -14,6 +14,7 @@ export enum OrganizationStatus {
 }
 
 export class Dao {
+    principal: Principal;
     name: string;
     address: string;
     zip: number;
@@ -30,6 +31,7 @@ export class Dao {
     createdAt: Date;
 
     constructor(
+        principal: Principal,
         name: string,
         address: string,
         zip: number,
@@ -45,6 +47,7 @@ export class Dao {
         members: Principal[],
         createdAt: Date
     ) {
+        this.principal = principal;
         this.name = name;
         this.address = address;
         this.zip = zip;

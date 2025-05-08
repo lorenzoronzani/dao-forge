@@ -3,11 +3,13 @@ import { DaoDiscoveryService } from "@/services/daoDiscoveryService";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, ReactNode, useContext } from "react";
 import { useAuthentication } from "./AuthenticationProvider";
+import { Principal } from "@dfinity/principal";
 
 export type DaoContextState = {
     exploreDaos: Dao[];
     userDaos: Dao[];
     refreshData: () => void;
+    getDao: (daoPrincipal: Principal) => Dao;
 }
 
 export const DaoContext = createContext<DaoContextState>({} as DaoContextState)
@@ -40,8 +42,26 @@ export const DaoProvider = ({ children }: { children: ReactNode }) => {
         userDaos.refetch();
     }
 
+    const findDaoByPrincipal = (daos: Dao[], principal: Principal): Dao | undefined => {
+        return daos.filter((dao) => dao.principal.toText() === principal.toText())[0];
+    }
+
+    const getDao = (daoPrincipal: Principal): Dao => {
+        let dao = findDaoByPrincipal(userDaos.data || [], daoPrincipal);
+
+        if (!dao) {
+            dao = findDaoByPrincipal(exploreDaos.data || [], daoPrincipal);
+        }
+
+        if (!dao) {
+            throw new Error("Dao not found");
+        }
+
+        return dao;
+    }
+
     return (
-        <DaoContext.Provider value={{ exploreDaos: exploreDaos.data || [], userDaos: userDaos.data || [], refreshData }}>
+        <DaoContext.Provider value={{ exploreDaos: exploreDaos.data || [], userDaos: userDaos.data || [], refreshData, getDao }}>
             {children}
         </DaoContext.Provider>
     )

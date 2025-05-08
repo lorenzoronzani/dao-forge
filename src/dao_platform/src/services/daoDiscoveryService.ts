@@ -21,19 +21,25 @@ export class DaoDiscoveryService {
         });
     }
 
+    async getDaos(daosPrincipals: Principal[]): Promise<Dao[]> {
+        const daos = await Promise.all(daosPrincipals.map(async principal => {
+            const dto = await new DaoAssociationService(principal, this._identity).getData()
+
+            return DaoAssociation.fromDto(dto, principal);
+        }));
+
+        return daos;
+    }
+
     async getRandomDaos(count: number = 6): Promise<Dao[]> {
         const daosPrincipals = await this._actor.get_random_daos([count]);
 
-        const daos = await Promise.all(daosPrincipals.map(principal => new DaoAssociationService(principal, this._identity).getData()));
-
-        return daos.map(dao => DaoAssociation.fromDto(dao));
+        return this.getDaos(daosPrincipals);
     }
 
     async getUserDaos(user?: Principal): Promise<Dao[]> {
         const daosPrincipals = await this._actor.get_user_daos(user ? [user] : []);
 
-        const daos = await Promise.all(daosPrincipals.map(principal => new DaoAssociationService(principal, this._identity).getData()));
-
-        return daos.map(dao => DaoAssociation.fromDto(dao));
+        return this.getDaos(daosPrincipals);
     }
 }
