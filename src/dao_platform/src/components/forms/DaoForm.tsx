@@ -7,7 +7,6 @@ import { LocationInfoCard } from '../cards/LocationInfoCard';
 import { MembersInfoCard } from '../cards/MembersInfoCard';
 import { Principal } from '@dfinity/principal';
 import { DaoAssociationInitArgs } from '../../../../declarations/dao_agency/dao_agency.did.js'
-import { toast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
 type DaoFormProps = {
@@ -84,11 +83,6 @@ export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
 
       onCancel();
     } catch (error) {
-      toast({
-        title: "Error!",
-        description: "An error occurred while creating the DAO.",
-        duration: 2000,
-      });
       console.error(error);
     } finally {
       setIsSubmitting(false);

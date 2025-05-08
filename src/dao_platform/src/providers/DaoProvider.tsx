@@ -7,6 +7,7 @@ import { useAuthentication } from "./AuthenticationProvider";
 export type DaoContextState = {
     exploreDaos: Dao[];
     userDaos: Dao[];
+    refreshData: () => void;
 }
 
 export const DaoContext = createContext<DaoContextState>({} as DaoContextState)
@@ -34,8 +35,13 @@ export const DaoProvider = ({ children }: { children: ReactNode }) => {
         queryFn: () => daoDiscoveryService.getUserDaos(userPrincipal)
     });
 
+    const refreshData = () => {
+        exploreDaos.refetch();
+        userDaos.refetch();
+    }
+
     return (
-        <DaoContext.Provider value={{ exploreDaos: exploreDaos.data || [], userDaos: userDaos.data || [] }}>
+        <DaoContext.Provider value={{ exploreDaos: exploreDaos.data || [], userDaos: userDaos.data || [], refreshData }}>
             {children}
         </DaoContext.Provider>
     )

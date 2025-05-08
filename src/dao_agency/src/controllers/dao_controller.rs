@@ -4,11 +4,12 @@ use candid::{encode_args, Principal};
 use ic_cdk::{caller, id};
 
 #[ic_cdk::update]
-async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Principal, String> {
+async fn create_dao_association(mut params: DaoAssociationInitArgs) -> Result<Principal, String> {
     let wasm =
         include_bytes!("../../../../target/wasm32-unknown-unknown/release/dao_association.wasm")
             .to_vec();
 
+    params.board.push(caller());
     let encoded_args = encode_args((params.clone(),)).unwrap();
 
     let canister_id =
