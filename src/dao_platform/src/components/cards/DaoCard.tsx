@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dao, OrganizationStatus } from "@/models/entities/Dao";
 import { useNavigate } from "react-router";
+import { DaoStatusBadge } from "../badge/DaoStatusBadge";
 
 interface DaoCardProps {
     dao: Dao;
@@ -10,19 +11,6 @@ interface DaoCardProps {
 
 export const DaoCard = ({ dao }: DaoCardProps) => {
     const navigate = useNavigate();
-
-    const getStatusColor = (status: OrganizationStatus) => {
-        switch (status) {
-            case OrganizationStatus.Active:
-                return "text-green-600 bg-green-50";
-            case OrganizationStatus.Liquidation:
-                return "text-yellow-600 bg-yellow-50";
-            case OrganizationStatus.Dissolved:
-                return "text-red-600 bg-red-50";
-            default:
-                return "text-gray-600 bg-gray-50";
-        }
-    };
 
     return (
         <Card className="h-full flex flex-col">
@@ -32,9 +20,7 @@ export const DaoCard = ({ dao }: DaoCardProps) => {
                         <CardTitle className="text-2xl font-bold">{dao.name}</CardTitle>
                         <CardDescription className="mt-1 h-16 overflow-hidden text-ellipsis line-clamp-3">{dao.purpose}</CardDescription>
                     </div>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(dao.status)}`}>
-                        {dao.status}
-                    </span>
+                    <DaoStatusBadge status={dao.status} />
                 </div>
             </CardHeader>
             <CardContent>
