@@ -15,13 +15,15 @@ export abstract class PdfService {
     private static setFieldValue(form: PDFForm, data: PdfFormFillData) {
         switch (data.type) {
             case PdfFormFieldType.TEXT:
-                form.getTextField(data.name).setText(data.value as string);
+                const field = form.getTextField(data.name);
+                field.setText(data.value as string);
                 break;
             case PdfFormFieldType.CHECKBOX:
+                const checkbox = form.getCheckBox(data.name);
                 if (data.value) {
-                    form.getCheckBox(data.name).check();
+                    checkbox.check();
                 } else {
-                    form.getCheckBox(data.name).uncheck();
+                    checkbox.uncheck();
                 }
                 break;
         }

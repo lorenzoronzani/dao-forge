@@ -16,7 +16,7 @@ import { ASSOCIATION_NOTIFICATION_FORM } from "@/constants/pdf/association-form.
 import { formatDate } from "@/utils/date.js";
 
 export const CreateDaoPage = () => {
-    const { identity } = useAuthentication();
+    const { identity, userPrincipal } = useAuthentication();
     const navigate = useNavigate();
     const { refreshData } = useDao();
 
@@ -58,7 +58,7 @@ export const CreateDaoPage = () => {
             {
                 type: PdfFormFieldType.TEXT,
                 name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.SENDER.FULL_NAME,
-                value: "Lorenzo Ronzani"
+                value: formData.userFirstName + " " + formData.userLastName
             },
             {
                 type: PdfFormFieldType.TEXT,
@@ -68,22 +68,22 @@ export const CreateDaoPage = () => {
             {
                 type: PdfFormFieldType.TEXT,
                 name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.SENDER.ADDRESS,
-                value: "123 Main St"
+                value: formData.userAddress
             },
             {
                 type: PdfFormFieldType.TEXT,
                 name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.SENDER.ZIP_CODE_AND_LOCALITY,
-                value: "123456"
+                value: formData.userZip.toString()
             },
             {
                 type: PdfFormFieldType.TEXT,
                 name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.SENDER.PHONE,
-                value: "1234567890"
+                value: formData.userPhone
             },
             {
                 type: PdfFormFieldType.TEXT,
                 name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.SENDER.EMAIL,
-                value: "lorenzo.ronzani@dao-forge.com"
+                value: formData.userEmail
             },
             {
                 type: PdfFormFieldType.TEXT,
@@ -168,7 +168,7 @@ export const CreateDaoPage = () => {
                         Fill in the details to create your new decentralized autonomous organization.
                     </p>
 
-                    <DaoForm onSubmit={onSubmit} onCancel={() => navigate(-1)} />
+                    <DaoForm onSubmit={onSubmit} onCancel={() => navigate(-1)} userPrincipal={userPrincipal} />
                 </div>
             </MainContainer>
         </>

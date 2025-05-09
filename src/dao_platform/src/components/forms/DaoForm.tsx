@@ -7,13 +7,22 @@ import { LocationInfoCard } from '../cards/LocationInfoCard';
 import { MembersInfoCard } from '../cards/MembersInfoCard';
 import { Principal } from '@dfinity/principal';
 import { Loader2 } from 'lucide-react';
+import { PersonalInfoCard } from '../cards/PersonalInfoCard';
 
 type DaoFormProps = {
   onSubmit: (formData: DaoFormData) => Promise<Principal>;
   onCancel: () => void;
+  userPrincipal: Principal;
 }
 
 export type DaoFormData = {
+  userFirstName: string;
+  userLastName: string;
+  userAddress: string;
+  userTown: string;
+  userZip: number;
+  userPhone: string;
+  userEmail: string;
   name: string;
   address: string;
   zip: number;
@@ -24,15 +33,22 @@ export type DaoFormData = {
   members: string[];
 }
 
-export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
+export const DaoForm = ({ onSubmit, onCancel, userPrincipal }: DaoFormProps) => {
   const [formData, setFormData] = useState<DaoFormData>({
+    userFirstName: '',
+    userLastName: '',
+    userAddress: '',
+    userTown: '',
+    userZip: 0,
+    userPhone: '',
+    userEmail: '',
     name: '',
     address: '',
     zip: 0,
     town: '',
     legalForm: LegalForm.Association,
     purpose: '',
-    boardMembers: [],
+    boardMembers: [userPrincipal.toText()],
     members: []
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,6 +62,13 @@ export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
 
   const clearForm = () => {
     setFormData({
+      userFirstName: '',
+      userLastName: '',
+      userAddress: '',
+      userTown: '',
+      userZip: 0,
+      userPhone: '',
+      userEmail: '',
       name: '',
       address: '',
       zip: 0,
@@ -77,6 +100,8 @@ export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      <PersonalInfoCard userFirstName={formData.userFirstName} userLastName={formData.userLastName} userAddress={formData.userAddress} userTown={formData.userTown} userZip={formData.userZip} userPhone={formData.userPhone} userEmail={formData.userEmail} onValueChange={onValueChange} />
+
       <BasicInfoCard name={formData.name} purpose={formData.purpose} legalForm={formData.legalForm} onValueChange={onValueChange} />
 
       <LocationInfoCard address={formData.address} town={formData.town} zip={formData.zip} onValueChange={onValueChange} />
