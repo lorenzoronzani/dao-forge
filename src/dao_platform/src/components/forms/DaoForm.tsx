@@ -6,15 +6,14 @@ import { HorizontalActionContainer } from '@/layouts/HorizontalActionContainer';
 import { LocationInfoCard } from '../cards/LocationInfoCard';
 import { MembersInfoCard } from '../cards/MembersInfoCard';
 import { Principal } from '@dfinity/principal';
-import { DaoAssociationInitArgs } from '../../../../declarations/dao_agency/dao_agency.did.js'
 import { Loader2 } from 'lucide-react';
 
 type DaoFormProps = {
-  onSubmit: (dao: DaoAssociationInitArgs) => Promise<Principal>;
+  onSubmit: (formData: DaoFormData) => Promise<Principal>;
   onCancel: () => void;
 }
 
-type FormData = {
+export type DaoFormData = {
   name: string;
   address: string;
   zip: number;
@@ -26,7 +25,7 @@ type FormData = {
 }
 
 export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<DaoFormData>({
     name: '',
     address: '',
     zip: 0,
@@ -61,23 +60,10 @@ export const DaoForm = ({ onSubmit, onCancel }: DaoFormProps) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const data: DaoAssociationInitArgs = {
-      name: formData.name,
-      address: formData.address,
-      zip: formData.zip,
-      town: formData.town,
-      uid: `CHE-${Math.floor(Math.random() * 1000)}.${Math.floor(Math.random() * 1000)}.${Math.floor(Math.random() * 1000)}`,
-      ch_id: `CH${Math.floor(Math.random() * 10000000000)}`,
-      frc_id: Math.floor(Math.random() * 100000),
-      purpose: formData.purpose,
-      board: formData.boardMembers.map(b => Principal.fromText(b)),
-      members: formData.members.map(m => Principal.fromText(m))
-    };
-
     try {
       setIsSubmitting(true);
 
-      await onSubmit(data);
+      await onSubmit(formData);
 
       clearForm();
 
