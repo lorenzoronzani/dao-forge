@@ -205,6 +205,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "documents_storage"
+version = "0.1.0"
+dependencies = [
+ "candid",
+ "common",
+ "ic-cdk",
+ "ic-cdk-timers",
+ "ic-stable-structures",
+ "serde",
+]
+
+[[package]]
 name = "either"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

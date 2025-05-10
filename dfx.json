@@ -25,6 +25,12 @@
       "package": "dao_discovery",
       "type": "rust"
     },
+    "documents_storage": {
+      "specified_id": "ucwa4-rx777-77774-qaada-cai",
+      "candid": "src/documents_storage/documents_storage.did",
+      "package": "documents_storage",
+      "type": "rust"
+    },
     "dao_platform": {
       "specified_id": "umunu-kh777-77774-qaaca-cai",
       "dependencies": [

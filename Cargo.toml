@@ -3,7 +3,8 @@ members = ["src/common",
     "src/dao_association",
     "src/dao_agency",
     "src/dao_discovery",
-    "src/dao_sogc_pubblication"]
+    "src/dao_sogc_pubblication",
+    "src/documents_storage"]
 resolver = "2"
 
 [workspace.dependencies]
