@@ -132,6 +132,11 @@ export const CreateDaoPage = () => {
             },
             {
                 type: PdfFormFieldType.TEXT,
+                name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.RESPONSIBILITY.HOW,
+                value: ''
+            },
+            {
+                type: PdfFormFieldType.TEXT,
                 name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.PEOPLE_TO_ENROLL.NUMBER,
                 value: formData.boardMembers.length.toString()
             },
