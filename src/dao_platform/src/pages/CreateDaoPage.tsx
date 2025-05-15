@@ -15,7 +15,8 @@ import { DaoFormData } from '@/components/forms/DaoForm';
 import { ASSOCIATION_NOTIFICATION_FORM } from "@/constants/pdf/association-form.js";
 import { formatDate } from "@/utils/date.js";
 import { DocumentsStorageService } from "@/services/documentsStorageService.js";
-import { DocumentArgs, Document } from "declarations/documents_storage/documents_storage.did.js";
+import { DocumentArgs } from "declarations/documents_storage/documents_storage.did.js";
+import { Document } from "@/models/entities/Document";
 
 export const CreateDaoPage = () => {
     const { identity, userPrincipal } = useAuthentication();
