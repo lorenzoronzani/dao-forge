@@ -7,10 +7,12 @@ import { Dao } from "@/models/entities/Dao";
 import { DaoAssociation } from "@/models/entities/DaoAssociation";
 import { ICP_CANISTER_ID } from "@/constants/icp";
 import { Identity } from "@dfinity/agent";
+import { DocumentsStorageService } from "./documentsStorageService";
 
 export class DaoDiscoveryService {
     private _actor: ActorSubclass<_SERVICE>;
     private _identity: Identity;
+    private _documentsStorageService: DocumentsStorageService;
 
     constructor(identity: Identity) {
         this._identity = identity;
@@ -19,13 +21,16 @@ export class DaoDiscoveryService {
                 identity
             }
         });
+        this._documentsStorageService = new DocumentsStorageService(ICP_CANISTER_ID.DOCUMENTS_STORAGE, identity);
     }
 
     async getDaos(daosPrincipals: Principal[]): Promise<Dao[]> {
         const daos = await Promise.all(daosPrincipals.map(async principal => {
             const dto = await new DaoAssociationService(principal, this._identity).getData()
 
-            return DaoAssociation.fromDto(dto, principal);
+            const documents = await Promise.all(Array.from(dto.documents).map(async documentId => await this._documentsStorageService.getDocument(documentId)));
+
+            return DaoAssociation.fromDto(dto, principal, documents);
         }));
 
         return daos;

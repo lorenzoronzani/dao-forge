@@ -14,4 +14,5 @@ pub struct DaoAssociationInitArgs {
     pub purpose: String,
     pub board: Vec<Principal>,
     pub members: Vec<Principal>,
+    pub documents: Vec<u32>,
 }

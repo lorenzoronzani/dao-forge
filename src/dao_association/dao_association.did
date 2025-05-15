@@ -25,6 +25,7 @@ type DaoAssociation = record {
     board: vec text;
     members: vec text;
     created_at: nat64;
+    documents: vec nat32;
 };
 
 service : {

@@ -3,6 +3,7 @@ import { Dao, LegalForm, OrganizationStatus } from "@/models/entities/Dao";
 import { SogcPubblication } from "@/models/entities/SogcPubblication";
 import { DaoAssociation as DaoAssociationDto } from "declarations/dao_association/dao_association.did.d.js";
 import { candidToEnum } from "@/utils/enums";
+import { Document } from "@/models/entities/Document";
 
 export class DaoAssociation extends Dao {
     constructor(
@@ -20,7 +21,8 @@ export class DaoAssociation extends Dao {
         sogcPubblications: SogcPubblication[],
         board: Principal[],
         members: Principal[],
-        createdAt: Date
+        createdAt: Date,
+        documents: Document[]
     ) {
         super(
             principal,
@@ -37,11 +39,12 @@ export class DaoAssociation extends Dao {
             sogcPubblications,
             board,
             members,
-            createdAt
+            createdAt,
+            documents
         );
     }
 
-    static fromDto(dto: DaoAssociationDto, principal: Principal): DaoAssociation {
+    static fromDto(dto: DaoAssociationDto, principal: Principal, documents: Document[]): DaoAssociation {
         return new DaoAssociation(
             principal,
             dto.name,
@@ -57,7 +60,8 @@ export class DaoAssociation extends Dao {
             [],
             dto.board.map(p => Principal.fromText(p)),
             dto.members.map(p => Principal.fromText(p)),
-            new Date(Number(dto.created_at))
+            new Date(Number(dto.created_at)),
+            documents
         );
     }
 }

@@ -1,5 +1,4 @@
 import { OrganizationStatus } from "@/models/entities/Dao";
-import { Badge } from "../ui/badge";
 
 interface DaoStatusBadgeProps {
     status: OrganizationStatus;

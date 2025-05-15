@@ -67,4 +67,19 @@ export abstract class PdfService {
 
         window.open(url, '_blank');
     }
+
+    static async downloadPdf(name: string, pdfBytes: Uint8Array) {
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+    }
 }

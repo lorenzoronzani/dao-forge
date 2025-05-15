@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Users, File, Calendar, Building, MapPin, FileText, ExternalLink } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import TopBar from '@/components/headers/TopBar';
 import { MainContainer } from '@/layouts/MainContainer';
 import { BackButton } from '@/components/buttons/BackButton';
@@ -54,7 +49,7 @@ export const DaoDetailsPage = () => {
                     </TabsContent>
 
                     <TabsContent value="documents">
-                        <DocumentsView />
+                        <DocumentsView documents={dao.documents}/>
                     </TabsContent>
                 </Tabs>
             </MainContainer>

@@ -14,13 +14,15 @@ import { PdfFormFieldType, PdfFormFillData, PdfService } from "@/services/pdfSer
 import { DaoFormData } from '@/components/forms/DaoForm';
 import { ASSOCIATION_NOTIFICATION_FORM } from "@/constants/pdf/association-form.js";
 import { formatDate } from "@/utils/date.js";
+import { DocumentsStorageService } from "@/services/documentsStorageService.js";
+import { DocumentArgs, Document } from "declarations/documents_storage/documents_storage.did.js";
 
 export const CreateDaoPage = () => {
     const { identity, userPrincipal } = useAuthentication();
     const navigate = useNavigate();
     const { refreshData } = useDao();
 
-    const onSubmitAssociation = async (formData: DaoFormData): Promise<Principal> => {
+    const onSubmitAssociation = async (formData: DaoFormData, documentsIds: number[]): Promise<Principal> => {
         const daoAgencyService = new DaoAgencyService(ICP_CANISTER_ID.DAO_AGENCY, identity);
 
         const daoAssociationInitArgs: DaoAssociationInitArgs = {
@@ -33,7 +35,8 @@ export const CreateDaoPage = () => {
             frc_id: Math.floor(Math.random() * 100000),
             purpose: formData.purpose,
             board: formData.boardMembers.map(b => Principal.fromText(b)),
-            members: formData.members.map(m => Principal.fromText(m))
+            members: formData.members.map(m => Principal.fromText(m)),
+            documents: documentsIds
         };
 
         try {
@@ -53,7 +56,7 @@ export const CreateDaoPage = () => {
         }
     }
 
-    const onSubmitPdfGeneration = async (formData: DaoFormData): Promise<void> => {
+    const onSubmitPdfGeneration = async (formData: DaoFormData): Promise<Document> => {
         const data: PdfFormFillData[] = [
             {
                 type: PdfFormFieldType.TEXT,
@@ -149,13 +152,22 @@ export const CreateDaoPage = () => {
 
         const pdfBytes = await PdfService.fill(ASSOCIATION_NOTIFICATION_FORM.TEMPLATE_URL, data);
 
-        PdfService.openPdf(pdfBytes);
+        const documentStorageService = new DocumentsStorageService(ICP_CANISTER_ID.DOCUMENTS_STORAGE, identity);
+
+        const documentArgs: DocumentArgs = {
+            content: pdfBytes,
+            name: 'association-notification.pdf',
+            content_type: 'application/pdf'
+        };
+
+        return documentStorageService.uploadDocument(documentArgs);
     }
 
     const onSubmit = async (formData: DaoFormData): Promise<Principal> => {
-        const principal = await onSubmitAssociation(formData);
+        const document = await onSubmitPdfGeneration(formData);
+        const documentsIds = [document.id];
 
-        await onSubmitPdfGeneration(formData);
+        const principal = await onSubmitAssociation(formData, documentsIds);
 
         return principal;
     }

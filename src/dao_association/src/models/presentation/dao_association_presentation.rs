@@ -20,6 +20,7 @@ pub struct DaoAssociationPresentation {
     pub board: Vec<String>,
     pub members: Vec<String>,
     pub created_at: u64,
+    pub documents: Vec<u32>,
 }
 
 impl DaoAssociationPresentation {
@@ -39,6 +40,7 @@ impl DaoAssociationPresentation {
             board: dao_association.parent.board,
             members: dao_association.parent.members,
             created_at: dao_association.parent.created_at,
+            documents: dao_association.parent.documents,
         }
     }
 }

@@ -19,6 +19,7 @@ async fn canister_init(args: DaoArgs) {
         args.board.iter().map(|m| m.to_string()).collect(),
         args.members.iter().map(|m| m.to_string()).collect(),
         Date::nanoseconds_to_milliseconds(time()),
+        args.documents,
     );
 
     DaoAssociationService::save(dao_association);

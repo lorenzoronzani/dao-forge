@@ -9,6 +9,7 @@ type DaoAssociationInitArgs = record {
     purpose: text;
     board: vec principal;
     members: vec principal;
+    documents: vec nat32;
 };
 
 service : {

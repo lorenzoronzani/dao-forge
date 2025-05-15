@@ -12,4 +12,5 @@ pub struct DaoArgs {
     pub purpose: String,
     pub board: Vec<Principal>,
     pub members: Vec<Principal>,
+    pub documents: Vec<u32>,
 }
