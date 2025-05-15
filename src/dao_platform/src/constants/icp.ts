@@ -1,9 +1,10 @@
 export const ICP = {
-    NETWORK: import.meta.env.VITE_DFX_NETWORK
+    NETWORK: process.env.DFX_NETWORK || ''
 }
 
 export const ICP_CANISTER_ID = {
-    INTERNET_IDENTITY: import.meta.env.VITE_INTERNET_IDENTITY_CANISTER_ID,
-    DAO_AGENCY: import.meta.env.VITE_DAO_AGENCY_CANISTER_ID,
-    DAO_DISCOVERY: import.meta.env.VITE_DAO_DISCOVERY_CANISTER_ID
+    INTERNET_IDENTITY: process.env.CANISTER_ID_INTERNET_IDENTITY || '',
+    DAO_AGENCY: process.env.CANISTER_ID_DAO_AGENCY || '',
+    DAO_DISCOVERY: process.env.CANISTER_ID_DAO_DISCOVERY || '',
+    DOCUMENTS_STORAGE: process.env.CANISTER_ID_DOCUMENTS_STORAGE || '',
 };
