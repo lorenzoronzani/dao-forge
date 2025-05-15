@@ -1,0 +1,33 @@
+type LegalForm = variant {
+    Corporation: null;
+    LimitedLiabilityCompany: null;
+    Association: null;
+};
+
+type OrganizationStatus = variant {
+    Active: null;
+    Liquidation: null;
+    Dissolved: null;
+};
+
+type DaoAssociation = record {
+    name : text;
+    address : text;
+    zip : nat32;
+    town : text;
+    legal_form : LegalForm;
+    status : OrganizationStatus;
+    uid: text;
+    ch_id: text;
+    frc_id: nat32;
+    purpose: text;
+    sogc_pubblications: vec nat32;
+    board: vec text;
+    members: vec text;
+    created_at: nat64;
+    documents: vec nat32;
+};
+
+service : {
+    "get_information": () -> (DaoAssociation) query;
+}

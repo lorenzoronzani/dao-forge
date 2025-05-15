@@ -1,0 +1,19 @@
+type DocumentArgs = record {
+    name : text;
+    content_type : text;
+    content : vec nat8;
+};
+
+type Document = record {
+    id: nat32;
+    name : text;
+    content_type : text;
+    owner: principal;
+    content : vec nat8;
+    updated_at: nat64;
+}
+
+service : {
+    "store_document" : (DocumentArgs) -> (Document);
+    "get_document" : (nat32) -> (Document);
+}

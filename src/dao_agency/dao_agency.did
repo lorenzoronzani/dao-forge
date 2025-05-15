@@ -1,0 +1,17 @@
+type DaoAssociationInitArgs = record {
+    name : text;
+    address : text;
+    zip : nat32;
+    town : text;
+    uid: text;
+    ch_id: text;
+    frc_id: nat32;
+    purpose: text;
+    board: vec principal;
+    members: vec principal;
+    documents: vec nat32;
+};
+
+service : {
+    "create_dao_association" : (DaoAssociationInitArgs) -> (variant { Ok: principal; Err: text });
+}

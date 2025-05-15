@@ -1,0 +1,1 @@
+mod sogc_pubblication_controller;

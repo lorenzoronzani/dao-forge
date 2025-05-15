@@ -1,5 +1,15 @@
 [workspace]
-members = [
-    "src/dao-forge-backend"
-]
+members = ["src/common",
+    "src/dao_association",
+    "src/dao_agency",
+    "src/dao_discovery",
+    "src/dao_sogc_pubblication",
+    "src/documents_storage"]
 resolver = "2"
+
+[workspace.dependencies]
+candid = "0.10"
+serde = { version = "1.0", features = ["derive"] }
+ic-cdk = "0.17.1"
+ic-cdk-timers = "0.11.0"
+ic-stable-structures = "0.6"
