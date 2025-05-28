@@ -2,37 +2,43 @@
   "dfx": "0.26.0",
   "canisters": {
     "dao_association": {
-      "specified_id": "u6s2n-gx777-77774-qaaba-cai",
+      "specified_id": "vcl2o-aaaaa-aaaaa-aaaaq-aza",
       "candid": "src/dao_association/dao_association.did",
       "package": "dao_association",
       "type": "rust"
     },
     "dao_agency": {
-      "specified_id": "uxrrr-q7777-77774-qaaaq-cai",
+      "specified_id": "36ijp-fqaaa-aaaaa-aaaaq-azi",
       "candid": "src/dao_agency/dao_agency.did",
       "package": "dao_agency",
       "type": "rust"
     },
     "dao_sogc_pubblication": {
-      "specified_id": "ulvla-h7777-77774-qaacq-cai",
+      "specified_id": "i2m4m-laaaa-aaaaa-aaaaq-azq",
       "candid": "src/dao_sogc_pubblication/dao_sogc_pubblication.did",
       "package": "dao_sogc_pubblication",
       "type": "rust"
     },
     "dao_discovery": {
-      "specified_id": "uzt4z-lp777-77774-qaabq-cai",
+      "specified_id": "ggppn-oqaaa-aaaaa-aaaaq-azy",
       "candid": "src/dao_discovery/dao_discovery.did",
       "package": "dao_discovery",
       "type": "rust"
     },
     "documents_storage": {
-      "specified_id": "ucwa4-rx777-77774-qaada-cai",
+      "specified_id": "ueq6w-kyaaa-aaaaa-aaaaq-a2a",
       "candid": "src/documents_storage/documents_storage.did",
       "package": "documents_storage",
       "type": "rust"
     },
+    "voting": {
+      "specified_id": "2ytnx-piaaa-aaaaa-aaaaq-a2i",
+      "candid": "src/voting/voting.did",
+      "package": "voting",
+      "type": "rust"
+    },
     "dao_platform": {
-      "specified_id": "umunu-kh777-77774-qaaca-cai",
+      "specified_id": "j4xyu-byaaa-aaaaa-aaaaq-a2q",
       "dependencies": [
         "dao_agency"
       ],

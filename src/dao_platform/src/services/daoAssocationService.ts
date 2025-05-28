@@ -1,9 +1,10 @@
 import { ActorSubclass } from "@dfinity/agent";
-import { createActor } from "../../../declarations/dao_association";
-import { _SERVICE } from "../../../declarations/dao_association/dao_association.did.d.js";
-import { DaoAssociation } from "../../../declarations/dao_association/dao_association.did.d.js";
+import { createActor } from "declarations/dao_association";
+import { _SERVICE } from "declarations/dao_association/dao_association.did.d.js";
+import { DaoAssociation as DaoAssociationDto } from "declarations/dao_association/dao_association.did.d.js";
 import { Principal } from "@dfinity/principal";
 import { Identity } from "@dfinity/agent";
+import { CanisterAnalyzerService, MethodSignature } from "./canisterAnalyzerService";
 
 export class DaoAssociationService {
     private _actor: ActorSubclass<_SERVICE>;
@@ -16,7 +17,15 @@ export class DaoAssociationService {
         });
     }
 
-    async getData(): Promise<DaoAssociation> {
+    async addPool(poolId: number): Promise<DaoAssociationDto> {
+        return this._actor.add_pool(poolId);
+    }
+
+    async getData(): Promise<DaoAssociationDto> {
         return this._actor.get_information();
+    }
+
+    getMethods(): MethodSignature[] {
+        return CanisterAnalyzerService.extractMethods(this._actor);
     }
 }

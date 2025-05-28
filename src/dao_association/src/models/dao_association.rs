@@ -25,6 +25,7 @@ impl DaoAssociation {
         members: Vec<String>,
         created_at: u64,
         documents: Vec<u32>,
+        pools: Vec<u32>,
     ) -> Self {
         Self {
             parent: Dao::new(
@@ -42,6 +43,7 @@ impl DaoAssociation {
                 members,
                 created_at,
                 documents,
+                pools,
             ),
         }
     }

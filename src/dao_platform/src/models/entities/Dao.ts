@@ -1,6 +1,7 @@
 import { Principal } from "@dfinity/principal";
 import { SogcPubblication } from "@/models/entities/SogcPubblication";
 import { Document } from "@/models/entities/Document";
+import { Voting } from "./Voting";
 
 export enum LegalForm {
     Corporation = 'Corporation',
@@ -31,6 +32,7 @@ export class Dao {
     members: Principal[];
     createdAt: Date;
     documents: Document[];
+    pools: Voting[];
 
     constructor(
         principal: Principal,
@@ -48,7 +50,8 @@ export class Dao {
         board: Principal[],
         members: Principal[],
         createdAt: Date,
-        documents: Document[]
+        documents: Document[],
+        pools: Voting[]
     ) {
         this.principal = principal;
         this.name = name;
@@ -66,5 +69,6 @@ export class Dao {
         this.members = members;
         this.createdAt = createdAt;
         this.documents = documents;
+        this.pools = pools;
     }
 }
