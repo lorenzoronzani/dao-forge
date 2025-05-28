@@ -1,0 +1,45 @@
+type VotingState = variant {
+    Open: null;
+    Closed: null;
+};
+
+type Action = record {
+    canister_id : principal;
+    method : text;
+    args : vec text;
+};
+    
+type VotingArgs = record {
+    title : text;
+    description : text;
+    options : vec record { text; opt Action; };
+    end_at : nat64;
+    dao_id : principal;
+    approval_threshold : nat32;
+    quorum : nat32;
+    voters_whitelist : vec principal;
+};
+
+type Voting = record {
+    id: nat32;
+    title : text;
+    description : text;
+    options : vec record { text; opt Action; };
+    result : vec record { text; nat32; };
+    owner : principal;
+    created_at : nat64;
+    end_at : nat64;
+    state : VotingState;
+    dao_id : principal;
+    updated_at : nat64;
+    approval_threshold : nat32;
+    quorum : nat32;
+    voters_whitelist : vec principal;
+    voters_cast : vec record { principal; text; };
+};
+
+service : {
+    "create_voting" : (VotingArgs) -> (Voting);
+    "get_voting" : (nat32) -> (Voting);
+    "vote" : (nat32, text) -> ();
+}

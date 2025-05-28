@@ -1,0 +1,3 @@
+export const VOTING_FORM = {
+    WINNING_OPTION: '{{WINNING_OPTION}}'
+}

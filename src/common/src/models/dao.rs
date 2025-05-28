@@ -52,6 +52,7 @@ pub struct Dao {
     pub members: Vec<String>,
     pub created_at: u64,
     pub documents: Vec<u32>,
+    pub pools: Vec<u32>,
 }
 
 impl Dao {
@@ -70,6 +71,7 @@ impl Dao {
         members: Vec<String>,
         created_at: u64,
         documents: Vec<u32>,
+        pools: Vec<u32>,
     ) -> Self {
         Self {
             name,
@@ -87,6 +89,7 @@ impl Dao {
             members,
             created_at,
             documents,
+            pools,
         }
     }
 }

@@ -8,11 +8,13 @@ import { DaoAssociation } from "@/models/entities/DaoAssociation";
 import { ICP_CANISTER_ID } from "@/constants/icp";
 import { Identity } from "@dfinity/agent";
 import { DocumentsStorageService } from "./documentsStorageService";
+import { VotingService } from "./votingService";
 
 export class DaoDiscoveryService {
     private _actor: ActorSubclass<_SERVICE>;
     private _identity: Identity;
     private _documentsStorageService: DocumentsStorageService;
+    private _votingService: VotingService;
 
     constructor(identity: Identity) {
         this._identity = identity;
@@ -22,6 +24,7 @@ export class DaoDiscoveryService {
             }
         });
         this._documentsStorageService = new DocumentsStorageService(ICP_CANISTER_ID.DOCUMENTS_STORAGE, identity);
+        this._votingService = new VotingService(ICP_CANISTER_ID.VOTING, identity);
     }
 
     async getDaos(daosPrincipals: Principal[]): Promise<Dao[]> {
@@ -30,7 +33,9 @@ export class DaoDiscoveryService {
 
             const documents = await Promise.all(Array.from(dto.documents).map(async documentId => await this._documentsStorageService.getDocument(documentId)));
 
-            return DaoAssociation.fromDto(dto, principal, documents);
+            const pools = await Promise.all(Array.from(dto.pools).map(async poolId => await this._votingService.getVoting(poolId)));
+
+            return DaoAssociation.fromDto(dto, principal, documents, pools);
         }));
 
         return daos;

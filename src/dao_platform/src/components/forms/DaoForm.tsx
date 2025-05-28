@@ -1,13 +1,13 @@
 import React, { FormEvent, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { LegalForm } from '@/models/entities/Dao';
-import { BasicInfoCard } from '../cards/BasicInfoCard';
+import { BasicInfoCard } from '../cards/dao_form/BasicInfoCard';
 import { HorizontalActionContainer } from '@/layouts/HorizontalActionContainer';
-import { LocationInfoCard } from '../cards/LocationInfoCard';
-import { MembersInfoCard } from '../cards/MembersInfoCard';
+import { LocationInfoCard } from '../cards/dao_form/LocationInfoCard';
+import { MembersInfoCard } from '../cards/dao_form/MembersInfoCard';
 import { Principal } from '@dfinity/principal';
 import { Loader2 } from 'lucide-react';
-import { PersonalInfoCard } from '../cards/PersonalInfoCard';
+import { PersonalInfoCard } from '../cards/dao_form/PersonalInfoCard';
 
 type DaoFormProps = {
   onSubmit: (formData: DaoFormData) => Promise<Principal>;

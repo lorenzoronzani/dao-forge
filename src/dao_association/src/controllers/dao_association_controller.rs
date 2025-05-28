@@ -1,10 +1,6 @@
 use crate::models::DaoAssociationPresentation;
-use crate::types::DaoArgs;
-use crate::{models::DaoAssociation, services::DaoAssociationService};
-use common::models::SogcPublication;
-use common::utils::Date;
-use ic_cdk::api::time;
-use ic_cdk::{println, query, update};
+use crate::services::DaoAssociationService;
+use ic_cdk::{query, update};
 
 #[query]
 fn get_information() -> DaoAssociationPresentation {
@@ -13,24 +9,35 @@ fn get_information() -> DaoAssociationPresentation {
     DaoAssociationPresentation::from(dao)
 }
 
-// #[update]
-// fn update_information(dao_args: DaoArgs, sogc_publication: SogcPublication) -> String {
-//     let mut dao_association = DaoAssociationService::get();
+#[update]
+fn add_pool(pool_id: u32) -> DaoAssociationPresentation {
+    let mut dao_association = DaoAssociationService::get();
 
-//     dao_association.parent.name = dao_args.name;
-//     dao_association.parent.address = dao_args.address;
-//     dao_association.parent.zip = dao_args.zip;
-//     dao_association.parent.town = dao_args.town;
-//     dao_association.parent.uid = dao_args.uid;
-//     dao_association.parent.ch_id = dao_args.ch_id;
-//     dao_association.parent.frc_id = dao_args.frc_id;
-//     dao_association.parent.purpose = dao_args.purpose;
-//     dao_association
-//         .parent
-//         .sogc_pubblications
-//         .push(sogc_publication);
-//     dao_association.parent.board = dao_args.board;
-//     dao_association.parent.members = dao_args.members;
+    dao_association.parent.pools.push(pool_id);
 
-//     format!("{:?}", DaoAssociationService::update(dao_association))
-// }
+    let dao = DaoAssociationService::update(dao_association);
+
+    DaoAssociationPresentation::from(dao)
+}
+
+#[update]
+fn update_name(name: String) -> DaoAssociationPresentation {
+    let mut dao_association = DaoAssociationService::get();
+
+    dao_association.parent.name = name;
+
+    let dao = DaoAssociationService::update(dao_association);
+
+    DaoAssociationPresentation::from(dao)
+}
+
+#[update]
+fn add_board_member(member_id: String) -> DaoAssociationPresentation {
+    let mut dao_association = DaoAssociationService::get();
+
+    dao_association.parent.board.push(member_id);
+
+    let dao = DaoAssociationService::update(dao_association);
+
+    DaoAssociationPresentation::from(dao)
+}

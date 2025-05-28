@@ -11,7 +11,7 @@ type Document = record {
     owner: principal;
     content : vec nat8;
     updated_at: nat64;
-}
+};
 
 service : {
     "store_document" : (DocumentArgs) -> (Document);

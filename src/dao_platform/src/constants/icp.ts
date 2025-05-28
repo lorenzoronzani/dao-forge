@@ -9,4 +9,5 @@ export const ICP_CANISTER_ID = {
     DAO_AGENCY: Principal.fromText(process.env.CANISTER_ID_DAO_AGENCY!),
     DAO_DISCOVERY: Principal.fromText(process.env.CANISTER_ID_DAO_DISCOVERY!),
     DOCUMENTS_STORAGE: Principal.fromText(process.env.CANISTER_ID_DOCUMENTS_STORAGE!),
+    VOTING: Principal.fromText(process.env.CANISTER_ID_VOTING!),
 };

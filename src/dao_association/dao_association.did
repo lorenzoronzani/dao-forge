@@ -26,8 +26,12 @@ type DaoAssociation = record {
     members: vec text;
     created_at: nat64;
     documents: vec nat32;
+    pools: vec nat32;
 };
 
 service : {
     "get_information": () -> (DaoAssociation) query;
+    "add_pool": (nat32) -> (DaoAssociation);
+    "update_name": (text) -> (DaoAssociation);
+    "add_board_member": (text) -> (DaoAssociation);
 }

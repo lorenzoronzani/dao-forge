@@ -41,7 +41,7 @@ export const DaoDetailsPage = () => {
                     </TabsContent>
 
                     <TabsContent value="votations">
-                        <VotationsView votations={[]} />
+                        <VotationsView dao={dao} />
                     </TabsContent>
 
                     <TabsContent value="publications">
@@ -49,7 +49,7 @@ export const DaoDetailsPage = () => {
                     </TabsContent>
 
                     <TabsContent value="documents">
-                        <DocumentsView documents={dao.documents}/>
+                        <DocumentsView documents={dao.documents} />
                     </TabsContent>
                 </Tabs>
             </MainContainer>

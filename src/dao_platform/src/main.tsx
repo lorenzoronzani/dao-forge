@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard';
 import { paths } from './constants/paths';
 import { CreateDaoPage } from './pages/CreateDaoPage';
 import DaoDetailsPage from './pages/DaoDetailsPage';
+import CreateVotingPage from './pages/CreateVotingPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: paths.DAOS_DETAILS,
         element: <DaoDetailsPage />
+      },
+      {
+        path: paths.VOTINGS_CREATE,
+        element: <CreateVotingPage />
       },
       {
         path: "*",

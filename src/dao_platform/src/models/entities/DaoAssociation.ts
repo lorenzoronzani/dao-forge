@@ -4,6 +4,7 @@ import { SogcPubblication } from "@/models/entities/SogcPubblication";
 import { DaoAssociation as DaoAssociationDto } from "declarations/dao_association/dao_association.did.d.js";
 import { candidToEnum } from "@/utils/enums";
 import { Document } from "@/models/entities/Document";
+import { Voting } from "./Voting";
 
 export class DaoAssociation extends Dao {
     constructor(
@@ -22,7 +23,8 @@ export class DaoAssociation extends Dao {
         board: Principal[],
         members: Principal[],
         createdAt: Date,
-        documents: Document[]
+        documents: Document[],
+        pools: Voting[]
     ) {
         super(
             principal,
@@ -40,11 +42,12 @@ export class DaoAssociation extends Dao {
             board,
             members,
             createdAt,
-            documents
+            documents,
+            pools
         );
     }
 
-    static fromDto(dto: DaoAssociationDto, principal: Principal, documents: Document[]): DaoAssociation {
+    static fromDto(dto: DaoAssociationDto, principal: Principal, documents: Document[], pools: Voting[]): DaoAssociation {
         return new DaoAssociation(
             principal,
             dto.name,
@@ -61,7 +64,8 @@ export class DaoAssociation extends Dao {
             dto.board.map(p => Principal.fromText(p)),
             dto.members.map(p => Principal.fromText(p)),
             new Date(Number(dto.created_at)),
-            documents
+            documents,
+            pools
         );
     }
 }

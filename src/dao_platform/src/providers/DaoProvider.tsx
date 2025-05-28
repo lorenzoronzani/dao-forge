@@ -29,12 +29,14 @@ export const DaoProvider = ({ children }: { children: ReactNode }) => {
 
     const exploreDaos = useQuery<Dao[]>({
         queryKey: ['exploreDaos'],
-        queryFn: () => daoDiscoveryService.getRandomDaos()
+        queryFn: () => daoDiscoveryService.getRandomDaos(),
+        refetchInterval: 60 * 1000,
     });
 
     const userDaos = useQuery<Dao[]>({
         queryKey: ['userDaos'],
-        queryFn: () => daoDiscoveryService.getUserDaos(userPrincipal)
+        queryFn: () => daoDiscoveryService.getUserDaos(userPrincipal),
+        refetchInterval: 60 * 1000,
     });
 
     const refreshData = () => {
