@@ -1,0 +1,27 @@
+type Mutation = variant {
+    ChangeOfAddress: null;
+    ChangeOfStatus: null;
+    ChangeOfCompany: null;
+    NewInscription: null;  
+};
+
+type SogcPublicationArgs = record {
+    daily_number: nat32;
+    publication_date: nat64;
+    mutations: vec Mutation;
+    description: text;
+};
+
+type SogcPublication = record {
+    sogc_id: nat32;
+    publication_sogc_date: nat64;
+    daily_number: nat32;
+    publication_date: nat64;
+    mutations: vec Mutation;
+    description: text;
+};
+
+service : {
+    "create_sogc_publication" : (SogcPublicationArgs) -> (nat32);
+    "get_sogc_publication" : (nat32) -> (SogcPublication) query;
+}

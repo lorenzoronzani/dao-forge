@@ -1,26 +1,27 @@
 use std::borrow::Cow;
 
 use candid::{CandidType, Decode, Encode};
+use common::types::Mutation;
 use ic_stable_structures::{storable::Bound, Storable};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, CandidType)]
 pub struct SogcPublication {
     pub sogc_id: u32,
-    pub publication_sogc_date: u32,
+    pub publication_sogc_date: u64,
     pub daily_number: u32,
-    pub publication_date: u32,
-    pub mutations: String,
+    pub publication_date: u64,
+    pub mutations: Vec<Mutation>,
     pub description: String,
 }
 
 impl SogcPublication {
     pub fn new(
         sogc_id: u32,
-        publication_sogc_date: u32,
+        publication_sogc_date: u64,
         daily_number: u32,
-        publication_date: u32,
-        mutations: String,
+        publication_date: u64,
+        mutations: Vec<Mutation>,
         description: String,
     ) -> Self {
         Self {

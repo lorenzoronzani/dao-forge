@@ -21,17 +21,6 @@ pub enum OrganizationStatus {
 
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
-pub struct SogcPublication {
-    pub sogc_id: u32,
-    pub publication_sogc_date: u32,
-    pub daily_number: u32,
-    pub publication_date: u32,
-    pub mutations: String,
-    pub description: String,
-}
-
-// FIXME: Think if the default implementation is the best approach
-#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub struct Dao {
     pub name: String,
     pub address: String,
@@ -47,7 +36,7 @@ pub struct Dao {
     pub frc_id: u32,
     pub purpose: String,
     // Swiss Official Gazette of Commerce Publications
-    pub sogc_pubblications: Vec<u32>,
+    pub sogc_publications: Vec<u32>,
     pub board: Vec<String>,
     pub members: Vec<String>,
     pub created_at: u64,
@@ -67,6 +56,7 @@ impl Dao {
         ch_id: String,
         frc_id: u32,
         purpose: String,
+        sogc_publications: Vec<u32>,
         board: Vec<String>,
         members: Vec<String>,
         created_at: u64,
@@ -84,7 +74,7 @@ impl Dao {
             ch_id,
             frc_id,
             purpose,
-            sogc_pubblications: Vec::new(),
+            sogc_publications,
             board,
             members,
             created_at,

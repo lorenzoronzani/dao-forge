@@ -45,7 +45,7 @@ export const DaoDetailsPage = () => {
                     </TabsContent>
 
                     <TabsContent value="publications">
-                        <PublicationsView />
+                        <PublicationsView sogcPublications={dao.sogcPublications} />
                     </TabsContent>
 
                     <TabsContent value="documents">

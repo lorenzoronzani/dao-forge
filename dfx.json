@@ -13,10 +13,10 @@
       "package": "dao_agency",
       "type": "rust"
     },
-    "dao_sogc_pubblication": {
+    "dao_sogc_publication": {
       "specified_id": "i2m4m-laaaa-aaaaa-aaaaq-azq",
-      "candid": "src/dao_sogc_pubblication/dao_sogc_pubblication.did",
-      "package": "dao_sogc_pubblication",
+      "candid": "src/dao_sogc_publication/dao_sogc_publication.did",
+      "package": "dao_sogc_publication",
       "type": "rust"
     },
     "dao_discovery": {

@@ -1,6 +1,6 @@
 import { Principal } from "@dfinity/principal";
 import { Dao, LegalForm, OrganizationStatus } from "@/models/entities/Dao";
-import { SogcPubblication } from "@/models/entities/SogcPubblication";
+import { SogcPublication } from "@/models/entities/SogcPublication";
 import { DaoAssociation as DaoAssociationDto } from "declarations/dao_association/dao_association.did.d.js";
 import { candidToEnum } from "@/utils/enums";
 import { Document } from "@/models/entities/Document";
@@ -19,7 +19,7 @@ export class DaoAssociation extends Dao {
         chId: string,
         frcId: number,
         purpose: string,
-        sogcPubblications: SogcPubblication[],
+        sogcPublications: SogcPublication[],
         board: Principal[],
         members: Principal[],
         createdAt: Date,
@@ -38,7 +38,7 @@ export class DaoAssociation extends Dao {
             chId,
             frcId,
             purpose,
-            sogcPubblications,
+            sogcPublications,
             board,
             members,
             createdAt,
@@ -47,7 +47,7 @@ export class DaoAssociation extends Dao {
         );
     }
 
-    static fromDto(dto: DaoAssociationDto, principal: Principal, documents: Document[], pools: Voting[]): DaoAssociation {
+    static fromDto(dto: DaoAssociationDto, principal: Principal, documents: Document[], pools: Voting[], sogcPublications: SogcPublication[]): DaoAssociation {
         return new DaoAssociation(
             principal,
             dto.name,
@@ -60,7 +60,7 @@ export class DaoAssociation extends Dao {
             dto.ch_id,
             dto.frc_id,
             dto.purpose,
-            [],
+            sogcPublications,
             dto.board.map(p => Principal.fromText(p)),
             dto.members.map(p => Principal.fromText(p)),
             new Date(Number(dto.created_at)),

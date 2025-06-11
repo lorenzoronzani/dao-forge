@@ -1,5 +1,5 @@
 [package]
-name = "dao_sogc_pubblication"
+name = "dao_sogc_publication"
 version = "0.1.0"
 edition = "2021"
 
@@ -14,3 +14,5 @@ serde.workspace = true
 ic-cdk.workspace = true
 ic-cdk-timers.workspace = true
 ic-stable-structures.workspace = true
+
+common = { path = "../common" }
