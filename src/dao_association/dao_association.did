@@ -21,7 +21,7 @@ type DaoAssociation = record {
     ch_id: text;
     frc_id: nat32;
     purpose: text;
-    sogc_pubblications: vec nat32;
+    sogc_publications: vec nat32;
     board: vec text;
     members: vec text;
     created_at: nat64;
@@ -32,6 +32,7 @@ type DaoAssociation = record {
 service : {
     "get_information": () -> (DaoAssociation) query;
     "add_pool": (nat32) -> (DaoAssociation);
+    "add_sogc_publication": (nat32) -> (DaoAssociation);
     "update_name": (text) -> (DaoAssociation);
     "add_board_member": (text) -> (DaoAssociation);
 }

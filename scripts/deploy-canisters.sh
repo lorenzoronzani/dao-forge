@@ -13,7 +13,7 @@ dfx build dao_association
 
 # Deploy canisters
 dfx deploy internet_identity
-dfx deploy dao_sogc_pubblication
+dfx deploy dao_sogc_publication
 dfx deploy documents_storage
 dfx deploy voting
 dfx deploy dao_discovery

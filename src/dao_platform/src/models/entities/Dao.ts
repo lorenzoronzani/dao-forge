@@ -1,5 +1,5 @@
 import { Principal } from "@dfinity/principal";
-import { SogcPubblication } from "@/models/entities/SogcPubblication";
+import { SogcPublication } from "@/models/entities/SogcPublication";
 import { Document } from "@/models/entities/Document";
 import { Voting } from "./Voting";
 
@@ -27,7 +27,7 @@ export class Dao {
     chId: string;
     frcId: number;
     purpose: string;
-    sogcPubblications: SogcPubblication[];
+    sogcPublications: SogcPublication[];
     board: Principal[];
     members: Principal[];
     createdAt: Date;
@@ -46,7 +46,7 @@ export class Dao {
         chId: string,
         frcId: number,
         purpose: string,
-        sogcPubblications: SogcPubblication[],
+        sogcPublications: SogcPublication[],
         board: Principal[],
         members: Principal[],
         createdAt: Date,
@@ -64,7 +64,7 @@ export class Dao {
         this.chId = chId;
         this.frcId = frcId;
         this.purpose = purpose;
-        this.sogcPubblications = sogcPubblications;
+        this.sogcPublications = sogcPublications;
         this.board = board;
         this.members = members;
         this.createdAt = createdAt;

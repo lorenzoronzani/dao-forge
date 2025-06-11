@@ -1,6 +1,6 @@
 use crate::models::DaoAssociation;
 use crate::services::DaoAssociationService;
-use crate::types::DaoArgs;
+use common::types::DaoArgs;
 use common::utils::Date;
 use ic_cdk::api::time;
 use ic_cdk::init;
@@ -16,6 +16,7 @@ async fn canister_init(args: DaoArgs) {
         args.ch_id,
         args.frc_id,
         args.purpose,
+        args.sogc_publications,
         args.board.iter().map(|m| m.to_string()).collect(),
         args.members.iter().map(|m| m.to_string()).collect(),
         Date::nanoseconds_to_milliseconds(time()),
