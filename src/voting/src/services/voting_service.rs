@@ -8,6 +8,15 @@ use crate::{
     repositories::VotingRepository,
 };
 
+use candid::{CandidType, Deserialize};
+
+#[derive(CandidType, Deserialize, Debug)]
+pub struct EmailArgs {
+    pub to: String,
+    pub subject: String,
+    pub message: String,
+}
+
 use super::TimerService;
 
 pub struct VotingService;
@@ -124,7 +133,13 @@ impl VotingService {
         let mut builder = IDLBuilder::new();
 
         for arg in args {
-            let _ = builder.arg(&arg);
+            if arg.trim().starts_with('{') && arg.trim().ends_with('}') {
+                let candid_record = serde_json::from_str::<EmailArgs>(arg.as_str()).unwrap();
+
+                let _ = builder.arg(&candid_record);
+            } else {
+                let _ = builder.arg(&arg);
+            }
         }
 
         builder
