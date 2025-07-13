@@ -1,8 +1,8 @@
-use crate::services::{CanisterManagementService, DaoDiscoveryService};
+use crate::services::CanisterManagementService;
 use crate::types::DaoAssociationInitArgs;
 use candid::{encode_args, Principal};
 use common::models::{Role, User};
-use common::services::SogcPublicationService;
+use common::services::{DaoDiscoveryService, SogcPublicationService};
 use common::templates::SogcPublicationTemplateManager;
 use common::types::{DaoArgs, Mutation};
 use common::utils::Date;

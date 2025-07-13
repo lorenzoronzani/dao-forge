@@ -38,3 +38,13 @@ async fn get_user_daos(user: Option<Principal>) -> Vec<Principal> {
 async fn get_random_daos(amount: Option<u32>) -> Vec<Principal> {
     DaoService::get_randoms(amount.unwrap_or(6))
 }
+
+#[ic_cdk::update]
+async fn remove_user_dao(user_id: Principal, dao_id: Principal) -> Vec<Principal> {
+    let dao = DaoService::find_by_canister(dao_id).unwrap();
+
+    let user = UserService::get(user_id).unwrap();
+    let result = UserService::update(user.id, dao.id, false);
+
+    get_user_daos(Some(result.id)).await
+}

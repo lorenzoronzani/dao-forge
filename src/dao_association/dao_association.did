@@ -44,4 +44,6 @@ service : {
     "add_sogc_publication": (nat32) -> (DaoAssociation);
     "add_document": (nat32) -> (DaoAssociation);
     "update_name": (text) -> (DaoAssociation);
+    "add_member": (User) -> (DaoAssociation);
+    "remove_member": (text) -> (DaoAssociation);
 }
