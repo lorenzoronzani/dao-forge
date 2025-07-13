@@ -33,6 +33,7 @@ service : {
     "get_information": () -> (DaoAssociation) query;
     "add_pool": (nat32) -> (DaoAssociation);
     "add_sogc_publication": (nat32) -> (DaoAssociation);
+    "add_document": (nat32) -> (DaoAssociation);
     "update_name": (text) -> (DaoAssociation);
     "add_board_member": (text) -> (DaoAssociation);
 }

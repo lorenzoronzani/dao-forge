@@ -25,6 +25,10 @@ export class DaoAssociationService {
         return this._actor.get_information();
     }
 
+    async addDocument(documentId: number): Promise<DaoAssociationDto> {
+        return this._actor.add_document(documentId);
+    }
+
     getMethods(): MethodSignature[] {
         return CanisterAnalyzerService.extractMethods(this._actor);
     }

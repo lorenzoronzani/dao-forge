@@ -37,6 +37,17 @@ fn add_sogc_publication(sogc_id: u32) -> DaoAssociationPresentation {
 }
 
 #[update]
+fn add_document(document_id: u32) -> DaoAssociationPresentation {
+    let mut dao_association = DaoAssociationService::get();
+
+    dao_association.parent.documents.push(document_id);
+
+    let dao = DaoAssociationService::update(dao_association);
+
+    DaoAssociationPresentation::from(dao)
+}
+
+#[update]
 async fn update_name(name: String) -> DaoAssociationPresentation {
     let mut dao_association = DaoAssociationService::get();
 
