@@ -7,15 +7,24 @@ interface MethodInformationSectionProps {
 
 
 export const MethodInformationSection = ({ method }: MethodInformationSectionProps) => {
-    const formatParams = (params: Parameter[]): string => {
-        const formattedParams = params.map((param) => {
-            if (param.type === 'record') {
-                return `${param?.name || 'param'}: record { ${param.fields?.map((field) => `${field.name}: ${field.type}`).join(', ')} }`;
-            }
+    const formatSingleParam = (param: Parameter): string => {
+        const namePart = param.name ? `${param.name}: ` : '';
 
-            return `${param?.name || 'param'}: ${param.type}`;
-        });
-        return formattedParams.join(', ');
+        if (param.type === 'record') {
+            const fieldsString = param.fields?.map(formatSingleParam).join(', ');
+            return `${namePart}record { ${fieldsString} }`;
+        }
+
+        if (param.type === 'variant') {
+            const optionsString = param.options?.join(', ');
+            return `${namePart}variant { ${optionsString} }`;
+        }
+
+        return `${namePart}${param.type}`;
+    };
+
+    const formatParams = (params: Parameter[]): string => {
+        return params.map(formatSingleParam).join(', ');
     }
 
     return (
@@ -25,7 +34,7 @@ export const MethodInformationSection = ({ method }: MethodInformationSectionPro
                 <span className="font-medium text-sm">Method Signature</span>
             </div>
             <code className="text-xs bg-white p-2 rounded border block">
-                {method.name}({formatParams(method.parameters)}) → {method.returnType}
+                {method.name}({formatParams(method.parameters)}) → {method.returnType.type}
             </code>
         </div>
     );

@@ -3,13 +3,14 @@ import { Actor } from "@dfinity/agent";
 export interface Parameter {
     name?: string,
     type: string,
-    fields?: Parameter[]
+    fields?: Parameter[],
+    options?: string[]
 }
 
 export interface MethodSignature {
     name: string;
     parameters: Parameter[];
-    returnType: string;
+    returnType: Parameter;
 }
 
 export class CanisterAnalyzerService {
@@ -45,25 +46,9 @@ export class CanisterAnalyzerService {
         const args = method[1].argTypes;
         const result = method[1].retTypes;
 
-        const parameters = args.map((arg: any) => {
-            // Check if the argument is a record
-            if (arg._fields !== undefined) {
-                const fields = arg._fields.map((field: any) => ({
-                    name: field[0],
-                    type: this.candidTypeToTypeScript(field[1]),
-                }));
-
-                // Return a single object representing the record parameter
-                return {
-                    type: 'record',
-                    fields: fields,
-                };
-            }
-
-            // Handle standard, non-record parameters
-            return { type: this.candidTypeToTypeScript(arg) };
-        });
-        const returnType = this.candidTypeToTypeScript(result);
+        const parameters = args.map((arg: any) => this.candidToParameter(arg));
+        const returnTypeResult = this.candidToParameter(result[0]);
+        const returnType = returnTypeResult ?? { type: 'unknown' };
 
         return {
             name: methodName,
@@ -72,19 +57,47 @@ export class CanisterAnalyzerService {
         };
     }
 
-    private static candidTypeToTypeScript(type: any): string {
+    private static candidToParameter(type: any): Parameter {
+        // Handle Variants
+        if (type.name && type.name.startsWith('variant')) {
+            return {
+                type: 'variant',
+                options: this.extractVariantOptions(type),
+            };
+        }
+
+        // Handle Records
+        if (type.name === 'record' || type._fields) {
+            const fields = type._fields.map((field: any) => {
+                const fieldParam = this.candidToParameter(field[1]);
+                return {
+                    name: field[0],
+                    ...fieldParam
+                };
+            });
+            return { type: 'record', fields };
+        }
+
+        // Handle simple types
         switch (type.name) {
             case 'text':
-                return 'string';
+                return { type: 'string' };
             case 'nat32':
-                return 'number';
-            case 'record':
-                return type.name;
-            case undefined:
-                return type[0].name;
+                return { type: 'number' };
             default:
-                return 'unknown';
+                // Handle null/unit types which appear as empty objects
+                if (typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
+                    return { type: 'null' };
+                }
+                return { type: 'unknown' };
         }
+    }
+
+    private static extractVariantOptions(type: any): string[] {
+        if (type.name && type.name.startsWith('variant') && type._fields) {
+            return type._fields.map((field: any) => field[0]);
+        }
+        return [];
     }
 }
 export default CanisterAnalyzerService;

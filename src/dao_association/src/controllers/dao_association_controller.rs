@@ -98,9 +98,44 @@ async fn update_name(name: String) -> DaoAssociationPresentation {
 async fn add_member(user: User) -> DaoAssociationPresentation {
     let mut dao_association = DaoAssociationService::get();
 
-    dao_association.parent.members.push(user);
+    let template_manager = SogcPublicationTemplateManager::new();
+    let sogc_id = SogcPublicationService::publish(
+        1,
+        Date::nanoseconds_to_milliseconds(time()),
+        vec![Mutation::ChangeOfCompany],
+        template_manager
+            .render(
+                "dao_member_added",
+                HashMap::from([
+                    ("date".to_string(), Date::timestamp_to_date(time())),
+                    ("name".to_string(), dao_association.parent.name.clone()),
+                    (
+                        "address".to_string(),
+                        dao_association.parent.address.clone(),
+                    ),
+                    ("zip".to_string(), dao_association.parent.zip.to_string()),
+                    ("town".to_string(), dao_association.parent.town.clone()),
+                    ("uid".to_string(), dao_association.parent.uid.clone()),
+                    ("ch_id".to_string(), dao_association.parent.ch_id.clone()),
+                    (
+                        "frc_id".to_string(),
+                        dao_association.parent.frc_id.to_string(),
+                    ),
+                    ("new_member".to_string(), user.id.clone()),
+                    ("member_role".to_string(), format!("{:?}", user.role)),
+                ]),
+            )
+            .unwrap(),
+    )
+    .await
+    .unwrap();
+
+    dao_association.parent.members.push(user.clone());
+    dao_association.parent.sogc_publications.push(sogc_id);
 
     let dao = DaoAssociationService::update(dao_association);
+
+    DaoDiscoveryService::save_user_dao(Principal::from_text(user.id.clone()).unwrap(), id()).await;
 
     DaoAssociationPresentation::from(dao)
 }
