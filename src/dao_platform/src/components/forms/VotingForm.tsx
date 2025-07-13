@@ -49,7 +49,7 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
         quorum: 25,
         votersWhitelist: [],
         action: {
-            canisterId: dao.principal.toText(),
+            canisterId: '',
             method: '',
             args: []
         }
@@ -91,7 +91,7 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
             quorum: 25,
             votersWhitelist: [],
             action: {
-                canisterId: dao.principal.toText(),
+                canisterId: '',
                 method: '',
                 args: []
             }
@@ -121,7 +121,7 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
 
             <VotingOptionsCard options={formData.options} areCustomOptions={formData.areCustomOptions} onValueChange={onValueChange} />
 
-            <ActionSection action={formData.action} onValueChange={onValueChange} areCustomOptions={formData.areCustomOptions} />
+            <ActionSection daoPrincipal={dao.principal} action={formData.action} onValueChange={onValueChange} areCustomOptions={formData.areCustomOptions} />
 
             <ThresholdCard endAt={formData.endAt} approvalThreshold={formData.approvalThreshold} quorum={formData.quorum} onValueChange={onValueChange} />
 

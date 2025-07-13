@@ -24,7 +24,7 @@ export const MethodSelectionSection = ({ action, methods, handleMethodSelect }: 
                                 <span>{method.name}</span>
 
                                 <Badge variant="outline" className="ml-2">
-                                    {method.parametersType.length} params
+                                    {method.parameters.length} params
                                 </Badge>
                             </div>
                         </SelectItem>

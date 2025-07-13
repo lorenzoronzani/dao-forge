@@ -1,0 +1,9 @@
+type EmailArgs = record {
+    to: text;
+    subject: text;
+    message: text;
+}
+
+service : {
+    "send_email": (EmailArgs) -> (text);
+}

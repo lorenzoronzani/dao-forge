@@ -26,6 +26,6 @@ function generateLocalCanisterIdFromCounter(counter) {
 }
 
 // Generate starting from counter 100
-for (let i = 100; i <= 106; i++) {
+for (let i = 100; i <= 107; i++) {
     console.log(`CANISTER_${i} = '${generateLocalCanisterIdFromCounter(i)}'`);
 }

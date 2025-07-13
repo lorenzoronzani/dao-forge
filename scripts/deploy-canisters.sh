@@ -15,6 +15,7 @@ dfx build dao_association
 dfx deploy internet_identity
 dfx deploy dao_sogc_publication
 dfx deploy documents_storage
+dfx deploy network_call
 dfx deploy voting
 dfx deploy dao_discovery
 dfx deploy dao_agency
