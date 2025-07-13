@@ -9,6 +9,7 @@ import { CreateDaoPage } from './pages/CreateDaoPage';
 import DaoDetailsPage from './pages/DaoDetailsPage';
 import CreateVotingPage from './pages/CreateVotingPage';
 import { DataLoader } from './loaders/DataLoader';
+import DaoGuard from './guards/DaoGuard';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,9 @@ const router = createBrowserRouter([
         path: paths.DAOS_DETAILS,
         element: (
           <DataLoader>
-            <DaoDetailsPage />
+            <DaoGuard>
+              <DaoDetailsPage />
+            </DaoGuard>
           </DataLoader>
         )
       },
@@ -39,7 +42,9 @@ const router = createBrowserRouter([
         path: paths.VOTINGS_CREATE,
         element: (
           <DataLoader>
-            <CreateVotingPage />
+            <DaoGuard>
+              <CreateVotingPage />
+            </DaoGuard>
           </DataLoader>
         )
       },

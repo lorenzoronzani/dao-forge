@@ -9,9 +9,9 @@ interface DataLoaderProps {
 }
 
 export const DataLoader: React.FC<DataLoaderProps> = ({ children }) => {
-    const { isLoading } = useDao()
+    const { isLoading, userDaos, exploreDaos } = useDao()
 
-    if (isLoading) {
+    if (isLoading && (userDaos.length === 0 || exploreDaos.length === 0)) {
         return (
             <>
                 <TopBar />
