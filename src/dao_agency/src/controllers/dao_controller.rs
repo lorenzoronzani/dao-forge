@@ -1,6 +1,7 @@
 use crate::services::{CanisterManagementService, DaoDiscoveryService};
 use crate::types::DaoAssociationInitArgs;
 use candid::{encode_args, Principal};
+use common::models::{Role, User};
 use common::services::SogcPublicationService;
 use common::templates::SogcPublicationTemplateManager;
 use common::types::{DaoArgs, Mutation};
@@ -24,7 +25,6 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
         frc_id: params.frc_id,
         purpose: params.purpose,
         sogc_publications: vec![],
-        board: params.board,
         members: params.members,
         documents: params.documents,
     };
@@ -49,9 +49,10 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
                 (
                     "board".to_string(),
                     dao_params
-                        .board
+                        .members
                         .iter()
-                        .map(|p| p.to_string())
+                        .filter(|m| m.role == Role::Board)
+                        .map(|p| p.id.to_string())
                         .collect::<Vec<String>>()
                         .join(", ")
                         .clone(),
@@ -61,7 +62,8 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
                     dao_params
                         .members
                         .iter()
-                        .map(|p| p.to_string())
+                        .filter(|m| m.role == Role::Member)
+                        .map(|p| p.id.to_string())
                         .collect::<Vec<String>>()
                         .join(", ")
                         .clone(),
@@ -72,8 +74,17 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
     .await?;
     dao_params.sogc_publications.push(sogc_id);
 
-    if !dao_params.board.contains(&caller()) {
-        dao_params.board.push(caller());
+    let board_count = dao_params
+        .members
+        .iter()
+        .filter(|m| m.id == caller().to_string() && m.role == Role::Board)
+        .count();
+
+    if board_count == 0 {
+        dao_params.members.push(User {
+            id: caller().to_string(),
+            role: Role::Board,
+        });
     }
     let encoded_args = encode_args((dao_params.clone(),)).unwrap();
 
@@ -81,12 +92,12 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
         CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()])
             .await?;
 
-    for board_member in dao_params.board.iter() {
-        DaoDiscoveryService::save_user_dao(*board_member, canister_id).await;
-    }
-
     for member in dao_params.members.iter() {
-        DaoDiscoveryService::save_user_dao(*member, canister_id).await;
+        DaoDiscoveryService::save_user_dao(
+            Principal::from_text(member.id.clone()).unwrap(),
+            canister_id,
+        )
+        .await;
     }
 
     Ok(canister_id)

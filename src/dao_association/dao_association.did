@@ -10,6 +10,16 @@ type OrganizationStatus = variant {
     Dissolved: null;
 };
 
+type Role = variant {
+    Member: null;
+    Board: null;
+};
+
+type User = record {
+    id: text;
+    role: Role;
+};
+
 type DaoAssociation = record {
     name : text;
     address : text;
@@ -22,8 +32,7 @@ type DaoAssociation = record {
     frc_id: nat32;
     purpose: text;
     sogc_publications: vec nat32;
-    board: vec text;
-    members: vec text;
+    members: vec User;
     created_at: nat64;
     documents: vec nat32;
     pools: vec nat32;
@@ -35,5 +44,4 @@ service : {
     "add_sogc_publication": (nat32) -> (DaoAssociation);
     "add_document": (nat32) -> (DaoAssociation);
     "update_name": (text) -> (DaoAssociation);
-    "add_board_member": (text) -> (DaoAssociation);
 }

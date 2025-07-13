@@ -89,14 +89,3 @@ async fn update_name(name: String) -> DaoAssociationPresentation {
 
     DaoAssociationPresentation::from(dao)
 }
-
-#[update]
-fn add_board_member(member_id: String) -> DaoAssociationPresentation {
-    let mut dao_association = DaoAssociationService::get();
-
-    dao_association.parent.board.push(member_id);
-
-    let dao = DaoAssociationService::update(dao_association);
-
-    DaoAssociationPresentation::from(dao)
-}

@@ -1,9 +1,10 @@
 import { formatDate } from "@/utils/date";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dao, OrganizationStatus } from "@/models/entities/Dao";
+import { Dao } from "@/models/entities/Dao";
 import { useNavigate } from "react-router";
 import { DaoStatusBadge } from "../badge/DaoStatusBadge";
+import { Role } from "@/models/entities/User";
 
 interface DaoCardProps {
     dao: Dao;
@@ -38,11 +39,11 @@ export const DaoCard = ({ dao }: DaoCardProps) => {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <p className="text-slate-500 mb-1">Board</p>
-                            <p className="font-medium">{dao.board.length} members</p>
+                            <p className="font-medium">{dao.members.filter(member => member.role === Role.Board).length} members</p>
                         </div>
                         <div>
                             <p className="text-slate-500 mb-1">Members</p>
-                            <p className="font-medium">{dao.members.length}</p>
+                            <p className="font-medium">{dao.members.filter(member => member.role === Role.Member).length}</p>
                         </div>
                     </div>
 

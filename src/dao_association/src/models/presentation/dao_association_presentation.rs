@@ -1,5 +1,5 @@
 use candid::CandidType;
-use common::models::{LegalForm, OrganizationStatus};
+use common::models::{LegalForm, OrganizationStatus, User};
 use serde::{Deserialize, Serialize};
 
 use crate::models::DaoAssociation;
@@ -17,8 +17,7 @@ pub struct DaoAssociationPresentation {
     pub frc_id: u32,
     pub purpose: String,
     pub sogc_publications: Vec<u32>,
-    pub board: Vec<String>,
-    pub members: Vec<String>,
+    pub members: Vec<User>,
     pub created_at: u64,
     pub documents: Vec<u32>,
     pub pools: Vec<u32>,
@@ -38,7 +37,6 @@ impl DaoAssociationPresentation {
             frc_id: dao_association.parent.frc_id,
             purpose: dao_association.parent.purpose,
             sogc_publications: dao_association.parent.sogc_publications,
-            board: dao_association.parent.board,
             members: dao_association.parent.members,
             created_at: dao_association.parent.created_at,
             documents: dao_association.parent.documents,

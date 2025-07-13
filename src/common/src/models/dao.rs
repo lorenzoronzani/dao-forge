@@ -1,6 +1,8 @@
 use candid::CandidType;
 use serde::{Deserialize, Serialize};
 
+use crate::models::User;
+
 // FIXME: Think if the default implementation is the best approach
 #[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
 pub enum LegalForm {
@@ -37,8 +39,7 @@ pub struct Dao {
     pub purpose: String,
     // Swiss Official Gazette of Commerce Publications
     pub sogc_publications: Vec<u32>,
-    pub board: Vec<String>,
-    pub members: Vec<String>,
+    pub members: Vec<User>,
     pub created_at: u64,
     pub documents: Vec<u32>,
     pub pools: Vec<u32>,
@@ -57,8 +58,7 @@ impl Dao {
         frc_id: u32,
         purpose: String,
         sogc_publications: Vec<u32>,
-        board: Vec<String>,
-        members: Vec<String>,
+        members: Vec<User>,
         created_at: u64,
         documents: Vec<u32>,
         pools: Vec<u32>,
@@ -75,7 +75,6 @@ impl Dao {
             frc_id,
             purpose,
             sogc_publications,
-            board,
             members,
             created_at,
             documents,

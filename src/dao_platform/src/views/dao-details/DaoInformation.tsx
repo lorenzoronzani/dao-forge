@@ -4,6 +4,7 @@ import { Building, MapPin, Users, Calendar, FileText } from "lucide-react";
 import { useState } from "react";
 import { HorizontalLabeledField } from "@/components/labels/HorizontalLabeledField";
 import { formatDate } from "@/utils/date";
+import { Role } from "@/models/entities/User";
 
 interface DaoInformationProps {
     dao: Dao;
@@ -24,7 +25,7 @@ export const DaoInformation = ({ dao }: DaoInformationProps) => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
                         <HorizontalLabeledField image={<Building className="h-4 w-4 text-slate-500" />} label="Legal Form:" text={dao.legalForm} />
                         <HorizontalLabeledField image={<MapPin className="h-4 w-4 text-slate-500" />} label="Location:" text={`${dao.address}, ${dao.town}, ${dao.zip}`} />
-                        <HorizontalLabeledField image={<Users className="h-4 w-4 text-slate-500" />} label="People:" text={`${dao.board.length} board, ${dao.members.length} members`} />
+                        <HorizontalLabeledField image={<Users className="h-4 w-4 text-slate-500" />} label="People:" text={`${dao.members.filter(member => member.role === Role.Board).length} board, ${dao.members.filter(member => member.role === Role.Member).length} members`} />
                         <HorizontalLabeledField image={<Calendar className="h-4 w-4 text-slate-500" />} label="Created:" text={formatDate(dao.createdAt.getTime())} />
                     </div>
                 </div>

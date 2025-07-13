@@ -8,6 +8,7 @@ import { MembersInfoCard } from '../cards/dao_form/MembersInfoCard';
 import { Principal } from '@dfinity/principal';
 import { Loader2 } from 'lucide-react';
 import { PersonalInfoCard } from '../cards/dao_form/PersonalInfoCard';
+import { Role, User } from '@/models/entities/User';
 
 type DaoFormProps = {
   onSubmit: (formData: DaoFormData) => Promise<Principal>;
@@ -29,8 +30,7 @@ export type DaoFormData = {
   town: string;
   legalForm: LegalForm;
   purpose: string;
-  boardMembers: string[];
-  members: string[];
+  members: User[];
 }
 
 export const DaoForm = ({ onSubmit, onCancel, userPrincipal }: DaoFormProps) => {
@@ -48,8 +48,7 @@ export const DaoForm = ({ onSubmit, onCancel, userPrincipal }: DaoFormProps) => 
     town: '',
     legalForm: LegalForm.Association,
     purpose: '',
-    boardMembers: [userPrincipal.toText()],
-    members: []
+    members: [new User(userPrincipal.toText(), Role.Board)]
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -75,8 +74,7 @@ export const DaoForm = ({ onSubmit, onCancel, userPrincipal }: DaoFormProps) => 
       town: '',
       legalForm: LegalForm.Association,
       purpose: '',
-      boardMembers: [],
-      members: []
+      members: [new User(userPrincipal.toText(), Role.Board)]
     });
   };
 
@@ -105,8 +103,6 @@ export const DaoForm = ({ onSubmit, onCancel, userPrincipal }: DaoFormProps) => 
       <BasicInfoCard name={formData.name} purpose={formData.purpose} legalForm={formData.legalForm} onValueChange={onValueChange} />
 
       <LocationInfoCard address={formData.address} town={formData.town} zip={formData.zip} onValueChange={onValueChange} />
-
-      <MembersInfoCard id="boardMembers" title="Board members" members={formData.boardMembers} onValueChange={onValueChange} />
 
       <MembersInfoCard id="members" title="Members" members={formData.members} onValueChange={onValueChange} />
 
