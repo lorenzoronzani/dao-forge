@@ -15,6 +15,8 @@ const TEMPLATE_ID: &str = "TFE0BHBVT0M47SKQAQFYKDPMY8HD";
 
 #[update]
 async fn send_email(args: EmailArgs) -> String {
+    println!("{:?}", args);
+
     let courier_payload = json!({
         "message": {
             "to": {

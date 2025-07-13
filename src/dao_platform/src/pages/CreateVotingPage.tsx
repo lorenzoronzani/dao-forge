@@ -33,17 +33,34 @@ export const CreateVotingPage = () => {
         if (formData.areCustomOptions) {
             return formData.options.map((option) => {
                 const args = formData.action.args.map((arg) => {
+                    // First, check for the simple case where the entire argument is the placeholder.
                     if (arg === VOTING_FORM.WINNING_OPTION) {
                         return option;
                     }
 
+                    // Next, handle the case where the placeholder is inside a JSON string (for record parameters).
+                    try {
+                        const parsedArg = JSON.parse(arg);
+                        if (parsedArg !== null) {
+                            // It's a record. Iterate over its fields and replace the placeholder if found.
+                            Object.keys(parsedArg).forEach(key => {
+                                if (parsedArg[key] === VOTING_FORM.WINNING_OPTION) {
+                                    parsedArg[key] = option;
+                                }
+                            });
+
+                            return JSON.stringify(parsedArg);
+                        }
+                    } catch (e) { }
+
+                    // If it's not the placeholder and not a JSON object containing it, return it as is.
                     return arg;
                 });
 
                 return {
                     text: option,
                     action: new Action(
-                        dao.principal,
+                        Principal.fromText(formData.action.canisterId),
                         formData.action.method,
                         args
                     )
