@@ -1,5 +1,5 @@
 use candid::{CandidType, Decode, Encode};
-use common::models::{Dao, LegalForm, OrganizationStatus};
+use common::models::{Dao, LegalForm, OrganizationStatus, User};
 use ic_stable_structures::storable::Bound;
 use ic_stable_structures::Storable;
 use serde::{Deserialize, Serialize};
@@ -22,8 +22,7 @@ impl DaoAssociation {
         frc_id: u32,
         purpose: String,
         sogc_publications: Vec<u32>,
-        board: Vec<String>,
-        members: Vec<String>,
+        members: Vec<User>,
         created_at: u64,
         documents: Vec<u32>,
         pools: Vec<u32>,
@@ -41,7 +40,6 @@ impl DaoAssociation {
                 frc_id,
                 purpose,
                 sogc_publications,
-                board,
                 members,
                 created_at,
                 documents,

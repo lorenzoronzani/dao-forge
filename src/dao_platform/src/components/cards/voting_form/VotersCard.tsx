@@ -5,12 +5,7 @@ import { Principal } from "@dfinity/principal";
 import { useState } from "react";
 import { VerticalLabeledComponent } from "@/components/labels/VerticalLabeledComponent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-enum VoterGroup {
-    Board = 'board',
-    Members = 'members',
-    Both = 'both'
-}
+import { Role } from "@/models/entities/User";
 
 type VotersCardProps = {
     dao: Dao;
@@ -18,24 +13,22 @@ type VotersCardProps = {
 }
 
 export const VotersCard = ({ dao, onValueChange }: VotersCardProps) => {
-    const [voterGroup, setVoterGroup] = useState<VoterGroup | undefined>();
+    const [voterGroup, setVoterGroup] = useState<Role | undefined>();
 
     const handleVoterGroupChange = (value: string) => {
-        setVoterGroup(value as VoterGroup);
-        onValueChange('votersWhitelist', getVoters(value as VoterGroup));
+        setVoterGroup(value as Role);
+        onValueChange('votersWhitelist', getVoters(value as Role));
     };
 
-    const getVoters = (voterGroup: VoterGroup | undefined): Principal[] => {
+    const getVoters = (voterGroup: Role | undefined): Principal[] => {
         if (!voterGroup) {
             return [];
         }
         switch (voterGroup) {
-            case VoterGroup.Board:
-                return dao.board;
-            case VoterGroup.Members:
-                return dao.members;
-            case VoterGroup.Both:
-                return [...new Set([...dao.board, ...dao.members])];
+            case Role.Board:
+                return dao.members.filter(member => member.role === Role.Board).map(member => Principal.fromText(member.id));
+            case Role.Member:
+                return dao.members.map(member => Principal.fromText(member.id));
         }
     }
 
@@ -58,9 +51,8 @@ export const VotersCard = ({ dao, onValueChange }: VotersCardProps) => {
                             <SelectValue placeholder="Select Voters" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value={VoterGroup.Board}>Board Members Only ({dao.board.length})</SelectItem>
-                            <SelectItem value={VoterGroup.Members}>Members Only ({dao.members.length})</SelectItem>
-                            <SelectItem value={VoterGroup.Both}>Both Board and Members ({[...new Set([...dao.board, ...dao.members])].length})</SelectItem>
+                            <SelectItem value={Role.Board}>At least Board ({dao.members.filter(member => member.role === Role.Board).length})</SelectItem>
+                            <SelectItem value={Role.Member}>At least Member ({dao.members.length})</SelectItem>
                         </SelectContent>
                     </Select>
                 </VerticalLabeledComponent>

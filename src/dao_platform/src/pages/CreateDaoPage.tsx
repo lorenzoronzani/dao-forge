@@ -17,6 +17,7 @@ import { formatDate } from "@/utils/date.js";
 import { DocumentsStorageService } from "@/services/documentsStorageService.js";
 import { DocumentArgs } from "declarations/documents_storage/documents_storage.did.js";
 import { Document } from "@/models/entities/Document";
+import { Role } from "@/models/entities/User.js";
 
 export const CreateDaoPage = () => {
     const { identity, userPrincipal } = useAuthentication();
@@ -35,8 +36,7 @@ export const CreateDaoPage = () => {
             ch_id: `CH${Math.floor(Math.random() * 10000000000)}`,
             frc_id: Math.floor(Math.random() * 100000),
             purpose: formData.purpose,
-            board: formData.boardMembers.map(b => Principal.fromText(b)),
-            members: formData.members.map(m => Principal.fromText(m)),
+            members: formData.members.map(m => m.toDto()),
             documents: documentsIds
         };
 
@@ -142,7 +142,7 @@ export const CreateDaoPage = () => {
             {
                 type: PdfFormFieldType.TEXT,
                 name: ASSOCIATION_NOTIFICATION_FORM.FIELDS.PEOPLE_TO_ENROLL.NUMBER,
-                value: formData.boardMembers.length.toString()
+                value: formData.members.filter(m => m.role === Role.Board).length.toString()
             },
             {
                 type: PdfFormFieldType.TEXT,

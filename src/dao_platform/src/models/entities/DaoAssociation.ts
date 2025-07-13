@@ -5,6 +5,7 @@ import { DaoAssociation as DaoAssociationDto } from "declarations/dao_associatio
 import { candidToEnum } from "@/utils/enums";
 import { Document } from "@/models/entities/Document";
 import { Voting } from "./Voting";
+import { User } from "./User";
 
 export class DaoAssociation extends Dao {
     constructor(
@@ -20,8 +21,7 @@ export class DaoAssociation extends Dao {
         frcId: number,
         purpose: string,
         sogcPublications: SogcPublication[],
-        board: Principal[],
-        members: Principal[],
+        members: User[],
         createdAt: Date,
         documents: Document[],
         pools: Voting[]
@@ -39,7 +39,6 @@ export class DaoAssociation extends Dao {
             frcId,
             purpose,
             sogcPublications,
-            board,
             members,
             createdAt,
             documents,
@@ -61,8 +60,7 @@ export class DaoAssociation extends Dao {
             dto.frc_id,
             dto.purpose,
             sogcPublications,
-            dto.board.map(p => Principal.fromText(p)),
-            dto.members.map(p => Principal.fromText(p)),
+            dto.members.map(p => User.fromDto(p)),
             new Date(Number(dto.created_at)),
             documents,
             pools

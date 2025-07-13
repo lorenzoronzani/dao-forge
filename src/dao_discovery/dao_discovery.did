@@ -2,4 +2,5 @@ service : {
     "save_user_dao" : (principal, principal) -> (vec principal);
     "get_user_daos" : (opt principal) -> (vec principal) query;
     "get_random_daos" : (opt nat32) -> (vec principal) query;
+    "remove_user_dao" : (principal, principal) -> (vec principal);
 }
