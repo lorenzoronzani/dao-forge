@@ -38,8 +38,8 @@ export const DisplayedActionSection: React.FC<ActionSectionProps> = ({ action })
                         <span className="text-slate-500 text-sm">Parameters:</span>
                         <div className="mt-1 space-y-1">
                             {parameters.map((param, index) => (
-                                <div key={index} className="bg-white p-2 rounded border text-xs font-mono">
-                                    <span className="text-slate-500">[{index}]</span> {param}
+                                <div key={index} className="bg-white p-2 rounded border text-xs font-mono break-words">
+                                    <span className="text-slate-500">[{index}]</span> {param.replace(/,/g, ',\u200B')}
                                 </div>
                             ))}
                         </div>
@@ -52,8 +52,8 @@ export const DisplayedActionSection: React.FC<ActionSectionProps> = ({ action })
                         <Code className="h-3 w-3 text-slate-500" />
                         <span className="text-xs text-slate-500">Call Preview:</span>
                     </div>
-                    <code className="text-xs bg-white p-2 rounded border block">
-                        {action.method}({parameters.join(', ')})
+                    <code className="text-xs bg-white p-2 rounded border block break-words">
+                        {`${action.method}(${parameters.join(', ')})`.replace(/,/g, ',\u200B')}
                     </code>
                 </div>
 

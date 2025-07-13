@@ -1,12 +1,24 @@
 use std::collections::BTreeMap;
 
-use candid::{ser::IDLBuilder, Principal};
+use candid::{
+    types::{value::IDLField, Label},
+    IDLArgs, IDLValue, Principal,
+};
 use common::services::InterCanisterService;
 
 use crate::{
     models::{Action, TimerAction, Voting, VotingState},
     repositories::VotingRepository,
 };
+
+use candid::{CandidType, Deserialize};
+
+#[derive(CandidType, Deserialize, Debug)]
+pub struct EmailArgs {
+    pub to: String,
+    pub subject: String,
+    pub message: String,
+}
 
 use super::TimerService;
 
@@ -121,14 +133,67 @@ impl VotingService {
     }
 
     fn encode_args(args: Vec<String>) -> Vec<u8> {
-        let mut builder = IDLBuilder::new();
+        let idl_values: Vec<IDLValue> = args
+            .iter()
+            .map(|arg_str| {
+                if arg_str.trim().starts_with('{') && arg_str.trim().ends_with('}') {
+                    let json_value: serde_json::Value = serde_json::from_str(arg_str)
+                        .expect("Failed to parse argument string as JSON");
+                    Self::json_value_to_candid(json_value)
+                } else {
+                    IDLValue::Text(arg_str.clone())
+                }
+            })
+            .collect();
 
-        for arg in args {
-            let _ = builder.arg(&arg);
+        let idl_args = IDLArgs::new(&idl_values);
+
+        idl_args
+            .to_bytes()
+            .expect("Failed to serialize IDLArgs to bytes")
+    }
+
+    fn json_value_to_candid(value: serde_json::Value) -> IDLValue {
+        match value {
+            serde_json::Value::Null => IDLValue::Null,
+            serde_json::Value::Bool(b) => IDLValue::Bool(b),
+            serde_json::Value::Number(n) => {
+                if n.is_i64() {
+                    IDLValue::Int(n.as_i64().unwrap().into())
+                } else {
+                    IDLValue::Float64(n.as_f64().unwrap())
+                }
+            }
+            serde_json::Value::String(s) => IDLValue::Text(s),
+            serde_json::Value::Array(a) => {
+                IDLValue::Vec(a.into_iter().map(Self::json_value_to_candid).collect())
+            }
+            serde_json::Value::Object(o) => {
+                let mut fields: Vec<IDLField> = o
+                    .into_iter()
+                    .map(|(k, v)| IDLField {
+                        id: Label::Named(k),
+                        val: Self::json_value_to_candid(v),
+                    })
+                    .collect();
+
+                // Candid records require fields to be sorted by label hash.
+                fields.sort_by(|a, b| {
+                    let a_id = match &a.id {
+                        Label::Id(id) => *id,
+                        Label::Named(name) => candid::idl_hash(name),
+                        Label::Unnamed(id) => *id,
+                    };
+                    let b_id = match &b.id {
+                        Label::Id(id) => *id,
+                        Label::Named(name) => candid::idl_hash(name),
+                        Label::Unnamed(id) => *id,
+                    };
+                    a_id.cmp(&b_id)
+                });
+
+                IDLValue::Record(fields)
+            }
         }
-
-        builder
-            .serialize_to_vec()
-            .expect("Failed to serialize arguments")
     }
 }

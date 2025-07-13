@@ -11,4 +11,5 @@ export const ICP_CANISTER_ID = {
     DOCUMENTS_STORAGE: Principal.fromText(process.env.CANISTER_ID_DOCUMENTS_STORAGE!),
     VOTING: Principal.fromText(process.env.CANISTER_ID_VOTING!),
     DAO_SOGC_PUBLICATION: Principal.fromText(process.env.CANISTER_ID_DAO_SOGC_PUBLICATION!),
+    NETWORK_CALL: Principal.fromText(process.env.CANISTER_ID_NETWORK_CALL!),
 };

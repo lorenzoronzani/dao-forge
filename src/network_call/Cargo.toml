@@ -1,5 +1,5 @@
 [package]
-name = "voting"
+name = "network_call"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,7 +13,5 @@ candid.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 ic-cdk.workspace = true
-ic-cdk-timers.workspace = true
-ic-stable-structures.workspace = true
 
 common = { path = "../common" }
