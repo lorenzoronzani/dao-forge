@@ -31,7 +31,7 @@ export const DaoDetailsPage = () => {
                 <Tabs defaultValue="members" className="mt-6">
                     <TabsList className="mb-8 bg-white p-1 shadow-sm">
                         <TabsTrigger value="members">Members</TabsTrigger>
-                        <TabsTrigger value="votations">Votations</TabsTrigger>
+                        <TabsTrigger value="polls">Polls</TabsTrigger>
                         <TabsTrigger value="publications">Publications</TabsTrigger>
                         <TabsTrigger value="documents">Documents</TabsTrigger>
                     </TabsList>
@@ -40,7 +40,7 @@ export const DaoDetailsPage = () => {
                         <MembersView dao={dao} />
                     </TabsContent>
 
-                    <TabsContent value="votations">
+                    <TabsContent value="polls">
                         <VotationsView dao={dao} />
                     </TabsContent>
 

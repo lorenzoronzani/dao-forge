@@ -71,7 +71,7 @@ export const VotationsView = ({ dao }: VotationsViewProps) => {
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between">
-                        <CardTitle>Votations</CardTitle>
+                        <CardTitle>Polls</CardTitle>
                         <Button onClick={() => navigate(`/daos/${dao.principal.toText()}/votings/create`)}>Create votation</Button>
                     </div>
                     <CardDescription>Review and manage all voting processes</CardDescription>
