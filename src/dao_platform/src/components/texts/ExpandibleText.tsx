@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { TextModal } from "../modals/TextModal";
+import { Eye } from "lucide-react";
 
 interface ExpandibleTextProps {
     text: string;
@@ -6,35 +8,35 @@ interface ExpandibleTextProps {
 }
 
 export const ExpandibleText = ({ text, maxLength = 150 }: ExpandibleTextProps) => {
-    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const isExpandible = text.length > maxLength;
 
     return (
-        <div className="text-sm">
-            <div className="whitespace-pre-wrap">
-                {isExpanded ? (
-                    text
-                ) : (
-                    <>
-                        {text.substring(0, maxLength)}...
-                    </>
+        <>
+            <div className="text-sm">
+                <div className="whitespace-pre-wrap">
+                    {isExpandible ? `${text.substring(0, maxLength)}...` : text}
+                </div>
+                {isExpandible && (
+                    <div className="flex justify-end">
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="text-xs text-slate-500 flex items-center"
+                        >
+                            <Eye className="h-4 w-4 mr-1" />
+                            Show more
+                        </button>
+                    </div>
                 )}
             </div>
-            <div className="flex justify-end">
-                <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="text-xs text-slate-500 flex items-center"
-                >
-                    {isExpanded ? 'Show less' : 'Show more'}
-                    <svg
-                        className={`h-4 w-4 ml-1 transform ${isExpanded ? 'rotate-180' : ''}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+
+            <TextModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title="Sogc pubblication"
+                text={text}
+            />
+        </>
     );
 };

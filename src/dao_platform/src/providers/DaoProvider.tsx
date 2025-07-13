@@ -8,6 +8,7 @@ import { Principal } from "@dfinity/principal";
 export type DaoContextState = {
     exploreDaos: Dao[];
     userDaos: Dao[];
+    isLoading: boolean;
     refreshData: () => void;
     getDao: (daoPrincipal: Principal) => Dao;
 }
@@ -62,8 +63,10 @@ export const DaoProvider = ({ children }: { children: ReactNode }) => {
         return dao;
     }
 
+    const isLoading = exploreDaos.isLoading || userDaos.isLoading;
+
     return (
-        <DaoContext.Provider value={{ exploreDaos: exploreDaos.data || [], userDaos: userDaos.data || [], refreshData, getDao }}>
+        <DaoContext.Provider value={{ exploreDaos: exploreDaos.data || [], userDaos: userDaos.data || [], isLoading, refreshData, getDao }}>
             {children}
         </DaoContext.Provider>
     )
