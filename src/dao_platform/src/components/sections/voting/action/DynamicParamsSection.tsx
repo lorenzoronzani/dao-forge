@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MethodSignature, Parameter } from "@/services/canisterAnalyzerService";
 import { ActionFormData } from "@/components/forms/VotingForm";
 import { VOTING_FORM } from "@/constants/placeholders";
@@ -13,13 +14,21 @@ interface DynamicParamsSectionProps {
 }
 
 export const DynamicParamsSection = ({ action, onValueChange, methodSig, areCustomOptions }: DynamicParamsSectionProps) => {
-    const handleParameterChange = (index: number, value: string, name?: string) => {
+    const handleParameterChange = (index: number, value: string, name?: string, isVariant: boolean = false) => {
         if (name) {
             const parsedArgs = action.args[index] ? JSON.parse(action.args[index]) : {};
-            parsedArgs[name] = value;
+            if (isVariant) {
+                parsedArgs[name] = { [value]: null };
+            } else {
+                parsedArgs[name] = value;
+            }
             action.args[index] = JSON.stringify(parsedArgs);
         } else {
-            action.args[index] = value;
+            if (isVariant) {
+                action.args[index] = JSON.stringify({ value: null });
+            } else {
+                action.args[index] = value;
+            }
         }
 
         onValueChange('action', action);
@@ -55,17 +64,33 @@ export const DynamicParamsSection = ({ action, onValueChange, methodSig, areCust
                     </Badge>
                 </Label>
 
-                <Input
-                    id={paramKey}
-                    type={inputType}
-                    value={getRecordParameterValue(index, param.name) || ''}
-                    onChange={(e) => handleParameterChange(index, e.target.value, param?.name)}
-                    placeholder="Enter value..."
-                    required
-                    disabled={isUsingWinningOption(index, param?.name)}
-                />
+                {param.type === 'variant' ? (
+                    <Select
+                        onValueChange={(value) => handleParameterChange(index, value, param?.name, true)}
+                        defaultValue={getRecordParameterValue(index, param.name)}
+                        disabled={isUsingWinningOption(index, param?.name)}>
+                        <SelectTrigger>
+                            <SelectValue placeholder={`Select ${param.name}`} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {param.options?.map(option => (
+                                <SelectItem key={option} value={option}>{option}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                ) : (
+                    <Input
+                        id={paramKey}
+                        type={inputType}
+                        value={getRecordParameterValue(index, param.name) || ''}
+                        onChange={(e) => handleParameterChange(index, e.target.value, param?.name)}
+                        placeholder="Enter value..."
+                        required
+                        disabled={isUsingWinningOption(index, param?.name)}
+                    />
+                )}
 
-                {areCustomOptions && (
+                {areCustomOptions && param.type !== 'variant' && (
                     <div className="flex items-center gap-2 p-2 bg-blue-50 rounded border">
                         <input
                             type="checkbox"

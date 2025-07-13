@@ -1,7 +1,10 @@
 use std::collections::BTreeMap;
 
 use candid::{
-    types::{value::IDLField, Label},
+    types::{
+        value::{IDLField, VariantValue},
+        Label,
+    },
     IDLArgs, IDLValue, Principal,
 };
 use common::{services::InterCanisterService, utils::Date};
@@ -171,6 +174,15 @@ impl VotingService {
                 IDLValue::Vec(a.into_iter().map(Self::json_value_to_candid).collect())
             }
             serde_json::Value::Object(o) => {
+                if o.len() == 1 {
+                    let (key, value) = o.into_iter().next().unwrap();
+                    let field = IDLField {
+                        id: Label::Named(key.clone()),
+                        val: Self::json_value_to_candid(value),
+                    };
+                    return IDLValue::Variant(VariantValue(Box::new(field), 0));
+                }
+
                 let mut fields: Vec<IDLField> = o
                     .into_iter()
                     .map(|(k, v)| IDLField {

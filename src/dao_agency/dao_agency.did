@@ -1,3 +1,13 @@
+type Role = variant {
+    Member: null;
+    Board: null;
+};
+
+type User = record {
+    id: text;
+    role: Role;
+};
+
 type DaoAssociationInitArgs = record {
     name : text;
     address : text;
@@ -7,8 +17,7 @@ type DaoAssociationInitArgs = record {
     ch_id: text;
     frc_id: nat32;
     purpose: text;
-    board: vec principal;
-    members: vec principal;
+    members: vec User;
     documents: vec nat32;
 };
 

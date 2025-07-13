@@ -20,6 +20,21 @@ impl SogcPublicationTemplateManager {
             "dao_name_changed".to_string(),
             DAO_NAME_CHANGED_TEMPLATE.to_string(),
         );
+
+        self.templates.insert(
+            "dao_member_added".to_string(),
+            DAO_MEMBER_ADDED_TEMPLATE.to_string(),
+        );
+
+        self.templates.insert(
+            "dao_member_removed".to_string(),
+            DAO_MEMBER_REMOVED_TEMPLATE.to_string(),
+        );
+
+        self.templates.insert(
+            "dao_address_edited".to_string(),
+            DAO_ADDRESS_EDITED_TEMPLATE.to_string(),
+        );
     }
 
     pub fn render(
@@ -76,6 +91,55 @@ Commercial Registry No: {ch_id}
 Federal Registry No: {frc_id}
 
 Modification: Change of company name from "{old_name}" to "{new_name}"
+
+This modification takes effect from the aforementioned date. Updated constitutive documents are deposited with the registry office and may be consulted by any person with legitimate interest.
+
+Published in the Swiss Official Gazette of Commerce (SOGC) in accordance with applicable legal provisions."#;
+
+const DAO_MEMBER_ADDED_TEMPLATE: &str = r#"COMMERCIAL REGISTER MODIFICATION
+
+By decision of the commercial registrar dated {date}, the following modification has been inscribed in the commercial register:
+
+Company name: {name}
+Registered office: {address}, {zip} {town}
+UID: {uid}
+Commercial Registry No: {ch_id}
+Federal Registry No: {frc_id}
+
+Modification: Addition of new member {new_member} with role {member_role}
+
+This modification takes effect from the aforementioned date. Updated constitutive documents are deposited with the registry office and may be consulted by any person with legitimate interest.
+
+Published in the Swiss Official Gazette of Commerce (SOGC) in accordance with applicable legal provisions."#;
+
+const DAO_MEMBER_REMOVED_TEMPLATE: &str = r#"COMMERCIAL REGISTER MODIFICATION
+
+By decision of the commercial registrar dated {date}, the following modification has been inscribed in the commercial register:
+
+Company name: {name}
+Registered office: {address}, {zip} {town}
+UID: {uid}
+Commercial Registry No: {ch_id}
+Federal Registry No: {frc_id}
+
+Modification: Removal of member {removed_member} with role {member_role}
+
+This modification takes effect from the aforementioned date. Updated constitutive documents are deposited with the registry office and may be consulted by any person with legitimate interest.
+
+Published in the Swiss Official Gazette of Commerce (SOGC) in accordance with applicable legal provisions."#;
+
+const DAO_ADDRESS_EDITED_TEMPLATE: &str = r#"COMMERCIAL REGISTER MODIFICATION
+
+By decision of the commercial registrar dated {date}, the following modification has been inscribed in the commercial register:
+
+Company name: {name}
+OLD Registered office: {old_address}, {old_zip} {old_town}
+NEW Registered office: {new_address}, {new_zip} {new_town}
+UID: {uid}
+Commercial Registry No: {ch_id}
+Federal Registry No: {frc_id}
+
+Modification: Change of registered office from "{old_address}, {old_zip} {old_town}" to "{new_address}, {new_zip} {new_town}"
 
 This modification takes effect from the aforementioned date. Updated constitutive documents are deposited with the registry office and may be consulted by any person with legitimate interest.
 

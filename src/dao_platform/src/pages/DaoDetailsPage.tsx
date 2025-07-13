@@ -49,7 +49,7 @@ export const DaoDetailsPage = () => {
                     </TabsContent>
 
                     <TabsContent value="documents">
-                        <DocumentsView documents={dao.documents} />
+                        <DocumentsView dao={dao} />
                     </TabsContent>
                 </Tabs>
             </MainContainer>

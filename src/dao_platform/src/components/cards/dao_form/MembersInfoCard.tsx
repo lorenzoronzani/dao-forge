@@ -2,22 +2,24 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, X } from "lucide-react";
+import { Role, User } from "@/models/entities/User";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type MembersInfoCardProps = {
     id: string;
     title: string;
-    members: string[];
-    onValueChange: (id: string, value: string[]) => void;
+    members: User[];
+    onValueChange: (id: string, value: User[]) => void;
 }
 
 export const MembersInfoCard = ({ id, title, members, onValueChange }: MembersInfoCardProps) => {
     const addMember = () => {
-        onValueChange(id, [...members, '']);
+        onValueChange(id, [...members, new User('', Role.Member)]);
     };
 
-    const updateMember = (index: number, value: string) => {
+    const updateMember = (index: number, newId: string, newRole: Role) => {
         const updatedMembers = [...members];
-        updatedMembers[index] = value;
+        updatedMembers[index] = new User(newId, newRole);
         onValueChange(id, updatedMembers);
     };
 
@@ -45,13 +47,26 @@ export const MembersInfoCard = ({ id, title, members, onValueChange }: MembersIn
 
                 <div className="space-y-2">
                     {members.map((member, index) => (
-                        <div key={`member-${index}`} className="flex gap-2">
+                        <div key={`member-${index}`} className="flex items-center gap-2">
                             <Input
-                                value={member}
-                                onChange={(e) => updateMember(index, e.target.value)}
+                                value={member.id}
+                                onChange={(e) => updateMember(index, e.target.value, member.role)}
                                 placeholder="Principal ID"
                                 className="flex-1"
                             />
+                            <Select
+                                value={member.role}
+                                onValueChange={(role: Role) => updateMember(index, member.id, role)}
+                            >
+                                <SelectTrigger className="w-[120px]">
+                                    <SelectValue placeholder="Role" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {Object.values(Role).map(role => (
+                                        <SelectItem key={role} value={role}>{role}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                             <Button
                                 type="button"
                                 variant="ghost"

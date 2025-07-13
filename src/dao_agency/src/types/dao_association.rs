@@ -1,4 +1,5 @@
-use candid::{CandidType, Principal};
+use candid::CandidType;
+use common::models::User;
 use serde::Deserialize;
 
 // FIXME: Think a better solution to handle the init args
@@ -12,7 +13,6 @@ pub struct DaoAssociationInitArgs {
     pub ch_id: String,
     pub frc_id: u32,
     pub purpose: String,
-    pub board: Vec<Principal>,
-    pub members: Vec<Principal>,
+    pub members: Vec<User>,
     pub documents: Vec<u32>,
 }
