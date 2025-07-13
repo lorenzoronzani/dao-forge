@@ -11,6 +11,7 @@ import { MembersView } from '@/views/dao-details/MembersView';
 import { DocumentsView } from '@/views/dao-details/DocumentsView';
 import { PublicationsView } from '@/views/dao-details/PublicationsView';
 import { VotationsView } from '@/views/dao-details/VotationsView';
+import { paths } from '@/constants/paths';
 
 export const DaoDetailsPage = () => {
     const navigate = useNavigate();
@@ -19,6 +20,10 @@ export const DaoDetailsPage = () => {
 
     const dao = getDao(Principal.fromText(id!));
 
+    if (!dao) {
+        navigate(paths.HOME)
+    }
+
     return (
         <>
             <TopBar />
@@ -26,7 +31,7 @@ export const DaoDetailsPage = () => {
             <MainContainer>
                 <BackButton onBack={() => navigate(-1)} />
 
-                <DaoInformation dao={dao} />
+                <DaoInformation dao={dao!} />
 
                 <Tabs defaultValue="members" className="mt-6">
                     <TabsList className="mb-8 bg-white p-1 shadow-sm">
@@ -37,19 +42,19 @@ export const DaoDetailsPage = () => {
                     </TabsList>
 
                     <TabsContent value="members">
-                        <MembersView dao={dao} />
+                        <MembersView dao={dao!} />
                     </TabsContent>
 
                     <TabsContent value="polls">
-                        <VotationsView dao={dao} />
+                        <VotationsView dao={dao!} />
                     </TabsContent>
 
                     <TabsContent value="publications">
-                        <PublicationsView sogcPublications={dao.sogcPublications} />
+                        <PublicationsView sogcPublications={dao!.sogcPublications} />
                     </TabsContent>
 
                     <TabsContent value="documents">
-                        <DocumentsView documents={dao.documents} />
+                        <DocumentsView documents={dao!.documents} />
                     </TabsContent>
                 </Tabs>
             </MainContainer>

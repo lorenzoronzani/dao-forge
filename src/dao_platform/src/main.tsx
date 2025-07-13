@@ -8,6 +8,7 @@ import { paths } from './constants/paths';
 import { CreateDaoPage } from './pages/CreateDaoPage';
 import DaoDetailsPage from './pages/DaoDetailsPage';
 import CreateVotingPage from './pages/CreateVotingPage';
+import { DataLoader } from './loaders/DataLoader';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />
+        element: (
+          <DataLoader>
+            <Dashboard />
+          </DataLoader>
+        )
       },
       {
         path: paths.DAOS_CREATE,
@@ -24,11 +29,19 @@ const router = createBrowserRouter([
       },
       {
         path: paths.DAOS_DETAILS,
-        element: <DaoDetailsPage />
+        element: (
+          <DataLoader>
+            <DaoDetailsPage />
+          </DataLoader>
+        )
       },
       {
         path: paths.VOTINGS_CREATE,
-        element: <CreateVotingPage />
+        element: (
+          <DataLoader>
+            <CreateVotingPage />
+          </DataLoader>
+        )
       },
       {
         path: "*",
