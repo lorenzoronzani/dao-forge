@@ -4,7 +4,8 @@ use candid::{
     types::{value::IDLField, Label},
     IDLArgs, IDLValue, Principal,
 };
-use common::services::InterCanisterService;
+use common::{services::InterCanisterService, utils::Date};
+use ic_cdk::api::time;
 
 use crate::{
     models::{Action, TimerAction, Voting, VotingState},
@@ -76,6 +77,7 @@ impl VotingService {
         }
 
         voting.state = VotingState::Closed;
+        voting.end_at = Date::nanoseconds_to_milliseconds(time());
 
         let voting = Self::update(voting);
 

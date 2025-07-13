@@ -42,8 +42,7 @@ impl SogcPublicationTemplateManager {
     }
 }
 
-const DAO_CREATED_TEMPLATE: &str = r#"
-COMMERCIAL REGISTER INSCRIPTION
+const DAO_CREATED_TEMPLATE: &str = r#"COMMERCIAL REGISTER INSCRIPTION
                 
 By decision of the commercial registrar dated {date}, the following association has been inscribed in the commercial register:
 
@@ -65,8 +64,7 @@ This inscription takes effect from the aforementioned date. Constitutive documen
 
 Published in the Swiss Official Gazette of Commerce (SOGC) in accordance with applicable legal provisions."#;
 
-const DAO_NAME_CHANGED_TEMPLATE: &str = r#"
-COMMERCIAL REGISTER MODIFICATION
+const DAO_NAME_CHANGED_TEMPLATE: &str = r#"COMMERCIAL REGISTER MODIFICATION
 
 By decision of the commercial registrar dated {date}, the following modification has been inscribed in the commercial register:
 
