@@ -9,6 +9,7 @@ import { Principal } from "@dfinity/principal";
 import { Dao } from "@/models/entities/Dao";
 import { HorizontalActionContainer } from "@/layouts/HorizontalActionContainer";
 import ActionSection from "../sections/voting/action/ActionSection";
+import { NotificationLetterCard } from "@/components/cards/voting_form/NotificationLetterCard";
 
 type VotingFormProps = {
     dao: Dao;
@@ -22,6 +23,11 @@ export type ActionFormData = {
     args: string[];
 }
 
+export type NotificationFormData = {
+    email: string;
+    message: string;
+};
+
 export type VotingFormData = {
     title: string;
     description: string;
@@ -32,6 +38,7 @@ export type VotingFormData = {
     quorum: number;
     votersWhitelist: Principal[];
     action: ActionFormData;
+    notification: NotificationFormData;
 }
 
 // Default end at is 7 days from now
@@ -52,10 +59,13 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
             canisterId: '',
             method: '',
             args: []
+        },
+        notification: {
+            email: "",
+            message: ""
         }
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
-
 
     const onValueChange = (field: string, value: unknown) => {
         if (field === 'areCustomOptions') {
@@ -94,10 +104,13 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
                 canisterId: '',
                 method: '',
                 args: []
+            },
+            notification: {
+                email: "",
+                message: ""
             }
         });
     };
-
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -126,6 +139,11 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
             <ThresholdCard endAt={formData.endAt} approvalThreshold={formData.approvalThreshold} quorum={formData.quorum} onValueChange={onValueChange} />
 
             <VotersCard dao={dao} onValueChange={onValueChange} />
+
+            <NotificationLetterCard
+                onValueChange={onValueChange}
+                notification={formData.notification}
+            />
 
             <HorizontalActionContainer>
                 <Button type="button" variant="outline" onClick={onCancel}>
