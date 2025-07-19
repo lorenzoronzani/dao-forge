@@ -15,6 +15,9 @@ import { Voting } from '@/models/entities/Voting';
 import { DaoAssociationService } from '@/services/daoAssocationService.js';
 import { Action } from '@/models/entities/Action.js';
 import { VOTING_FORM } from '@/constants/placeholders.js';
+import { PdfFormFieldType, PdfFormFillData, PdfService } from '@/services/pdfService.js';
+import { ASSOCIATION_NOTIFICATION_LETTER } from '@/constants/pdf/association-letter.js';
+import { formatDate } from '@/utils/date.js';
 
 interface Option {
     text: string;
@@ -84,10 +87,43 @@ export const CreateVotingPage = () => {
         ];
     }
 
+    const generatePdfLetter = async (formData: VotingFormData) => {
+        const data: PdfFormFillData[] = [
+            {
+                type: PdfFormFieldType.TEXT,
+                name: ASSOCIATION_NOTIFICATION_LETTER.FIELDS.DATE,
+                value: formatDate(Date.now())
+            },
+            {
+                type: PdfFormFieldType.TEXT,
+                name: ASSOCIATION_NOTIFICATION_LETTER.FIELDS.UID,
+                value: dao.uid
+            },
+            {
+                type: PdfFormFieldType.TEXT,
+                name: ASSOCIATION_NOTIFICATION_LETTER.FIELDS.VOTERS,
+                value: formData.votersWhitelist.slice(0, 5).join('\n')
+            },
+            {
+                type: PdfFormFieldType.TEXT,
+                name: ASSOCIATION_NOTIFICATION_LETTER.FIELDS.MESSAGE,
+                value: formData.notification.message
+            },
+        ];
+
+        const pdfBytes = await PdfService.fill(ASSOCIATION_NOTIFICATION_LETTER.TEMPLATE_URL, data);
+
+        return pdfBytes;
+    }
+
     const onSubmitVoting = async (formData: VotingFormData) => {
         const votingService = new VotingService(ICP_CANISTER_ID.VOTING, identity);
 
         const options = composeOptions(formData);
+        let pdfLetterBytes: Uint8Array;
+        if (formData.notification.email && formData.notification.message) {
+            pdfLetterBytes = await generatePdfLetter(formData);
+        }
         const votingArgs: VotingArgs = {
             title: formData.title,
             description: formData.description,

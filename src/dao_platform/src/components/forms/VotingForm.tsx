@@ -61,8 +61,8 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
             args: []
         },
         notification: {
-            email: "",
-            message: ""
+            email: '',
+            message: ''
         }
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -106,8 +106,8 @@ export const VotingForm = ({ dao, onSubmit, onCancel }: VotingFormProps) => {
                 args: []
             },
             notification: {
-                email: "",
-                message: ""
+                email: '',
+                message: ''
             }
         });
     };
