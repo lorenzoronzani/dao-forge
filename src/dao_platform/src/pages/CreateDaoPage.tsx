@@ -57,7 +57,7 @@ export const CreateDaoPage = () => {
         }
     }
 
-    const onSubmitPdfGeneration = async (formData: DaoFormData): Promise<Document> => {
+    const onSubmitPdfGeneration = async (formData: DaoFormData): Promise<number> => {
         const data: PdfFormFillData[] = [
             {
                 type: PdfFormFieldType.TEXT,
@@ -165,8 +165,8 @@ export const CreateDaoPage = () => {
     }
 
     const onSubmit = async (formData: DaoFormData): Promise<Principal> => {
-        const document = await onSubmitPdfGeneration(formData);
-        const documentsIds = [document.id];
+        const documentId = await onSubmitPdfGeneration(formData);
+        const documentsIds = [documentId];
 
         const principal = await onSubmitAssociation(formData, documentsIds);
 

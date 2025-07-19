@@ -20,6 +20,7 @@ async fn create_voting(params: VotingArgs) -> Voting {
         params.approval_threshold,
         params.quorum,
         params.voters_whitelist,
+        params.notification,
     );
 
     let _ = TimerService::set_voting_timer(voting.id, params.end_at, TimerAction::EvaluateVoting);

@@ -1,3 +1,4 @@
+use common::types::EmailArgs;
 use ic_cdk::{
     api::{
         management_canister::http_request::{HttpHeader, HttpMethod, HttpResponse, TransformArgs},
@@ -7,7 +8,7 @@ use ic_cdk::{
 };
 use serde_json::json;
 
-use crate::{services::NetworkCallService, types::EmailArgs};
+use crate::services::NetworkCallService;
 
 const COURIER_URL: &str = "https://api.courier.com/send";
 const COURIER_AUTH_TOKEN: &str = "dk_prod_DYH1W2CSCS4NN4GJTSCSFKGD6673";

@@ -8,6 +8,11 @@ type Action = record {
     method : text;
     args : vec text;
 };
+
+type Notification = record {
+    email : text;
+    pdf_bytes : vec nat8;
+};
     
 type VotingArgs = record {
     title : text;
@@ -18,6 +23,7 @@ type VotingArgs = record {
     approval_threshold : nat32;
     quorum : nat32;
     voters_whitelist : vec principal;
+    notification: opt Notification;
 };
 
 type Voting = record {

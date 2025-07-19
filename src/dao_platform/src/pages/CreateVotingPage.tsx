@@ -120,7 +120,7 @@ export const CreateVotingPage = () => {
         const votingService = new VotingService(ICP_CANISTER_ID.VOTING, identity);
 
         const options = composeOptions(formData);
-        let pdfLetterBytes: Uint8Array;
+        let pdfLetterBytes: Uint8Array | null = null;
         if (formData.notification.email && formData.notification.message) {
             pdfLetterBytes = await generatePdfLetter(formData);
         }
@@ -133,6 +133,10 @@ export const CreateVotingPage = () => {
             approval_threshold: Number(formData.approvalThreshold),
             quorum: Number(formData.quorum),
             voters_whitelist: formData.votersWhitelist,
+            notification: pdfLetterBytes ? [{
+                email: formData.notification.email,
+                pdf_bytes: pdfLetterBytes
+            }] : []
         };
 
         try {

@@ -15,9 +15,8 @@ export class DocumentsStorageService {
         });
     }
 
-    async uploadDocument(params: DocumentArgs): Promise<Document> {
-        const documentDto = await this._actor.store_document(params) as DocumentDto;
-        return Document.fromDto(documentDto);
+    async uploadDocument(params: DocumentArgs): Promise<number> {
+        return await this._actor.store_document(params)
     }
 
     async getDocument(id: number): Promise<Document> {
