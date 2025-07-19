@@ -1,5 +1,5 @@
-use crate::models::DaoAssociationPresentation;
 use crate::services::DaoAssociationService;
+use crate::{models::DaoAssociationPresentation, types::AddressArgs};
 use candid::Principal;
 use common::{
     models::User,
@@ -201,13 +201,51 @@ async fn remove_member(user_id: String) -> DaoAssociationPresentation {
     DaoAssociationPresentation::from(dao)
 }
 
-// #[update]
-// async fn edit_address(address: String) -> DaoAssociationPresentation {
-//     let mut dao_association = DaoAssociationService::get();
+#[update]
+async fn update_address(address_args: AddressArgs) -> DaoAssociationPresentation {
+    let mut dao_association = DaoAssociationService::get();
 
-//     dao_association.parent.address = address;
+    let template_manager = SogcPublicationTemplateManager::new();
+    let sogc_id = SogcPublicationService::publish(
+        1,
+        Date::nanoseconds_to_milliseconds(time()),
+        vec![Mutation::ChangeOfCompany],
+        template_manager
+            .render(
+                "dao_address_updated",
+                HashMap::from([
+                    ("date".to_string(), Date::timestamp_to_date(time())),
+                    ("name".to_string(), dao_association.parent.name.clone()),
+                    (
+                        "old_address".to_string(),
+                        dao_association.parent.address.clone(),
+                    ),
+                    (
+                        "old_zip".to_string(),
+                        dao_association.parent.zip.to_string(),
+                    ),
+                    ("old_town".to_string(), dao_association.parent.town.clone()),
+                    ("new_address".to_string(), address_args.address.clone()),
+                    ("new_zip".to_string(), address_args.zip.to_string()),
+                    ("new_town".to_string(), address_args.town.clone()),
+                    ("uid".to_string(), dao_association.parent.uid.clone()),
+                    ("ch_id".to_string(), dao_association.parent.ch_id.clone()),
+                    (
+                        "frc_id".to_string(),
+                        dao_association.parent.frc_id.to_string(),
+                    ),
+                ]),
+            )
+            .unwrap(),
+    )
+    .await
+    .unwrap();
 
-//     let dao = DaoAssociationService::update(dao_association);
+    dao_association.parent.address = address_args.address;
+    dao_association.parent.zip = address_args.zip;
+    dao_association.parent.town = address_args.town;
+    dao_association.parent.sogc_publications.push(sogc_id);
+    let dao = DaoAssociationService::update(dao_association);
 
-//     DaoAssociationPresentation::from(dao)
-// }
+    DaoAssociationPresentation::from(dao)
+}

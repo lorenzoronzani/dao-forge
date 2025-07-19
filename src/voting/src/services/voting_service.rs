@@ -162,6 +162,17 @@ impl VotingService {
         match value {
             serde_json::Value::Null => IDLValue::Null,
             serde_json::Value::Bool(b) => IDLValue::Bool(b),
+            serde_json::Value::String(s) => {
+                // Try to parse as Principal
+                if let Ok(p) = Principal::from_text(&s) {
+                    return IDLValue::Principal(p);
+                }
+                // Try to parse as a number
+                if let Ok(n) = s.parse::<u32>() {
+                    return IDLValue::Nat32(n);
+                }
+                IDLValue::Text(s)
+            }
             serde_json::Value::Number(n) => {
                 if n.is_i64() {
                     IDLValue::Int(n.as_i64().unwrap().into())
@@ -169,7 +180,6 @@ impl VotingService {
                     IDLValue::Float64(n.as_f64().unwrap())
                 }
             }
-            serde_json::Value::String(s) => IDLValue::Text(s),
             serde_json::Value::Array(a) => {
                 IDLValue::Vec(a.into_iter().map(Self::json_value_to_candid).collect())
             }

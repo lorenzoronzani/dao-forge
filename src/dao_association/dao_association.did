@@ -38,6 +38,12 @@ type DaoAssociation = record {
     pools: vec nat32;
 };
 
+type Address = record {
+    address : text;
+    zip : nat32;
+    town : text;
+}
+
 service : {
     "get_information": () -> (DaoAssociation) query;
     "add_pool": (nat32) -> (DaoAssociation);
@@ -46,4 +52,5 @@ service : {
     "update_name": (text) -> (DaoAssociation);
     "add_member": (User) -> (DaoAssociation);
     "remove_member": (text) -> (DaoAssociation);
+    "update_address": (Address) -> (DaoAssociation);
 }

@@ -54,7 +54,7 @@ export const DynamicParamsSection = ({ action, onValueChange, methodSig, areCust
 
     const getParamRow = (param: Parameter, index: number) => {
         const paramKey = param.type;
-        const inputType = 'text';
+        const inputType = param.type === 'number' ? 'number' : 'text';
 
         return (
             <>

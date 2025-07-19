@@ -32,8 +32,8 @@ impl SogcPublicationTemplateManager {
         );
 
         self.templates.insert(
-            "dao_address_edited".to_string(),
-            DAO_ADDRESS_EDITED_TEMPLATE.to_string(),
+            "dao_address_updated".to_string(),
+            DAO_ADDRESS_UPDATED_TEMPLATE.to_string(),
         );
     }
 
@@ -128,7 +128,7 @@ This modification takes effect from the aforementioned date. Updated constitutiv
 
 Published in the Swiss Official Gazette of Commerce (SOGC) in accordance with applicable legal provisions."#;
 
-const DAO_ADDRESS_EDITED_TEMPLATE: &str = r#"COMMERCIAL REGISTER MODIFICATION
+const DAO_ADDRESS_UPDATED_TEMPLATE: &str = r#"COMMERCIAL REGISTER MODIFICATION
 
 By decision of the commercial registrar dated {date}, the following modification has been inscribed in the commercial register:
 
