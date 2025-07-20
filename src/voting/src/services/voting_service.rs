@@ -7,11 +7,16 @@ use candid::{
     },
     IDLArgs, IDLValue, Principal,
 };
-use common::{services::InterCanisterService, utils::Date};
+use common::{
+    services::{
+        DaoAssociationService, DocumentsStorageService, InterCanisterService, NetworkCallService,
+    },
+    utils::Date,
+};
 use ic_cdk::api::time;
 
 use crate::{
-    models::{Action, TimerAction, Voting, VotingState},
+    models::{Action, Notification, TimerAction, Voting, VotingState},
     repositories::VotingRepository,
 };
 
@@ -44,6 +49,7 @@ impl VotingService {
         approval_threshold: u32,
         quorum: u32,
         voters_whitelist: Vec<Principal>,
+        notification: Option<Notification>,
     ) -> Voting {
         let voting = Voting::new(
             Self::get_next_id(),
@@ -59,6 +65,7 @@ impl VotingService {
             approval_threshold,
             quorum,
             voters_whitelist,
+            notification,
         );
 
         VotingRepository::save(voting)
@@ -99,6 +106,12 @@ impl VotingService {
         }
 
         Self::execute_action(&winner, &voting).await;
+
+        if let Some(notification) = voting.notification {
+            if winner != "Reject" {
+                Self::execute_notification(voting.dao_id, notification).await;
+            }
+        }
     }
 
     fn check_quorum(voting: &Voting) -> bool {
@@ -162,6 +175,17 @@ impl VotingService {
         match value {
             serde_json::Value::Null => IDLValue::Null,
             serde_json::Value::Bool(b) => IDLValue::Bool(b),
+            serde_json::Value::String(s) => {
+                // Try to parse as Principal
+                if let Ok(p) = Principal::from_text(&s) {
+                    return IDLValue::Principal(p);
+                }
+                // Try to parse as a number
+                if let Ok(n) = s.parse::<u32>() {
+                    return IDLValue::Nat32(n);
+                }
+                IDLValue::Text(s)
+            }
             serde_json::Value::Number(n) => {
                 if n.is_i64() {
                     IDLValue::Int(n.as_i64().unwrap().into())
@@ -169,7 +193,6 @@ impl VotingService {
                     IDLValue::Float64(n.as_f64().unwrap())
                 }
             }
-            serde_json::Value::String(s) => IDLValue::Text(s),
             serde_json::Value::Array(a) => {
                 IDLValue::Vec(a.into_iter().map(Self::json_value_to_candid).collect())
             }
@@ -209,5 +232,28 @@ impl VotingService {
                 IDLValue::Record(fields)
             }
         }
+    }
+
+    async fn execute_notification(dao_id: Principal, notification: Notification) {
+        let doc_id = DocumentsStorageService::store_document(
+            "Notification letter".to_string(),
+            "application/pdf".to_string(),
+            notification.pdf_bytes,
+        )
+        .await
+        .expect("Failed to store document");
+
+        let _ = DaoAssociationService::add_document(dao_id, doc_id).await;
+
+        let _ = NetworkCallService::send_email(
+            notification.email.to_string(),
+            "New notification letter".to_string(),
+            format!(
+                "A new notification letter has been added to your DAO {}",
+                dao_id
+            )
+            .to_string(),
+        )
+        .await;
     }
 }

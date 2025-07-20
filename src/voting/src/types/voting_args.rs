@@ -2,7 +2,7 @@ use std::collections::BTreeMap;
 
 use candid::{CandidType, Deserialize, Principal};
 
-use crate::models::Action;
+use crate::models::{Action, Notification};
 
 #[derive(CandidType, Deserialize)]
 pub struct VotingArgs {
@@ -14,4 +14,5 @@ pub struct VotingArgs {
     pub approval_threshold: u32,
     pub quorum: u32,
     pub voters_whitelist: Vec<Principal>,
+    pub notification: Option<Notification>,
 }

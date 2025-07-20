@@ -5,6 +5,8 @@ use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 use std::collections::{BTreeMap, HashMap};
 
+use crate::models::Notification;
+
 use super::Action;
 
 #[derive(Debug, Clone, Serialize, Deserialize, CandidType, PartialEq, Eq)]
@@ -31,6 +33,7 @@ pub struct Voting {
     pub quorum: u32,
     pub voters_whitelist: Vec<Principal>,
     pub voters_cast: HashMap<Principal, String>,
+    pub notification: Option<Notification>,
 }
 
 impl Voting {
@@ -48,6 +51,7 @@ impl Voting {
         approval_threshold: u32,
         quorum: u32,
         voters_whitelist: Vec<Principal>,
+        notification: Option<Notification>,
     ) -> Self {
         Self {
             id,
@@ -65,6 +69,7 @@ impl Voting {
             quorum,
             voters_whitelist,
             voters_cast: HashMap::new(),
+            notification,
         }
     }
 }

@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Download, Eye, File, Loader2 } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Document } from "@/models/entities/Document";
 import { formatDate } from "@/utils/date";
 import { Button } from "@/components/ui/button";
 import { PdfService } from "@/services/pdfService";
@@ -33,11 +32,11 @@ export const DocumentsView = ({ dao }: DocumentsViewProps) => {
         fileInputRef.current?.click();
     };
 
-    const updateDao = async (document: Document) => {
+    const updateDao = async (documentId: number) => {
         const daoService = new DaoAssociationService(dao.principal, identity);
 
         try {
-            await daoService.addDocument(document.id);
+            await daoService.addDocument(documentId);
         } catch (error) {
             toast({
                 title: "Error!",
@@ -66,9 +65,9 @@ export const DocumentsView = ({ dao }: DocumentsViewProps) => {
                 content_type: file.type
             };
 
-            const document = await documentStorageService.uploadDocument(documentArgs);
+            const documentId = await documentStorageService.uploadDocument(documentArgs);
 
-            await updateDao(document);
+            await updateDao(documentId);
 
             refreshData();
 

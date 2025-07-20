@@ -14,6 +14,6 @@ type Document = record {
 };
 
 service : {
-    "store_document" : (DocumentArgs) -> (Document);
+    "store_document" : (DocumentArgs) -> (nat32);
     "get_document" : (nat32) -> (Document);
 }
