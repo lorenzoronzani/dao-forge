@@ -21,12 +21,12 @@ export type DaoFormData = {
   userLastName: string;
   userAddress: string;
   userTown: string;
-  userZip: number;
+  userZip: number | '';
   userPhone: string;
   userEmail: string;
   name: string;
   address: string;
-  zip: number;
+  zip: number | '';
   town: string;
   legalForm: LegalForm;
   purpose: string;
@@ -39,12 +39,12 @@ export const DaoForm = ({ onSubmit, onCancel, userPrincipal }: DaoFormProps) => 
     userLastName: '',
     userAddress: '',
     userTown: '',
-    userZip: 0,
+    userZip: '',
     userPhone: '',
     userEmail: '',
     name: '',
     address: '',
-    zip: 0,
+    zip: '',
     town: '',
     legalForm: LegalForm.Association,
     purpose: '',
@@ -65,12 +65,12 @@ export const DaoForm = ({ onSubmit, onCancel, userPrincipal }: DaoFormProps) => 
       userLastName: '',
       userAddress: '',
       userTown: '',
-      userZip: 0,
+      userZip: '',
       userPhone: '',
       userEmail: '',
       name: '',
       address: '',
-      zip: 0,
+      zip: '',
       town: '',
       legalForm: LegalForm.Association,
       purpose: '',
