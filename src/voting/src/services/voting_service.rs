@@ -253,6 +253,7 @@ impl VotingService {
                 dao_id
             )
             .to_string(),
+            format!("http://localhost:3000/daos/{}", dao_id).to_string(),
         )
         .await;
     }

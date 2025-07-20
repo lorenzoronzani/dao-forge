@@ -29,7 +29,7 @@ async fn send_email(args: EmailArgs) -> String {
                 "message": args.message,
                 "dao_name": "Dao Forge",
                 "notification_type": "Update",
-                "action_url": "https://google.com",
+                "action_url": args.action_url,
             },
         }
     });

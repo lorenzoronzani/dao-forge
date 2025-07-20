@@ -2,6 +2,7 @@ type EmailArgs = record {
     to: text;
     subject: text;
     message: text;
+    action_url: text;
 }
 
 service : {

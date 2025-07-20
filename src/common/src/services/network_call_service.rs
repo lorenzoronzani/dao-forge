@@ -9,11 +9,13 @@ impl NetworkCallService {
         to: String,
         subject: String,
         message: String,
+        action_url: String,
     ) -> Result<String, String> {
         let args = EmailArgs {
             to,
             subject,
             message,
+            action_url,
         };
 
         return InterCanisterService::call(
