@@ -10,6 +10,7 @@ import { VotingOptionsSection } from '@/components/sections/voting/VotingOptions
 import { Loader2 } from 'lucide-react';
 import { DisplayedActionSection } from '../sections/voting/action/DisplayedActionSection';
 import { NoActionMessage } from '../sections/voting/action/NoActionMessage';
+import { DisplayedNotificationSection } from '../sections/voting/notification/DisplayedNotificationSection';
 
 interface VotingModalProps {
     userPrincipal: Principal;
@@ -80,6 +81,18 @@ export const VotingModal = ({
         }
     };
 
+    const getNotificationSection = () => {
+        if (!voting.notification) return null;
+
+        const optionToCheck = canVote ? selectedOption : (userVote || getWinningOption());
+
+        if (optionToCheck && optionToCheck !== 'Reject') {
+            return <DisplayedNotificationSection notification={voting.notification} />;
+        }
+
+        return null;
+    };
+
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -103,6 +116,8 @@ export const VotingModal = ({
                     )}
 
                     {getActionSection()}
+
+                    {getNotificationSection()}
 
                     <VotingOptionsSection
                         voting={voting}

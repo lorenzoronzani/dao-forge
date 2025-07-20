@@ -42,6 +42,7 @@ type Voting = record {
     quorum : nat32;
     voters_whitelist : vec principal;
     voters_cast : vec record { principal; text; };
+    notification: opt Notification;
 };
 
 service : {

@@ -2,6 +2,7 @@ import { Principal } from "@dfinity/principal";
 import { Action } from "./Action";
 import { Voting as VotingDto } from "declarations/voting/voting.did.d.js";
 import { candidToEnum } from "@/utils/enums";
+import { Notification } from "./Notification";
 
 export enum VotingState {
     Open = 'Open',
@@ -24,6 +25,7 @@ export class Voting {
     quorum: number;
     votersWhitelist: Principal[];
     votersCast: Map<string, string>;
+    notification: Notification | null;
 
     constructor(
         id: number,
@@ -41,6 +43,7 @@ export class Voting {
         quorum: number,
         votersWhitelist: Principal[],
         votersCast: Map<string, string>,
+        notification: Notification | null,
     ) {
         this.id = id;
         this.title = title;
@@ -57,6 +60,7 @@ export class Voting {
         this.quorum = quorum;
         this.votersWhitelist = votersWhitelist;
         this.votersCast = votersCast;
+        this.notification = notification;
     }
 
     static fromDto(dto: VotingDto): Voting {
@@ -76,6 +80,7 @@ export class Voting {
             dto.quorum,
             dto.voters_whitelist,
             new Map(dto.voters_cast.map(([key, value]) => [key.toText(), value])),
+            dto.notification[0] ? Notification.fromDto(dto.notification[0]) : null,
         );
     }
 }
