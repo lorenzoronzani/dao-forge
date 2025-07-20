@@ -5,7 +5,7 @@ import { VerticalLabeledComponent } from "@/components/labels/VerticalLabeledCom
 type LocationInfoCardProps = {
     address: string;
     town: string;
-    zip: number;
+    zip: number | '';
     onValueChange: (id: string, value: string | number) => void;
 }
 

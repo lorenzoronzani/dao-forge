@@ -7,7 +7,7 @@ type PersonalInfoCardProps = {
     userLastName: string;
     userAddress: string;
     userTown: string;
-    userZip: number;
+    userZip: number | '';
     userPhone: string;
     userEmail: string;
     onValueChange: (id: string, value: string | number) => void;
