@@ -114,6 +114,7 @@ version = "0.1.0"
 dependencies = [
  "candid",
  "ic-cdk",
+ "ic-stable-structures",
  "serde",
  "time",
 ]
@@ -154,6 +155,7 @@ dependencies = [
  "common",
  "ic-cdk",
  "ic-cdk-timers",
+ "ic-stable-structures",
  "serde",
 ]
 
@@ -446,6 +448,7 @@ dependencies = [
  "candid",
  "common",
  "ic-cdk",
+ "ic-stable-structures",
  "serde",
  "serde_json",
 ]

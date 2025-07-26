@@ -8,4 +8,5 @@ candid.workspace = true
 # Required otherwise the build will fail because it not find Deserialize derive inside the candid crate
 serde.workspace = true
 ic-cdk.workspace = true
+ic-stable-structures.workspace = true
 time.workspace = true

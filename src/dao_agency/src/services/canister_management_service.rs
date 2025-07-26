@@ -1,7 +1,8 @@
 use candid::Principal;
 use ic_cdk::api::management_canister::main::{
-    create_canister, install_code, CanisterInstallMode, CanisterSettings, CreateCanisterArgument,
-    InstallCodeArgument, WasmModule,
+    canister_status, create_canister, install_code, CanisterIdRecord, CanisterInstallMode,
+    CanisterSettings, CanisterStatusResponse, CreateCanisterArgument, InstallCodeArgument,
+    WasmModule,
 };
 
 pub struct CanisterManagementService;
@@ -63,6 +64,13 @@ impl CanisterManagementService {
         {
             Ok(()) => Ok(()),
             Err(e) => Err(format!("Failed to install WASM: {:?}", e)),
+        }
+    }
+
+    pub async fn canister_status(canister_id: Principal) -> Result<CanisterStatusResponse, String> {
+        match canister_status(CanisterIdRecord { canister_id }).await {
+            Ok((status,)) => Ok(status),
+            Err(e) => Err(format!("Failed to get canister status: {:?}", e)),
         }
     }
 }

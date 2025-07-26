@@ -1,0 +1,23 @@
+{
+  "dao_agency": {
+    "ic": "yxryv-niaaa-aaaaj-qnr2a-cai"
+  },
+  "dao_discovery": {
+    "ic": "yfxpm-byaaa-aaaaj-qnrza-cai"
+  },
+  "dao_platform": {
+    "ic": "yqq6b-aqaaa-aaaaj-qnr2q-cai"
+  },
+  "dao_sogc_publication": {
+    "ic": "2wimm-jaaaa-aaaaj-qnrxq-cai"
+  },
+  "documents_storage": {
+    "ic": "ylvce-2iaaa-aaaaj-qnrya-cai"
+  },
+  "network_call": {
+    "ic": "ymueq-xqaaa-aaaaj-qnryq-cai"
+  },
+  "voting": {
+    "ic": "ycwjy-maaaa-aaaaj-qnrzq-cai"
+  }
+}

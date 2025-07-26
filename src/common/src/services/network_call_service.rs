@@ -6,6 +6,7 @@ pub struct NetworkCallService;
 
 impl NetworkCallService {
     pub async fn send_email(
+        canister_id: Principal,
         to: String,
         subject: String,
         message: String,
@@ -18,11 +19,6 @@ impl NetworkCallService {
             action_url,
         };
 
-        return InterCanisterService::call(
-            Principal::from_text("haulv-eiaaa-aaaaa-aaaaq-a2y").unwrap(),
-            &"send_email",
-            (args,),
-        )
-        .await;
+        return InterCanisterService::call(canister_id, &"send_email", (args,)).await;
     }
 }

@@ -10,6 +10,7 @@
     "dao_agency": {
       "specified_id": "36ijp-fqaaa-aaaaa-aaaaq-azi",
       "candid": "src/dao_agency/dao_agency.did",
+      "init_arg_file": "init/canister_ids_args.did",
       "package": "dao_agency",
       "type": "rust"
     },
@@ -34,6 +35,7 @@
     "voting": {
       "specified_id": "2ytnx-piaaa-aaaaa-aaaaq-a2i",
       "candid": "src/voting/voting.did",
+      "init_arg_file": "init/canister_ids_args.did",
       "package": "voting",
       "type": "rust"
     },

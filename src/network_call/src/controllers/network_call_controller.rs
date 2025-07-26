@@ -8,22 +8,20 @@ use ic_cdk::{
 };
 use serde_json::json;
 
-use crate::services::NetworkCallService;
-
-const COURIER_URL: &str = "https://api.courier.com/send";
-const COURIER_AUTH_TOKEN: &str = "dk_prod_DYH1W2CSCS4NN4GJTSCSFKGD6673";
-const TEMPLATE_ID: &str = "TFE0BHBVT0M47SKQAQFYKDPMY8HD";
+use crate::services::{ConfigurationService, NetworkCallService};
 
 #[update]
 async fn send_email(args: EmailArgs) -> String {
     println!("{:?}", args);
+
+    let configuration = ConfigurationService::get();
 
     let courier_payload = json!({
         "message": {
             "to": {
                 "email": args.to
             },
-            "template": TEMPLATE_ID,
+            "template": configuration.template_id,
             "data": {
                 "subject": args.subject,
                 "message": args.message,
@@ -43,7 +41,7 @@ async fn send_email(args: EmailArgs) -> String {
         },
         HttpHeader {
             name: "Authorization".to_string(),
-            value: format!("Bearer {}", COURIER_AUTH_TOKEN),
+            value: format!("Bearer {}", configuration.courier_auth_token),
         },
         HttpHeader {
             name: "Idempotency-Key".to_string(),
@@ -52,7 +50,7 @@ async fn send_email(args: EmailArgs) -> String {
     ];
 
     let response = NetworkCallService::send_http_request(
-        COURIER_URL.to_string(),
+        configuration.courier_url.to_string(),
         HttpMethod::POST,
         request_headers,
         Some(courier_payload.to_string().into_bytes()),

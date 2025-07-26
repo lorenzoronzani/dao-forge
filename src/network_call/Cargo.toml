@@ -13,5 +13,6 @@ candid.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 ic-cdk.workspace = true
+ic-stable-structures.workspace = true
 
 common = { path = "../common" }

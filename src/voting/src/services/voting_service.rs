@@ -9,7 +9,8 @@ use candid::{
 };
 use common::{
     services::{
-        DaoAssociationService, DocumentsStorageService, InterCanisterService, NetworkCallService,
+        ConfigurationService, DaoAssociationService, DocumentsStorageService, InterCanisterService,
+        NetworkCallService,
     },
     utils::Date,
 };
@@ -17,7 +18,7 @@ use ic_cdk::api::time;
 
 use crate::{
     models::{Action, Notification, TimerAction, Voting, VotingState},
-    repositories::VotingRepository,
+    repositories::{ConfigurationRepository, VotingRepository},
 };
 
 use candid::{CandidType, Deserialize};
@@ -176,10 +177,10 @@ impl VotingService {
             serde_json::Value::Null => IDLValue::Null,
             serde_json::Value::Bool(b) => IDLValue::Bool(b),
             serde_json::Value::String(s) => {
-                // Try to parse as Principal
-                if let Ok(p) = Principal::from_text(&s) {
-                    return IDLValue::Principal(p);
-                }
+                // // Try to parse as Principal
+                // if let Ok(p) = Principal::from_text(&s) {
+                //     return IDLValue::Principal(p);
+                // }
                 // Try to parse as a number
                 if let Ok(n) = s.parse::<u32>() {
                     return IDLValue::Nat32(n);
@@ -235,7 +236,10 @@ impl VotingService {
     }
 
     async fn execute_notification(dao_id: Principal, notification: Notification) {
+        let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
         let doc_id = DocumentsStorageService::store_document(
+            configuration.documents_storage_canister_id.unwrap(),
             "Notification letter".to_string(),
             "application/pdf".to_string(),
             notification.pdf_bytes,
@@ -246,6 +250,7 @@ impl VotingService {
         let _ = DaoAssociationService::add_document(dao_id, doc_id).await;
 
         let _ = NetworkCallService::send_email(
+            configuration.network_call_canister_id.unwrap(),
             notification.email.to_string(),
             "New notification letter".to_string(),
             format!(
@@ -253,7 +258,12 @@ impl VotingService {
                 dao_id
             )
             .to_string(),
-            format!("http://localhost:3000/daos/{}", dao_id).to_string(),
+            format!(
+                "https://{}.icp0.io/daos/{}",
+                configuration.dao_platform_canister_id.unwrap(),
+                dao_id
+            )
+            .to_string(),
         )
         .await;
     }

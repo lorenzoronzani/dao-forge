@@ -1,6 +1,8 @@
+use crate::repositories::ConfigurationRepository;
 use crate::services::DaoAssociationService;
 use crate::{models::DaoAssociationPresentation, types::AddressArgs};
 use candid::Principal;
+use common::services::ConfigurationService;
 use common::{
     models::User,
     services::{DaoDiscoveryService, SogcPublicationService},
@@ -55,8 +57,11 @@ fn add_document(document_id: u32) -> DaoAssociationPresentation {
 async fn update_name(name: String) -> DaoAssociationPresentation {
     let mut dao_association = DaoAssociationService::get();
 
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
     let template_manager = SogcPublicationTemplateManager::new();
     let sogc_id = SogcPublicationService::publish(
+        configuration.sogc_publication_canister_id.unwrap(),
         1,
         Date::nanoseconds_to_milliseconds(time()),
         vec![Mutation::ChangeOfCompany],
@@ -98,8 +103,11 @@ async fn update_name(name: String) -> DaoAssociationPresentation {
 async fn add_member(user: User) -> DaoAssociationPresentation {
     let mut dao_association = DaoAssociationService::get();
 
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
     let template_manager = SogcPublicationTemplateManager::new();
     let sogc_id = SogcPublicationService::publish(
+        configuration.sogc_publication_canister_id.unwrap(),
         1,
         Date::nanoseconds_to_milliseconds(time()),
         vec![Mutation::ChangeOfCompany],
@@ -135,7 +143,14 @@ async fn add_member(user: User) -> DaoAssociationPresentation {
 
     let dao = DaoAssociationService::update(dao_association);
 
-    DaoDiscoveryService::save_user_dao(Principal::from_text(user.id.clone()).unwrap(), id()).await;
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
+    DaoDiscoveryService::save_user_dao(
+        configuration.dao_discovery_canister_id.unwrap(),
+        Principal::from_text(user.id.clone()).unwrap(),
+        id(),
+    )
+    .await;
 
     DaoAssociationPresentation::from(dao)
 }
@@ -144,8 +159,11 @@ async fn add_member(user: User) -> DaoAssociationPresentation {
 async fn remove_member(user_id: String) -> DaoAssociationPresentation {
     let mut dao_association = DaoAssociationService::get();
 
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
     let template_manager = SogcPublicationTemplateManager::new();
     let sogc_id = SogcPublicationService::publish(
+        configuration.sogc_publication_canister_id.unwrap(),
         1,
         Date::nanoseconds_to_milliseconds(time()),
         vec![Mutation::ChangeOfCompany],
@@ -195,8 +213,14 @@ async fn remove_member(user_id: String) -> DaoAssociationPresentation {
     dao_association.parent.sogc_publications.push(sogc_id);
     let dao = DaoAssociationService::update(dao_association);
 
-    DaoDiscoveryService::remove_user_dao(Principal::from_text(user_id.clone()).unwrap(), id())
-        .await;
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
+    DaoDiscoveryService::remove_user_dao(
+        configuration.dao_discovery_canister_id.unwrap(),
+        Principal::from_text(user_id.clone()).unwrap(),
+        id(),
+    )
+    .await;
 
     DaoAssociationPresentation::from(dao)
 }
@@ -205,8 +229,11 @@ async fn remove_member(user_id: String) -> DaoAssociationPresentation {
 async fn update_address(address_args: AddressArgs) -> DaoAssociationPresentation {
     let mut dao_association = DaoAssociationService::get();
 
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
     let template_manager = SogcPublicationTemplateManager::new();
     let sogc_id = SogcPublicationService::publish(
+        configuration.sogc_publication_canister_id.unwrap(),
         1,
         Date::nanoseconds_to_milliseconds(time()),
         vec![Mutation::ChangeOfCompany],
