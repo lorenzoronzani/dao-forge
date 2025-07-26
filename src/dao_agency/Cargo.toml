@@ -13,5 +13,6 @@ candid.workspace = true
 serde.workspace = true
 ic-cdk.workspace = true
 ic-cdk-timers.workspace = true
+ic-stable-structures.workspace = true
 
 common = { path = "../common" }

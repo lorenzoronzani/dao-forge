@@ -10,6 +10,7 @@ pub struct SogcPublicationService;
 
 impl SogcPublicationService {
     pub async fn publish(
+        canister_id: Principal,
         daily_number: u32,
         publication_date: u64,
         mutations: Vec<Mutation>,
@@ -22,12 +23,8 @@ impl SogcPublicationService {
             description,
         };
 
-        let sogc_id: Result<u32, String> = InterCanisterService::call(
-            Principal::from_text("i2m4m-laaaa-aaaaa-aaaaq-azq").unwrap(),
-            &"create_sogc_publication",
-            (args,),
-        )
-        .await;
+        let sogc_id: Result<u32, String> =
+            InterCanisterService::call(canister_id, &"create_sogc_publication", (args,)).await;
 
         println!("sogc_id: {:?}", sogc_id);
 

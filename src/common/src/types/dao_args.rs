@@ -1,6 +1,6 @@
 use candid::{CandidType, Deserialize};
 
-use crate::models::User;
+use crate::models::{Configuration, User};
 
 #[derive(CandidType, Deserialize, Clone)]
 pub struct DaoArgs {
@@ -15,4 +15,5 @@ pub struct DaoArgs {
     pub sogc_publications: Vec<u32>,
     pub members: Vec<User>,
     pub documents: Vec<u32>,
+    pub configuration: Configuration,
 }

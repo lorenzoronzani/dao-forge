@@ -9,7 +9,8 @@ use candid::{
 };
 use common::{
     services::{
-        DaoAssociationService, DocumentsStorageService, InterCanisterService, NetworkCallService,
+        ConfigurationService, DaoAssociationService, DocumentsStorageService, InterCanisterService,
+        NetworkCallService,
     },
     utils::Date,
 };
@@ -17,7 +18,7 @@ use ic_cdk::api::time;
 
 use crate::{
     models::{Action, Notification, TimerAction, Voting, VotingState},
-    repositories::VotingRepository,
+    repositories::{ConfigurationRepository, VotingRepository},
 };
 
 use candid::{CandidType, Deserialize};
@@ -245,7 +246,10 @@ impl VotingService {
 
         let _ = DaoAssociationService::add_document(dao_id, doc_id).await;
 
+        let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
         let _ = NetworkCallService::send_email(
+            configuration.network_call_canister_id.unwrap(),
             notification.email.to_string(),
             "New notification letter".to_string(),
             format!(

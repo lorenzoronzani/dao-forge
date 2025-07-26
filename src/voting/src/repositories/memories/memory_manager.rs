@@ -6,6 +6,7 @@ pub type Memory = VirtualMemory<DefaultMemoryImpl>;
 
 pub const VOTING_MEMORY_ID: MemoryId = MemoryId::new(0);
 pub const TIMER_MEMORY_ID: MemoryId = MemoryId::new(1);
+pub const CONFIGURATION_MEMORY_ID: MemoryId = MemoryId::new(2);
 
 thread_local! {
     // The memory manager is used for simulating multiple memories. Given a `MemoryId` it can

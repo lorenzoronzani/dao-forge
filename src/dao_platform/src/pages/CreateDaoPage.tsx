@@ -30,7 +30,7 @@ export const CreateDaoPage = () => {
         const daoAssociationInitArgs: DaoAssociationInitArgs = {
             name: formData.name,
             address: formData.address,
-            zip: formData.zip,
+            zip: Number(formData.zip),
             town: formData.town,
             uid: `CHE-${Math.floor(Math.random() * 1000)}.${Math.floor(Math.random() * 1000)}.${Math.floor(Math.random() * 1000)}`,
             ch_id: `CH${Math.floor(Math.random() * 10000000000)}`,

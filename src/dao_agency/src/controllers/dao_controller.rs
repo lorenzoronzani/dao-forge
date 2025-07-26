@@ -1,8 +1,9 @@
+use crate::repositories::ConfigurationRepository;
 use crate::services::CanisterManagementService;
 use crate::types::DaoAssociationInitArgs;
 use candid::{encode_args, Principal};
 use common::models::{Role, User};
-use common::services::{DaoDiscoveryService, SogcPublicationService};
+use common::services::{ConfigurationService, DaoDiscoveryService, SogcPublicationService};
 use common::templates::SogcPublicationTemplateManager;
 use common::types::{DaoArgs, Mutation};
 use common::utils::Date;
@@ -14,6 +15,8 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
     let wasm =
         include_bytes!("../../../../target/wasm32-unknown-unknown/release/dao_association.wasm")
             .to_vec();
+
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
 
     let mut dao_params = DaoArgs {
         name: params.name,
@@ -27,10 +30,12 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
         sogc_publications: vec![],
         members: params.members,
         documents: params.documents,
+        configuration: configuration.clone(),
     };
 
     let template_manager = SogcPublicationTemplateManager::new();
     let sogc_id = SogcPublicationService::publish(
+        configuration.sogc_publication_canister_id.unwrap(),
         1,
         Date::nanoseconds_to_milliseconds(time()),
         vec![Mutation::NewInscription],

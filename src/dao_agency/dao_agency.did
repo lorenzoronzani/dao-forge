@@ -21,6 +21,15 @@ type DaoAssociationInitArgs = record {
     documents: vec nat32;
 };
 
-service : {
+type ConfigurationArgs = record {
+    dao_agency_canister_id: opt principal;
+    sogc_publication_canister_id: opt principal;
+    dao_discovery_canister_id: opt principal;
+    documents_storage_canister_id: opt principal;
+    voting_canister_id: opt principal;
+    network_call_canister_id: opt principal;
+}
+
+service: (ConfigurationArgs) -> {
     "create_dao_association" : (DaoAssociationInitArgs) -> (variant { Ok: principal; Err: text });
 }
