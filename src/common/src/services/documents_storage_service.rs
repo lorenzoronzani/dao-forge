@@ -6,6 +6,7 @@ pub struct DocumentsStorageService;
 
 impl DocumentsStorageService {
     pub async fn store_document(
+        canister_id: Principal,
         name: String,
         content_type: String,
         content: Vec<u8>,
@@ -16,12 +17,8 @@ impl DocumentsStorageService {
             content,
         };
 
-        let document_id: Result<u32, String> = InterCanisterService::call(
-            Principal::from_text("ueq6w-kyaaa-aaaaa-aaaaq-a2a").unwrap(),
-            &"store_document",
-            (args,),
-        )
-        .await;
+        let document_id: Result<u32, String> =
+            InterCanisterService::call(canister_id, &"store_document", (args,)).await;
 
         return document_id;
     }

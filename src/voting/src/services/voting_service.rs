@@ -15,6 +15,7 @@ use common::{
     utils::Date,
 };
 use ic_cdk::api::time;
+use ic_cdk::println;
 
 use crate::{
     models::{Action, Notification, TimerAction, Voting, VotingState},
@@ -167,6 +168,9 @@ impl VotingService {
 
         let idl_args = IDLArgs::new(&idl_values);
 
+        println!("IDLValues: {:#?}", idl_values);
+        println!("IDLArgs: {:#?}", idl_args);
+
         idl_args
             .to_bytes()
             .expect("Failed to serialize IDLArgs to bytes")
@@ -236,7 +240,10 @@ impl VotingService {
     }
 
     async fn execute_notification(dao_id: Principal, notification: Notification) {
+        let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
         let doc_id = DocumentsStorageService::store_document(
+            configuration.documents_storage_canister_id.unwrap(),
             "Notification letter".to_string(),
             "application/pdf".to_string(),
             notification.pdf_bytes,
@@ -245,8 +252,6 @@ impl VotingService {
         .expect("Failed to store document");
 
         let _ = DaoAssociationService::add_document(dao_id, doc_id).await;
-
-        let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
 
         let _ = NetworkCallService::send_email(
             configuration.network_call_canister_id.unwrap(),

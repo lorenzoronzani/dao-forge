@@ -97,8 +97,11 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
         CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()])
             .await?;
 
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
     for member in dao_params.members.iter() {
         DaoDiscoveryService::save_user_dao(
+            configuration.dao_discovery_canister_id.unwrap(),
             Principal::from_text(member.id.clone()).unwrap(),
             canister_id,
         )

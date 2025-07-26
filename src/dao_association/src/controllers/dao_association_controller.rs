@@ -143,7 +143,14 @@ async fn add_member(user: User) -> DaoAssociationPresentation {
 
     let dao = DaoAssociationService::update(dao_association);
 
-    DaoDiscoveryService::save_user_dao(Principal::from_text(user.id.clone()).unwrap(), id()).await;
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
+    DaoDiscoveryService::save_user_dao(
+        configuration.dao_discovery_canister_id.unwrap(),
+        Principal::from_text(user.id.clone()).unwrap(),
+        id(),
+    )
+    .await;
 
     DaoAssociationPresentation::from(dao)
 }
@@ -206,8 +213,14 @@ async fn remove_member(user_id: String) -> DaoAssociationPresentation {
     dao_association.parent.sogc_publications.push(sogc_id);
     let dao = DaoAssociationService::update(dao_association);
 
-    DaoDiscoveryService::remove_user_dao(Principal::from_text(user_id.clone()).unwrap(), id())
-        .await;
+    let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
+
+    DaoDiscoveryService::remove_user_dao(
+        configuration.dao_discovery_canister_id.unwrap(),
+        Principal::from_text(user_id.clone()).unwrap(),
+        id(),
+    )
+    .await;
 
     DaoAssociationPresentation::from(dao)
 }
