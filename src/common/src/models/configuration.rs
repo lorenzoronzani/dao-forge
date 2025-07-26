@@ -12,6 +12,7 @@ pub struct Configuration {
     pub documents_storage_canister_id: Option<Principal>,
     pub voting_canister_id: Option<Principal>,
     pub network_call_canister_id: Option<Principal>,
+    pub dao_platform_canister_id: Option<Principal>,
 }
 
 impl Configuration {
@@ -22,6 +23,7 @@ impl Configuration {
         documents_storage_canister_id: Option<Principal>,
         voting_canister_id: Option<Principal>,
         network_call_canister_id: Option<Principal>,
+        dao_platform_canister_id: Option<Principal>,
     ) -> Self {
         Self {
             dao_agency_canister_id,
@@ -30,6 +32,7 @@ impl Configuration {
             documents_storage_canister_id,
             voting_canister_id,
             network_call_canister_id,
+            dao_platform_canister_id,
         }
     }
 }

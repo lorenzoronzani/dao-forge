@@ -10,6 +10,9 @@ use common::utils::Date;
 use ic_cdk::{api::time, caller, id};
 use std::collections::HashMap;
 
+static ADMIN_CONTROLLER_START: &str = "wdt2u-xhshh";
+static ADMIN_CONTROLLER_END: &str = "7xud4-yqe";
+
 #[ic_cdk::update]
 async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Principal, String> {
     let wasm =
@@ -93,9 +96,25 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
     }
     let encoded_args = encode_args((dao_params.clone(),)).unwrap();
 
-    let canister_id =
-        CanisterManagementService::deploy_canister(wasm, encoded_args, vec![id(), caller()])
-            .await?;
+    let canister_status = CanisterManagementService::canister_status(id()).await?;
+
+    let admin_controller = canister_status
+        .settings
+        .controllers
+        .into_iter()
+        .filter(|c| {
+            c.to_string().starts_with(ADMIN_CONTROLLER_START)
+                && c.to_string().ends_with(ADMIN_CONTROLLER_END)
+        })
+        .collect::<Vec<Principal>>()[0];
+
+    // FIXME: I cannot use the caller() properly because my derivate principal is not the same of the NNS one so the caller is not able to access to it
+    let canister_id = CanisterManagementService::deploy_canister(
+        wasm,
+        encoded_args,
+        vec![id(), admin_controller],
+    )
+    .await?;
 
     let configuration = ConfigurationService::new(ConfigurationRepository::new()).get();
 

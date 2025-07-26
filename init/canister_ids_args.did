@@ -5,4 +5,5 @@
     documents_storage_canister_id = opt principal "ueq6w-kyaaa-aaaaa-aaaaq-a2a";
     voting_canister_id = opt principal "2ytnx-piaaa-aaaaa-aaaaq-a2i";
     network_call_canister_id = opt principal "haulv-eiaaa-aaaaa-aaaaq-a2y";
+    dao_platform_canister_id = opt principal "j4xyu-byaaa-aaaaa-aaaaq-a2q";
 })

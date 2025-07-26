@@ -21,6 +21,7 @@ impl<R: ConfigurationRepositoryInterface> ConfigurationService<R> {
         documents_storage_canister_id: Option<Principal>,
         voting_canister_id: Option<Principal>,
         network_call_canister_id: Option<Principal>,
+        dao_platform_canister_id: Option<Principal>,
     ) -> Configuration {
         let config = Configuration::new(
             dao_agency_canister_id,
@@ -29,6 +30,7 @@ impl<R: ConfigurationRepositoryInterface> ConfigurationService<R> {
             documents_storage_canister_id,
             voting_canister_id,
             network_call_canister_id,
+            dao_platform_canister_id,
         );
 
         self.configuration_repository.save(config)
@@ -46,6 +48,7 @@ impl<R: ConfigurationRepositoryInterface> ConfigurationService<R> {
         documents_storage_canister_id: Option<Principal>,
         voting_canister_id: Option<Principal>,
         network_call_canister_id: Option<Principal>,
+        dao_platform_canister_id: Option<Principal>,
     ) -> Configuration {
         let mut config = self.get();
 
@@ -71,6 +74,10 @@ impl<R: ConfigurationRepositoryInterface> ConfigurationService<R> {
 
         if network_call_canister_id.is_some() {
             config.network_call_canister_id = network_call_canister_id;
+        }
+
+        if dao_platform_canister_id.is_some() {
+            config.dao_platform_canister_id = dao_platform_canister_id;
         }
 
         self.configuration_repository.save(config)

@@ -34,5 +34,6 @@ async fn canister_init(args: DaoArgs) {
         args.configuration.documents_storage_canister_id,
         args.configuration.voting_canister_id,
         args.configuration.network_call_canister_id,
+        args.configuration.dao_platform_canister_id,
     );
 }

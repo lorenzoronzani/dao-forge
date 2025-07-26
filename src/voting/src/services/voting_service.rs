@@ -258,7 +258,12 @@ impl VotingService {
                 dao_id
             )
             .to_string(),
-            format!("http://localhost:3000/daos/{}", dao_id).to_string(),
+            format!(
+                "https://{}.icp0.io/daos/{}",
+                configuration.dao_platform_canister_id.unwrap(),
+                dao_id
+            )
+            .to_string(),
         )
         .await;
     }
