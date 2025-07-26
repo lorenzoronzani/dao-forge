@@ -10,7 +10,7 @@
     "dao_agency": {
       "specified_id": "36ijp-fqaaa-aaaaa-aaaaq-azi",
       "candid": "src/dao_agency/dao_agency.did",
-      "init_arg_file": "init/init_args.did",
+      "init_arg_file": "init/canister_ids_args.did",
       "package": "dao_agency",
       "type": "rust"
     },
@@ -35,7 +35,7 @@
     "voting": {
       "specified_id": "2ytnx-piaaa-aaaaa-aaaaq-a2i",
       "candid": "src/voting/voting.did",
-      "init_arg_file": "init/init_args.did",
+      "init_arg_file": "init/canister_ids_args.did",
       "package": "voting",
       "type": "rust"
     },
@@ -53,6 +53,7 @@
     "network_call": {
       "specified_id": "haulv-eiaaa-aaaaa-aaaaq-a2y",
       "candid": "src/network_call/network_call.did",
+      "init_arg_file": "init/network_call_args.did",
       "package": "network_call",
       "type": "rust"
     },

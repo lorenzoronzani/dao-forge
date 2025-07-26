@@ -52,7 +52,7 @@ type ConfigurationArgs = record {
     documents_storage_canister_id: opt principal;
     voting_canister_id: opt principal;
     network_call_canister_id: opt principal;
-}
+};
 
 service: (ConfigurationArgs) -> {
     "create_voting" : (VotingArgs) -> (Voting);

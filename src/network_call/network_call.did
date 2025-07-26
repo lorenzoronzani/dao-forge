@@ -3,8 +3,14 @@ type EmailArgs = record {
     subject: text;
     message: text;
     action_url: text;
-}
+};
 
-service : {
+type ConfigurationArgs = record {
+    courier_url: text;
+    courier_auth_token: text;
+    template_id: text;
+};
+
+service: (ConfigurationArgs) -> {
     "send_email": (EmailArgs) -> (text);
 }

@@ -42,7 +42,7 @@ type Address = record {
     address : text;
     zip : nat32;
     town : text;
-}
+};
 
 service : {
     "get_information": () -> (DaoAssociation) query;

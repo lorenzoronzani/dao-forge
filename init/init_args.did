@@ -1,8 +1,0 @@
-(record {
-        dao_agency_canister_id = opt principal "36ijp-fqaaa-aaaaa-aaaaq-azi";
-        sogc_publication_canister_id = opt principal "i2m4m-laaaa-aaaaa-aaaaq-azq";
-        dao_discovery_canister_id = opt principal "ggppn-oqaaa-aaaaa-aaaaq-azy";
-        documents_storage_canister_id = opt principal "ueq6w-kyaaa-aaaaa-aaaaq-a2a";
-        voting_canister_id = opt principal "2ytnx-piaaa-aaaaa-aaaaq-a2i";
-        network_call_canister_id = opt principal "haulv-eiaaa-aaaaa-aaaaq-a2y";
-})
