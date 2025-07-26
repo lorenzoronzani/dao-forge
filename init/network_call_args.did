@@ -1,5 +1,0 @@
-(record {
-    courier_url = "https://api.courier.com/send";
-    courier_auth_token = "dk_prod_DYH1W2CSCS4NN4GJTSCSFKGD6673";
-    template_id = "TFE0BHBVT0M47SKQAQFYKDPMY8HD";
-})
