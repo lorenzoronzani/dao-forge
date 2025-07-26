@@ -15,7 +15,6 @@ use common::{
     utils::Date,
 };
 use ic_cdk::api::time;
-use ic_cdk::println;
 
 use crate::{
     models::{Action, Notification, TimerAction, Voting, VotingState},
@@ -168,9 +167,6 @@ impl VotingService {
 
         let idl_args = IDLArgs::new(&idl_values);
 
-        println!("IDLValues: {:#?}", idl_values);
-        println!("IDLArgs: {:#?}", idl_args);
-
         idl_args
             .to_bytes()
             .expect("Failed to serialize IDLArgs to bytes")
@@ -181,10 +177,10 @@ impl VotingService {
             serde_json::Value::Null => IDLValue::Null,
             serde_json::Value::Bool(b) => IDLValue::Bool(b),
             serde_json::Value::String(s) => {
-                // Try to parse as Principal
-                if let Ok(p) = Principal::from_text(&s) {
-                    return IDLValue::Principal(p);
-                }
+                // // Try to parse as Principal
+                // if let Ok(p) = Principal::from_text(&s) {
+                //     return IDLValue::Principal(p);
+                // }
                 // Try to parse as a number
                 if let Ok(n) = s.parse::<u32>() {
                     return IDLValue::Nat32(n);
