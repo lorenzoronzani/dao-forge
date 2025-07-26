@@ -12,14 +12,56 @@ export const TopBar = () => {
     const { toast } = useToast();
     const navigate = useNavigate();
 
+    // Permission policy error
+    // await navigator.clipboard.writeText(userPrincipal.toText());
     const copyUserPrincipal = () => {
-        if (isAuthenticated) {
-            navigator.clipboard.writeText(userPrincipal.toText());
+        if (!isAuthenticated) return;
+
+        const text = userPrincipal.toText();
+
+        // Create a temporary textarea element
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+
+        // Make it invisible but accessible
+        textArea.style.position = "absolute";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "-9999px";
+        textArea.style.opacity = "0";
+        textArea.setAttribute('readonly', '');
+        textArea.style.pointerEvents = 'none';
+        textArea.style.zIndex = '-1';
+        textArea.setAttribute('tabindex', '-1');
+
+        document.body.appendChild(textArea);
+
+        try {
+            // Focus and select the text
+            textArea.focus();
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // For mobile devices
+
+            // Execute the copy command
+            const successful = document.execCommand('copy');
+
+            if (successful) {
+                toast({
+                    title: "Copied!",
+                    description: "User principal copied to clipboard.",
+                    duration: 2000,
+                });
+            } else {
+                throw new Error('execCommand failed');
+            }
+        } catch (error) {
             toast({
-                title: "Copied!",
-                description: "User principal copied to clipboard.",
+                title: "Error!",
+                description: "Failed to copy user principal to clipboard.",
                 duration: 2000,
             });
+        } finally {
+            // Always clean up the temporary element
+            document.body.removeChild(textArea);
         }
     };
 

@@ -20,7 +20,7 @@ dfx deploy internet_identity
 dfx deploy dao_sogc_publication
 dfx deploy documents_storage
 dfx deploy network_call --argument "(record { courier_url = \"$COURIER_URL\"; courier_auth_token = \"$COURIER_AUTH_TOKEN\"; template_id = \"$TEMPLATE_ID\" })"
-dfx deploy voting
 dfx deploy dao_discovery
+dfx deploy voting
 dfx deploy dao_agency
 dfx deploy dao_platform
