@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/lorenzoronzani/dao-forge">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="docs/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">dao-forge</h3>
@@ -35,16 +35,16 @@ DAO Forge represents a new paradigm in decentralized governance, bridging the ga
 
 DAO Forge enables governments and organizations to create legally compliant DAOs with an innovative voting process. The basic idea is that you are able to verify and track what happens from the creation of the poll, to the voting section, the automatic execution of a custom action based on the voting results and the tracking if the action has already been executed or not. The platform is fully decentralized, hosted on ICP, and designed to eliminate single points of failure while providing robust governance mechanisms.
 
-Key Features:
+Key features:
 - Transparency: Full-stack and decentralized deployment ensuring complete visibility
 - Interoperability: Seamless integration between off-chain and on-chain operations
 - Flexibility: Extensible architecture for adding new functionalities and governance models
-- Legal Compliance: Built-in compliance with Swiss laws and regulatory frameworks
-- Automation & Verifiability: Automated execution of actions with full audit trails and verification capabilities
+- Legal compliance: Built-in compliance with Swiss laws and regulatory frameworks
+- Automation & verifiability: Automated execution of actions with full audit trails and verification capabilities
 
 This comprehensive approach ensures that organizations can leverage the benefits of decentralized governance while maintaining the legal certainty and operational efficiency required for real-world applications.
 
-### Built With
+### Built with
 
 The tech stack of this project includes:
 
@@ -58,6 +58,29 @@ The tech stack of this project includes:
 <br>
 [![Typescript][Typescript]][Typescript-url]
 <br>
+
+### ICP architecture
+
+The DAO Forge platform is built on a modular, decentralized architecture composed of specialized canisters deployed across the ICP. This design ensures high availability, verifiability, and legal compliance while maintaining the flexibility to support different jurisdictions and DAO structures.
+
+<div align="center">
+  <a href="https://github.com/IsinBlockchainTeam/flutter_isin_blockchain_wallet_manager">
+    <img src="docs/images/architecture.png" alt="Architecture">
+  </a>
+</div>
+
+The architecture is composed of the following canisters:
+- dao_agency: Orchestrates DAO creation and deployment of legal-form-specific canisters
+- dao_association: Company in the schema, represents individual DAO instances with all operations and data for specific legal forms (currently Swiss associations)
+- voting: Central governance engine handling the complete voting lifecycle, from creation to automated execution
+- dao_discovery: Cross-platform registry enabling users to find and explore DAOs across the ecosystem
+- documents_storage: Append-only storage for DAO-related documents with built-in traceability
+- dao_sogc_publication: Maintains compliance records from the Swiss Official Gazette of Commerce
+- network_call: Secure HTTPS outcall functionality for off-chain interactions
+- dao_platform: Frontend hosting directly from canisters for complete decentralization
+- internet_identity: WebAuthn-based authentication without passwords or extensions
+
+Each canister operates independently while communicating through well-defined interfaces, creating a resilient system that can scale functionality and regulatory coverage without compromising decentralization. The modular design allows seamless integration of new legal forms, jurisdictions, and features as the platform evolves.
 
 <!-- GETTING STARTED -->
 
