@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use crate::models::User;
 
 // FIXME: Think if the default implementation is the best approach
-#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType, PartialEq)]
 pub enum LegalForm {
     #[default]
     Corporation,
@@ -13,7 +13,7 @@ pub enum LegalForm {
 }
 
 // FIXME: Think if the default implementation is the best approach
-#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, CandidType, PartialEq)]
 pub enum OrganizationStatus {
     #[default]
     Active,

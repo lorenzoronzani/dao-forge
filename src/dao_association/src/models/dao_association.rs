@@ -60,3 +60,7 @@ impl Storable for DaoAssociation {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "dao_association_tests.rs"]
+mod dao_association_tests;

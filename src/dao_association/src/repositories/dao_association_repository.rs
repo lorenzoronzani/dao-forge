@@ -16,3 +16,7 @@ impl DaoAssociationRepository {
         DAO_MEMORY.with_borrow(|dao_memory| dao_memory.get().clone())
     }
 }
+
+#[cfg(test)]
+#[path = "dao_association_repository_tests.rs"]
+mod dao_association_repository_tests;
