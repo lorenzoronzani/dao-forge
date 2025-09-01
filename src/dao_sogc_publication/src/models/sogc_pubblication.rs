@@ -46,3 +46,7 @@ impl Storable for SogcPublication {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "sogc_publication_tests.rs"]
+mod sogc_publication_tests;

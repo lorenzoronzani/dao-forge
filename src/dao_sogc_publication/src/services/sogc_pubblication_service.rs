@@ -32,3 +32,7 @@ impl SogcPubblicationService {
         SogcPubblicationRepository::get(id)
     }
 }
+
+#[cfg(test)]
+#[path = "sogc_publication_service_tests.rs"]
+mod sogc_publication_service_tests;

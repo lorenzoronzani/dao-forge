@@ -22,3 +22,7 @@ impl SogcPubblicationRepository {
             .with_borrow(|sogc_publication_memory| sogc_publication_memory.len())
     }
 }
+
+#[cfg(test)]
+#[path = "sogc_publication_repository_tests.rs"]
+mod sogc_publication_repository_tests;
