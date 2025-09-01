@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod email_service_controller_integration_tests {
+mod network_call_controller_integration_tests {
     use candid::{decode_one, encode_args, Principal};
     use common::types::EmailArgs;
     use pocket_ic::PocketIc;
