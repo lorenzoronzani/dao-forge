@@ -8,23 +8,40 @@ mod dao_controller_integration_tests {
 
     fn setup_canister() -> (PocketIc, Principal) {
         let pic = PocketIc::new();
+
+        // Spin up SOGC publication canister (dependency)
+        let sogc_canister = pic.create_canister();
+        pic.add_cycles(sogc_canister, 2_000_000_000_000);
+        let sogc_wasm =
+            std::fs::read("../../target/wasm32-unknown-unknown/release/dao_sogc_publication.wasm")
+                .expect("Could not read dao_sogc_publication.wasm");
+        pic.install_canister(sogc_canister, sogc_wasm, vec![], None);
+
+        // Spin up DAO discovery canister (dependency)
+        let discovery_canister = pic.create_canister();
+        pic.add_cycles(discovery_canister, 2_000_000_000_000);
+        let discovery_wasm =
+            std::fs::read("../../target/wasm32-unknown-unknown/release/dao_discovery.wasm")
+                .expect("Could not read dao_discovery.wasm");
+        pic.install_canister(discovery_canister, discovery_wasm, vec![], None);
+
+        // Create and install dao_association canister under test
         let canister_id = pic.create_canister();
         pic.add_cycles(canister_id, 2_000_000_000_000);
 
-        // Load your compiled WASM
         let wasm =
             std::fs::read("../../target/wasm32-unknown-unknown/release/dao_association.wasm")
-                .expect("Could not read WASM file");
+                .expect("Could not read dao_association.wasm");
 
-        // Create init args for the canister
-        let init_args = create_test_dao_args();
+        // Create init args for the canister with real dependency principals
+        let init_args = create_test_dao_args(sogc_canister, discovery_canister);
 
         pic.install_canister(canister_id, wasm, encode_args((init_args,)).unwrap(), None);
 
         (pic, canister_id)
     }
 
-    fn create_test_dao_args() -> DaoArgs {
+    fn create_test_dao_args(sogc: Principal, discovery: Principal) -> DaoArgs {
         use common::models::Configuration;
 
         DaoArgs {
@@ -40,20 +57,20 @@ mod dao_controller_integration_tests {
             members: vec![],
             documents: vec![],
             configuration: Configuration::new(
-                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
-                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
-                Some(Principal::from_text("rdmx6-jaaaa-aaaaa-aaadq-cai").unwrap()),
-                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
-                Some(Principal::from_text("rdmx6-jaaaa-aaaaa-aaadq-cai").unwrap()),
-                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
-                Some(Principal::from_text("rdmx6-jaaaa-aaaaa-aaadq-cai").unwrap()),
+                None,
+                Some(sogc),
+                Some(discovery),
+                None,
+                None,
+                None,
+                None,
             ),
         }
     }
 
     fn create_test_user() -> User {
         User {
-            id: "test-user-123".to_string(),
+            id: Principal::anonymous().to_string(),
             role: Role::Member,
         }
     }
@@ -145,8 +162,6 @@ mod dao_controller_integration_tests {
         let (pic, canister_id) = setup_canister();
         let new_name = "Updated DAO Name".to_string();
 
-        // Note: This test might fail due to missing configuration
-        // You may need to mock or setup required canisters
         let response = pic.update_call(
             canister_id,
             Principal::anonymous(),
@@ -154,8 +169,6 @@ mod dao_controller_integration_tests {
             encode_args((new_name.clone(),)).unwrap(),
         );
 
-        // This might fail due to inter-canister calls - that's expected for now
-        // In a real scenario, you'd want to setup mock canisters
         match response {
             Ok(result) => {
                 let dao_presentation: DaoAssociationPresentation = decode_one(&result).unwrap();
@@ -283,9 +296,24 @@ mod dao_controller_integration_tests {
     #[test]
     fn test_remove_member_basic() {
         let (pic, canister_id) = setup_canister();
-        let user_id = "test-user-to-remove".to_string();
+        // Ensure member exists before removal to avoid controller panic
+        let user_principal = Principal::anonymous();
+        let user_id = user_principal.to_string();
 
-        // This will likely fail due to missing configuration
+        // First add the member
+        let add_user = User {
+            id: user_id.clone(),
+            role: Role::Member,
+        };
+        let add_res = pic.update_call(
+            canister_id,
+            Principal::anonymous(),
+            "add_member",
+            encode_args((add_user,)).unwrap(),
+        );
+        assert!(add_res.is_ok(), "precondition add_member should succeed");
+
+        // Now remove the same member
         let response = pic.update_call(
             canister_id,
             Principal::anonymous(),
@@ -299,8 +327,8 @@ mod dao_controller_integration_tests {
                 // Verify member was removed
                 assert!(!dao_presentation.members.iter().any(|m| m.id == user_id));
             }
-            Err(_) => {
-                println!("remove_member failed as expected - requires canister configuration");
+            Err(e) => {
+                panic!("remove_member unexpectedly failed: {:?}", e);
             }
         }
     }
