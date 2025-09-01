@@ -1,6 +1,5 @@
 #[cfg(test)]
 mod dao_agency_controller_integration_tests {
-
     use candid::{decode_one, encode_args, Principal};
     use common::models::{Configuration, Role, User};
     use dao_agency::DaoAssociationInitArgs;
