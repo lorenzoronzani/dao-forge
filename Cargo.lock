@@ -278,7 +278,9 @@ dependencies = [
  "common",
  "ic-cdk",
  "ic-cdk-timers",
+ "ic-management-canister-types",
  "ic-stable-structures",
+ "pocket-ic",
  "serde",
 ]
 
