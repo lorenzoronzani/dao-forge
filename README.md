@@ -122,6 +122,18 @@ npm run deploy
 
 > Note: If you want to connect to the frontend hosted directly from your machine instead of the one hosted by icp you can run `npm run start`.
 
+### Tests
+
+To run the backend tests, follow the steps below.
+
+```bash
+# Build canisters for integration-tests
+cargo build
+
+# Run tests
+cargo test
+```
+
 <!-- ROADMAP -->
 
 ## Roadmap
