@@ -45,3 +45,7 @@ impl Storable for Document {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "document_tests.rs"]
+mod document_tests;

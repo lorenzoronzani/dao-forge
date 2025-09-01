@@ -33,3 +33,7 @@ impl DocumentService {
         DocumentRepository::get(id)
     }
 }
+
+#[cfg(test)]
+#[path = "document_service_tests.rs"]
+mod document_service_tests;

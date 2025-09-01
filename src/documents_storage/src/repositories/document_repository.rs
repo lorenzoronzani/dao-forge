@@ -21,3 +21,7 @@ impl DocumentRepository {
         DOCUMENT_MEMORY.with_borrow(|document_memory| document_memory.len())
     }
 }
+
+#[cfg(test)]
+#[path = "document_repository_tests.rs"]
+mod document_repository_tests;

@@ -365,6 +365,7 @@ dependencies = [
  "ic-cdk",
  "ic-cdk-timers",
  "ic-stable-structures",
+ "pocket-ic",
  "serde",
 ]
 

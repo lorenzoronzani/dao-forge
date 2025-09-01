@@ -1,6 +1,6 @@
 use candid::{CandidType, Deserialize};
 
-#[derive(CandidType, Deserialize)]
+#[derive(CandidType, Deserialize, Clone)]
 pub struct DocumentArgs {
     pub name: String,
     pub content_type: String,
