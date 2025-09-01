@@ -14,3 +14,6 @@ serde.workspace = true
 ic-cdk.workspace = true
 ic-cdk-timers.workspace = true
 ic-stable-structures.workspace = true
+
+[dev-dependencies]
+pocket-ic = "9.0.2"

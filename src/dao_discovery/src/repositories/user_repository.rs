@@ -22,3 +22,7 @@ impl UserRepository {
         user
     }
 }
+
+#[cfg(test)]
+#[path = "user_repository_tests.rs"]
+mod user_repository_tests;

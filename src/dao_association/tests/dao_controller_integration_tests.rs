@@ -39,7 +39,15 @@ mod dao_controller_integration_tests {
             sogc_publications: vec![],
             members: vec![],
             documents: vec![],
-            configuration: Configuration::default(), // All None values for now
+            configuration: Configuration::new(
+                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
+                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
+                Some(Principal::from_text("rdmx6-jaaaa-aaaaa-aaadq-cai").unwrap()),
+                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
+                Some(Principal::from_text("rdmx6-jaaaa-aaaaa-aaadq-cai").unwrap()),
+                Some(Principal::from_text("rrkah-fqaaa-aaaaa-aaaaq-cai").unwrap()),
+                Some(Principal::from_text("rdmx6-jaaaa-aaaaa-aaadq-cai").unwrap()),
+            ),
         }
     }
 

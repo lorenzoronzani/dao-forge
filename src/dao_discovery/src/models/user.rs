@@ -42,3 +42,7 @@ impl Storable for User {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "user_tests.rs"]
+mod user_tests;

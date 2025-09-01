@@ -22,3 +22,7 @@ impl DaoRepository {
         DAO_MEMORY.with_borrow(|dao_memory| dao_memory.len())
     }
 }
+
+#[cfg(test)]
+#[path = "dao_repository_tests.rs"]
+mod dao_repository_tests;

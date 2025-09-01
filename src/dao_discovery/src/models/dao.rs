@@ -27,3 +27,7 @@ impl Storable for Dao {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "dao_tests.rs"]
+mod dao_tests;
