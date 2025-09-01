@@ -127,8 +127,11 @@ npm run deploy
 To run the backend tests, follow the steps below.
 
 ```bash
+# Install typescript dependencies
+npm install
+
 # Build canisters for integration-tests
-cargo build
+dfx start --clean --background && npm run deploy && dfx stop
 
 # Run tests
 cargo test
