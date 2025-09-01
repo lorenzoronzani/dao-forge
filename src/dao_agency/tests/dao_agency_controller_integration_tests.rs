@@ -65,11 +65,22 @@ mod dao_agency_controller_integration_tests {
     }
 
     #[test]
-    fn create_dao_association_returns_err_when_sogc_callee_missing() {
+    fn create_dao_association_returns() {
         let pic = new_pic();
 
         let sogc_canister = pic.create_canister();
+        pic.add_cycles(sogc_canister, 2_000_000_000_000);
+        let wasm =
+            std::fs::read("../../target/wasm32-unknown-unknown/release/dao_sogc_publication.wasm")
+                .expect("Could not read WASM file");
+
+        pic.install_canister(sogc_canister, wasm, vec![], None);
+
         let discovery_canister = pic.create_canister();
+        pic.add_cycles(discovery_canister, 2_000_000_000_000);
+        let wasm = std::fs::read("../../target/wasm32-unknown-unknown/release/dao_discovery.wasm")
+            .expect("Could not read WASM file");
+        pic.install_canister(discovery_canister, wasm, vec![], None);
 
         let controller_id =
             create_controller_canister(&pic, init_config(sogc_canister, discovery_canister));
@@ -89,6 +100,8 @@ mod dao_agency_controller_integration_tests {
             "ingress should succeed even if method returns Err"
         );
         let out: Result<Principal, String> = decode_one(&res.unwrap()).unwrap();
-        assert!(out.is_err(), "should bubble up SOGC call failure");
+        assert!(out.is_ok(), "should return Ok");
+        let dao_association_id = out.unwrap();
+        assert!(pic.canister_exists(dao_association_id));
     }
 }
