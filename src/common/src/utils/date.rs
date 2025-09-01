@@ -22,3 +22,7 @@ impl Date {
         )
     }
 }
+
+#[cfg(test)]
+#[path = "date_tests.rs"]
+mod date_tests;

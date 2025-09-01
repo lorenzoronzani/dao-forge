@@ -14,3 +14,7 @@ impl DaoAssociationService {
         return Ok(());
     }
 }
+
+#[cfg(test)]
+#[path = "dao_association_service_tests.rs"]
+mod dao_association_service_tests;

@@ -15,3 +15,7 @@ impl ConfigurationRepository {
         CONFIGURATION_MEMORY.with_borrow(|configuration_memory| configuration_memory.get().clone())
     }
 }
+
+#[cfg(test)]
+#[path = "configuration_repository_tests.rs"]
+mod configuration_repository_tests;

@@ -83,3 +83,7 @@ impl<R: ConfigurationRepositoryInterface> ConfigurationService<R> {
         self.configuration_repository.save(config)
     }
 }
+
+#[cfg(test)]
+#[path = "configuration_service_tests.rs"]
+mod configuration_service_tests;

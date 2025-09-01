@@ -268,3 +268,7 @@ impl VotingService {
         .await;
     }
 }
+
+#[cfg(test)]
+#[path = "voting_service_tests.rs"]
+mod voting_service_tests;

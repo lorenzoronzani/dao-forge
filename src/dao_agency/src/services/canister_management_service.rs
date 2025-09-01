@@ -74,3 +74,7 @@ impl CanisterManagementService {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "canister_management_service_tests.rs"]
+mod canister_management_service_tests;

@@ -49,3 +49,7 @@ impl InterCanisterService {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "inter_canister_service_tests.rs"]
+mod inter_canister_service_tests;

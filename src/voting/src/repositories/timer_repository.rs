@@ -34,3 +34,7 @@ impl TimerRepository {
         TIMER_MEMORY.with_borrow(|timer_memory| timer_memory.len() as u64)
     }
 }
+
+#[cfg(test)]
+#[path = "timer_repository_tests.rs"]
+mod timer_repository_tests;

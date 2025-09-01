@@ -23,3 +23,7 @@ impl DocumentsStorageService {
         return document_id;
     }
 }
+
+#[cfg(test)]
+#[path = "documents_storage_service_tests.rs"]
+mod documents_storage_service_tests;

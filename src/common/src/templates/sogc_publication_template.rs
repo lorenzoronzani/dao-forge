@@ -144,3 +144,7 @@ Modification: Change of registered office from "{old_address}, {old_zip} {old_to
 This modification takes effect from the aforementioned date. Updated constitutive documents are deposited with the registry office and may be consulted by any person with legitimate interest.
 
 Published in the Swiss Official Gazette of Commerce (SOGC) in accordance with applicable legal provisions."#;
+
+#[cfg(test)]
+#[path = "sogc_publication_template_tests.rs"]
+mod sogc_publication_template_tests;

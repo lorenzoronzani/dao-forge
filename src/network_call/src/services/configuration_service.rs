@@ -17,3 +17,7 @@ impl ConfigurationService {
         ConfigurationRepository::get()
     }
 }
+
+#[cfg(test)]
+#[path = "configuration_service_tests.rs"]
+mod configuration_service_tests;

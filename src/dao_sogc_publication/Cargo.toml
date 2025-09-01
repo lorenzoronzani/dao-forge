@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["rlib", "cdylib"]
 
 [dependencies]
 candid.workspace = true
@@ -16,3 +16,6 @@ ic-cdk-timers.workspace = true
 ic-stable-structures.workspace = true
 
 common = { path = "../common" }
+
+[dev-dependencies]
+pocket-ic = "9.0.2"

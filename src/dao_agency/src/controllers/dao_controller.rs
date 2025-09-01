@@ -102,11 +102,11 @@ async fn create_dao_association(params: DaoAssociationInitArgs) -> Result<Princi
         .settings
         .controllers
         .into_iter()
-        .filter(|c| {
+        .find(|c| {
             c.to_string().starts_with(ADMIN_CONTROLLER_START)
                 && c.to_string().ends_with(ADMIN_CONTROLLER_END)
         })
-        .collect::<Vec<Principal>>()[0];
+        .unwrap_or_else(|| Principal::anonymous());
 
     // FIXME: I cannot use the caller() properly because my derivate principal is not the same of the NNS one so the caller is not able to access to it
     let canister_id = CanisterManagementService::deploy_canister(

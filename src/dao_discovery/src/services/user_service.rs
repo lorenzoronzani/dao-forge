@@ -28,3 +28,7 @@ impl UserService {
         UserRepository::update(user)
     }
 }
+
+#[cfg(test)]
+#[path = "user_service_tests.rs"]
+mod user_service_tests;

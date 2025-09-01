@@ -16,3 +16,7 @@ impl DaoAssociationService {
         DaoAssociationRepository::save(dao_association)
     }
 }
+
+#[cfg(test)]
+#[path = "dao_association_service_tests.rs"]
+mod dao_association_service_tests;

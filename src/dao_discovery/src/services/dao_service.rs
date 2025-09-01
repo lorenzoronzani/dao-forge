@@ -48,3 +48,7 @@ impl DaoService {
             .cloned()
     }
 }
+
+#[cfg(test)]
+#[path = "dao_service_tests.rs"]
+mod dao_service_tests;
