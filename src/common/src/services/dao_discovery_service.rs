@@ -15,3 +15,7 @@ impl DaoDiscoveryService {
             InterCanisterService::call(canister_id, &"remove_user_dao", (user, dao)).await;
     }
 }
+
+#[cfg(test)]
+#[path = "dao_discovery_service_tests.rs"]
+mod dao_discovery_service_tests;

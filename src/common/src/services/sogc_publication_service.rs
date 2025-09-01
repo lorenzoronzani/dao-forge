@@ -31,3 +31,7 @@ impl SogcPublicationService {
         return sogc_id;
     }
 }
+
+#[cfg(test)]
+#[path = "sogc_publication_service_tests.rs"]
+mod sogc_publication_service_tests;

@@ -82,3 +82,7 @@ impl Dao {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "dao_tests.rs"]
+mod dao_tests;

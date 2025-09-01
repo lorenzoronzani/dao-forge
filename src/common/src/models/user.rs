@@ -19,3 +19,7 @@ impl User {
         Self { id, role }
     }
 }
+
+#[cfg(test)]
+#[path = "user_tests.rs"]
+mod user_tests;

@@ -22,3 +22,7 @@ impl NetworkCallService {
         return InterCanisterService::call(canister_id, &"send_email", (args,)).await;
     }
 }
+
+#[cfg(test)]
+#[path = "network_call_service_tests.rs"]
+mod network_call_service_tests;

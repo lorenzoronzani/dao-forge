@@ -48,3 +48,7 @@ impl Storable for Configuration {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "configuration_tests.rs"]
+mod configuration_tests;
