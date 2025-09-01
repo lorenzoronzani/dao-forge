@@ -1109,6 +1109,7 @@ dependencies = [
  "common",
  "ic-cdk",
  "ic-stable-structures",
+ "pocket-ic",
  "serde",
  "serde_json",
 ]
