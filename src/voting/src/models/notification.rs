@@ -21,3 +21,7 @@ impl Storable for Notification {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "notification_tests.rs"]
+mod notification_tests;

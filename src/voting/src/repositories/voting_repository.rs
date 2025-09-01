@@ -21,3 +21,7 @@ impl VotingRepository {
         VOTING_MEMORY.with_borrow(|voting_memory| voting_memory.len())
     }
 }
+
+#[cfg(test)]
+#[path = "voting_repository_tests.rs"]
+mod voting_repository_tests;

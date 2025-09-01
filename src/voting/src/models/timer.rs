@@ -39,3 +39,7 @@ impl Storable for Timer {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "timer_tests.rs"]
+mod timer_tests;

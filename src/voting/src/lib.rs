@@ -3,3 +3,6 @@ mod models;
 mod repositories;
 mod services;
 mod types;
+
+pub use models::*;
+pub use types::*;

@@ -85,3 +85,7 @@ impl Storable for Voting {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "voting_tests.rs"]
+mod voting_tests;

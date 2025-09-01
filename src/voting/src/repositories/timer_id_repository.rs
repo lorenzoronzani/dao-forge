@@ -19,3 +19,7 @@ impl TimerIdRepository {
         TIMER_ID_MAP.with_borrow_mut(|timer_id_map| timer_id_map.remove(&timer_id));
     }
 }
+
+#[cfg(test)]
+#[path = "timer_id_repository_tests.rs"]
+mod timer_id_repository_tests;

@@ -32,7 +32,7 @@ fn create_controller_canister(pic: &PocketIc, config: Configuration) -> Principa
     canister_id
 }
 
-fn minimal_init_config(sogc: Principal, discovery: Principal) -> Configuration {
+fn init_config(sogc: Principal, discovery: Principal) -> Configuration {
     Configuration {
         dao_agency_canister_id: None,
         sogc_publication_canister_id: Some(sogc),
@@ -44,7 +44,7 @@ fn minimal_init_config(sogc: Principal, discovery: Principal) -> Configuration {
     }
 }
 
-fn minimal_create_input() -> DaoAssociationInitArgs {
+fn create_input() -> DaoAssociationInitArgs {
     DaoAssociationInitArgs {
         name: "Test DAO".into(),
         address: "123 Test St".into(),
@@ -70,11 +70,11 @@ fn create_dao_association_returns_err_when_sogc_callee_missing() {
     let discovery_canister = pic.create_canister();
 
     let controller_id =
-        create_controller_canister(&pic, minimal_init_config(sogc_canister, discovery_canister));
+        create_controller_canister(&pic, init_config(sogc_canister, discovery_canister));
 
     pic.add_cycles(controller_id, 2_000_000_000_000);
 
-    let args = minimal_create_input();
+    let args = create_input();
     let res = pic.update_call(
         controller_id,
         Principal::anonymous(),

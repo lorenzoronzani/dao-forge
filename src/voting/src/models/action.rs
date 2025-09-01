@@ -4,7 +4,7 @@ use ic_stable_structures::Storable;
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 
-#[derive(Debug, Clone, Serialize, Deserialize, CandidType)]
+#[derive(Debug, Clone, Serialize, Deserialize, CandidType, PartialEq)]
 pub struct Action {
     pub canister_id: Principal,
     pub method: String,
@@ -22,3 +22,7 @@ impl Storable for Action {
 
     const BOUND: Bound = Bound::Unbounded;
 }
+
+#[cfg(test)]
+#[path = "action_tests.rs"]
+mod action_tests;

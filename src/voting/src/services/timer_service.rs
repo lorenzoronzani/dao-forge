@@ -106,3 +106,7 @@ impl TimerService {
         TimerRepository::size()
     }
 }
+
+#[cfg(test)]
+#[path = "timer_service_tests.rs"]
+mod timer_service_tests;
