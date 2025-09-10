@@ -141,6 +141,13 @@ cargo test
 
 ## Roadmap
 
+These are the main development goals planned for the next phases of the project:
+
+- [ ] Implement tamper-resistant document storage
+- [ ] Introduce VetKeys to strengthen data privacy
+- [ ] Enable verifiable credentials with Internet Identity integration
+- [ ] Transition the project from proof-of-concept to a production-ready release
+
 See the [open issues](https://github.com/lorenzoronzani/dao-forge/issues) for a full
 list of proposed features (and known issues).
 
